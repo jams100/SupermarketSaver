@@ -129,7 +129,7 @@ public class QueryUtil {
             }
 
             //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
-        
+
             for (Element row:doc.select("div.special-offer-list div.wrapper div.list")) {
                 Products pro = null;
 

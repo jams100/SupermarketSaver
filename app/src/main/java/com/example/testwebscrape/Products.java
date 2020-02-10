@@ -10,15 +10,12 @@ public class Products {
     String Price;
 
 
-
     String urlLink;
 
     public Products(String ProductDes, String price){
         ProductDescription=ProductDes;
         Price=price;
     }
-
-
 
     public Products(String ProductDes, String price, String urlLink){
         ProductDescription=ProductDes;

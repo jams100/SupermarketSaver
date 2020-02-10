@@ -21,10 +21,8 @@ public class QueryUtil {
 
     public static final String LOG_TAG =QueryUtil.class.getSimpleName();
 
-
     public QueryUtil(){
     }
-
 
     /**
      * Query the online website and return an {@link List} object to represent a single earthquake.
@@ -40,8 +38,6 @@ public class QueryUtil {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
-
-
         // Return the {@link Event}
         return extractShoppingData(jsonResponse);
     }
@@ -67,7 +63,6 @@ public class QueryUtil {
             urlConnection.connect();
 
             // If the request was successful (response code 200),
-
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 webScrapeResponse = readFromStream(inputStream);
@@ -81,7 +76,6 @@ public class QueryUtil {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
-
         }
         return webScrapeResponse;
     }
@@ -104,7 +98,6 @@ public class QueryUtil {
         return output.toString();
     }
 
-
     /**
      * Returns new URL object from the given string URL.
      */
@@ -126,7 +119,7 @@ public class QueryUtil {
             // build up a list of Product objects with the corresponding data.
             Document doc= null;
             try {
-                doc = Jsoup.connect("https://www.jumia.co.ke/oppo/?q=a7").get();
+                doc = Jsoup.connect("https://centra.ie/offers?category_id=512#special-offer-filter").get();
             } catch (IOException e) {
                 e.printStackTrace();
                 // If an error is thrown when executing any of the above statements in the "try" block,
@@ -135,30 +128,27 @@ public class QueryUtil {
                 Log.e("QueryUtil", "Problem parsing  results", e);
             }
 
-            for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
+            //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
+        
+            for (Element row:doc.select("div.special-offer-list div.wrapper div.list")) {
                 Products pro = null;
 
-                if (row.select("span.name").text().equals("")){
+                if (row.select("a.title").text().equals("")){
                     continue;
                 }else{
                     String imageurl=row.select("img[src]").attr("abs:src");
                     String productLink=row.select("a.link").attr("href");
 
+                    String productdescription=row.select("a.title").text();
+                    String productPrice=row.select("p.message").text();
+                    String imglogo="https://centra.ie/image/var/files/hero/Centra_Rochestown_860pixels_x_410pixels.jpg";
 
-                    String productdecrption=row.select("span.name").text();
-                    String productPrice=row.select("span.price").text();
-                    String imglogo="https://static.jumia.co.ke/cms/icons/jumialogo-x-4.png";
-
-                    pro = new Products(productdecrption,productPrice,imageurl,productLink,imglogo);
+                    pro = new Products(productdescription,productPrice,imageurl,productLink,imglogo);
                 }
-
                 products.add(pro);
-//                sorting
-//                Collections.sort(products,ArrayList<productPrice> productPrice);
             }
 
         // Return the list of products
         return products;
     }
-
 }

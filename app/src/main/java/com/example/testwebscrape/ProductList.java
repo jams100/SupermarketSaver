@@ -41,7 +41,7 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
 
     ProgressBar progressBar;
 
-    static String url="https://www.jumia.co.ke/oppo/?q=a7";
+    static String url="https://centra.ie/offers?category_id=512#special-offer-filter";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

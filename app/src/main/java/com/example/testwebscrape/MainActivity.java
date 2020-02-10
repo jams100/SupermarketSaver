@@ -8,7 +8,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,18 +48,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //used to build the jumia url link
-    public void buildJumiaUrl(){
-
-    }
-
-    //used to build the Kilimal url link
-    public void buildKilimallUrl(){
-
-    }
-
-    //used to build the masoko url link
-    public void buildMasokoUrl(){
+    //used to build the supervalu url link
+    public void buildSupervaluUrl(){
 
     }
 

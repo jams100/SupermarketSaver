@@ -130,20 +130,20 @@ public class QueryUtil {
 
             //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
 
-            for (Element row:doc.select("div.special-offer-list div.wrapper div.list")) {
+            for (Element row:doc.select("div.list")) {
                 Products pro = null;
 
                 if (row.select("a.title").text().equals("")){
                     continue;
                 }else{
-                    String imageurl=row.select("img[src]").attr("abs:src");
-                    String productLink=row.select("a.link").attr("href");
+                    String imageurl=row.select("img[src]").attr("src");
+                    //String productLink=row.select("a[ref]").attr("href");
 
                     String productdescription=row.select("a.title").text();
                     String productPrice=row.select("p.message").text();
-                    String imglogo="https://centra.ie/image/var/files/hero/Centra_Rochestown_860pixels_x_410pixels.jpg";
+                    //String imglogo="https://centra.ie/image/var/files/hero/Centra_Rochestown_860pixels_x_410pixels.jpg";
 
-                    pro = new Products(productdescription,productPrice,imageurl,productLink,imglogo);
+                    pro = new Products(productdescription,productPrice,imageurl);
                 }
                 products.add(pro);
             }

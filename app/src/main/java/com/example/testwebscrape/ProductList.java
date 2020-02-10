@@ -1,5 +1,12 @@
 package com.example.testwebscrape;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +22,13 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.loader.content.Loader;
+import com.example.testwebscrape.supervalu.supervaluScrape;
 
 import java.util.ArrayList;
 
-public class ProductList extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<ArrayList<Products>> {
+public class ProductList extends AppCompatActivity  implements  LoaderManager.LoaderCallbacks<ArrayList<Products>> {
     private ViewStub list_stub;
     private ViewStub grid_stub;
     GridView rootGrid;
@@ -50,14 +53,11 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
         list_stub=findViewById(R.id.stub_list);
         grid_stub=findViewById(R.id.stub_grid);
 
-
-
         list_stub.inflate();
         grid_stub.inflate();
 
         rootList=findViewById(R.id.listView);
         rootGrid=findViewById(R.id.gridView);
-
 
         progressBar=findViewById(R.id.progress_circular);
 
@@ -77,7 +77,6 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
         }
 
     }
-
 
     //used to switch the view
     private void switchView() {
@@ -102,8 +101,6 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
             rootGrid.setAdapter(gridAdapter);
         }
     }
-
-
 
     //setting the menu with the switch mode option
     @Override
@@ -133,12 +130,12 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
                 editor.commit();
                 break;
 
-                //used to close the activity
+            //used to close the activity
             case R.id.search:
                 finish();
                 break;
 
-                //back button used to close the activity
+            //back button used to close the activity
             case android.R.id.home:
                 finish();
                 break;
@@ -162,8 +159,6 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
         }
     }
 
-
-
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Products>> loader) {
 
@@ -179,7 +174,7 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
         @Nullable
         @Override
         public ArrayList<Products> loadInBackground() {
-            ArrayList<Products> prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(url);
+            ArrayList<Products>  prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(url);
 //            ArrayList<Products>  prod= (ArrayList<Products>) jumiaScrape.getData();
 
             return prod;
@@ -187,17 +182,12 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
     }
 
     private void UpdateUi(ArrayList<Products> data) {
-
         product=data;
         switchView();
 
         rootList.setOnItemClickListener(onItemClickListener);
         rootGrid.setOnItemClickListener(onItemClickListener);
-
-
-
     }
-
 
     //used to set item listener
     AdapterView.OnItemClickListener onItemClickListener=new AdapterView.OnItemClickListener() {
@@ -210,8 +200,6 @@ public class ProductList extends AppCompatActivity implements  LoaderManager.Loa
             Intent i=new Intent(ProductList.this,webView.class);
             i.putExtra("url",url);
             startActivity(i);
-
         }
     };
-
 }

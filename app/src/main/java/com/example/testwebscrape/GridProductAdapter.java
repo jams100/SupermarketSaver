@@ -11,14 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GridProductAdapter extends ArrayAdapter<Products> {
 
 
-    public GridProductAdapter(@NonNull Context context, @NonNull ArrayList<Products> objects) {
+    public GridProductAdapter(@NonNull Context context,  @NonNull ArrayList<Products> objects) {
         super(context, 0, objects);
     }
 
@@ -29,7 +31,6 @@ public class GridProductAdapter extends ArrayAdapter<Products> {
         if (listview==null){
             listview= LayoutInflater.from(getContext()).inflate(R.layout.grid_item,parent,false);
         }
-
         Products currentProduct=getItem(position);
 
         TextView productDescrption=listview.findViewById(R.id.product_description);
@@ -42,10 +43,6 @@ public class GridProductAdapter extends ArrayAdapter<Products> {
 
         String url =currentProduct.getImageProduct();
         Picasso.get().load(url).into(img);
-
-        ImageView imgLogo=listview.findViewById(R.id.website_logo);
-        String urlLogo=currentProduct.getImageLogo();
-        Picasso.get().load(urlLogo).into(imgLogo);
 
         return listview;
     }

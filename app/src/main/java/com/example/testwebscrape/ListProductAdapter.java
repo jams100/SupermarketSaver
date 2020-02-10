@@ -1,6 +1,7 @@
 package com.example.testwebscrape;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListProductAdapter extends ArrayAdapter<Products> {
     Activity context;
@@ -44,10 +47,7 @@ public class ListProductAdapter extends ArrayAdapter<Products> {
         String url =currentProduct.getImageProduct();
         Picasso.get().load(url).into(img);
 
-        ImageView imgLogo=listview.findViewById(R.id.website_logo);
-        String urlLogo=currentProduct.getImageLogo();
-        Picasso.get().load(urlLogo).into(imgLogo);
-
         return listview;
     }
 }
+

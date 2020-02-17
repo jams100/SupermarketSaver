@@ -44,7 +44,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
 
     ProgressBar progressBar;
 
-    static String url="https://centra.ie/offers?category_id=512#special-offer-filter";
+    static String url="https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

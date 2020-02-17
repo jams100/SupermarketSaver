@@ -119,7 +119,7 @@ public class QueryUtil {
             // build up a list of Product objects with the corresponding data.
             Document doc= null;
             try {
-                doc = Jsoup.connect("https://centra.ie/offers?category_id=512#special-offer-filter").get();
+                doc = Jsoup.connect("https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350").get();
             } catch (IOException e) {
                 e.printStackTrace();
                 // If an error is thrown when executing any of the above statements in the "try" block,
@@ -130,20 +130,20 @@ public class QueryUtil {
 
             //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
 
-            for (Element row:doc.select("div.list")) {
+            for (Element row:doc.select("div.product-list-item-details")) {
                 Products pro = null;
 
-                if (row.select("a.title").text().equals("")){
+                if (row.select("h4.product-list-item-details-title").text().equals("")){
                     continue;
                 }else{
-                    String imageurl=row.select("img[src]").attr("src");
-                    //String productLink=row.select("a[ref]").attr("href");
+                    //String imageurl=row.select("img[src]").attr("src");
+                    String productLink=row.select("a[ref]").attr("href");
 
-                    String productdescription=row.select("a.title").text();
-                    String productPrice=row.select("p.message").text();
-                    //String imglogo="https://centra.ie/image/var/files/hero/Centra_Rochestown_860pixels_x_410pixels.jpg";
+                    String productdescription=row.select("h4.product-list-item-details-title").text();
+                    String productPrice=row.select("span.product-details-price-item").text();
+                    //String imglogo="https://banner2.cleanpng.com/20180611/itu/kisspng-smith-s-supervalu-grocery-store-supervalu-donegal-5b1e9e2b8afe73.6000034015287332275693.jpg";
 
-                    pro = new Products(productdescription,productPrice,imageurl);
+                    pro = new Products(productdescription, productPrice, productLink);
                 }
                 products.add(pro);
             }

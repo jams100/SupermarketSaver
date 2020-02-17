@@ -29,7 +29,7 @@ public class supervaluScrape {
 
     //building the url
     public static String buildUrl(){
-        String url="https://centra.ie/offers?category_id=512#special-offer-filter";
+        String url="https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350";
 
         return url;
     }

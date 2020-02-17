@@ -9,6 +9,10 @@ public class Products {
 
     String urlLink;
 
+    public Products(String price){
+        Price=price;
+    }
+
     public Products(String ProductDes,String price){
         ProductDescription=ProductDes;
         Price=price;

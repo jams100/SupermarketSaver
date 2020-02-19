@@ -44,7 +44,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
 
     ProgressBar progressBar;
 
-    static String url="https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350";
+    static String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

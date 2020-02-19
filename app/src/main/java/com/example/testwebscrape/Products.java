@@ -13,23 +13,35 @@ public class Products {
         Price=price;
     }
 
-    public Products(String ProductDes,String price){
-        ProductDescription=ProductDes;
-        Price=price;
-    }
-
-    public Products(String ProductDes,String price,String urlLink){
-        ProductDescription=ProductDes;
-        Price=price;
+    public Products(String imageP,String urlLink){
+        imageProduct=imageP;
         this.urlLink=urlLink;
     }
 
-    public Products(String ProductDes,String price,String imageP,String urlLink){
+//    public Products(String ProductDes,String price){
+//        ProductDescription=ProductDes;
+//        Price=price;
+//    }
+
+    public Products(String ProductDes, String imageP, String urlLink){
+        ProductDescription=ProductDes;
+        imageProduct=imageP;
+        this.urlLink=urlLink;
+    }
+
+    public Products(String ProductDes, String price, String imageP, String urlLink){
         ProductDescription=ProductDes;
         Price=price;
         imageProduct=imageP;
         this.urlLink=urlLink;
     }
+
+//    public Products(String ProductDes,String price,String urlLink){
+//        ProductDescription=ProductDes;
+//        Price=price;
+//        this.urlLink=urlLink;
+//    }
+
     public Products(String ProductDes,String price,String imageP,String urlLink,String imageLogo){
         ProductDescription=ProductDes;
         Price=price;

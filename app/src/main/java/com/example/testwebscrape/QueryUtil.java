@@ -119,7 +119,7 @@ public class QueryUtil {
             // build up a list of Product objects with the corresponding data.
             Document doc= null;
             try {
-                doc = Jsoup.connect("https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350").get();
+                doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
             } catch (IOException e) {
                 e.printStackTrace();
                 // If an error is thrown when executing any of the above statements in the "try" block,
@@ -130,20 +130,21 @@ public class QueryUtil {
 
             //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
 
-            for (Element row:doc.select("div.product-list-item-details")) {
+            for (Element row:doc.select("div.desc")) {
                 Products pro = null;
 
-                if (row.select("h4.product-list-item-details-title").text().equals("")){
+                if (!row.select("a.id").text().equals("")){
                     continue;
                 }else{
-                    //String imageurl=row.select("img[src]").attr("src");
+                    String imageurl=row.select("img[src]").attr("src");
                     String productLink=row.select("a[ref]").attr("href");
 
-                    String productdescription=row.select("h4.product-list-item-details-title").text();
-                    String productPrice=row.select("span.product-details-price-item").text();
-                    //String imglogo="https://banner2.cleanpng.com/20180611/itu/kisspng-smith-s-supervalu-grocery-store-supervalu-donegal-5b1e9e2b8afe73.6000034015287332275693.jpg";
+                    String productdescription=row.select("h3.inBasketInfoContainer").text();
+                    String productPrice=row.select("span.linePrice").text();
+                    String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
-                    pro = new Products(productdescription, productPrice, productLink);
+                    pro = new Products(productdescription, productPrice, imageurl, productLink, imglogo);
+                    //pro = new Products(productPrice);
                 }
                 products.add(pro);
             }

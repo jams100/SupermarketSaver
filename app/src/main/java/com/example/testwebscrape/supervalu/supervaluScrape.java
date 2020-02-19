@@ -29,7 +29,7 @@ public class supervaluScrape {
 
     //building the url
     public static String buildUrl(){
-        String url="https://shop.supervalu.ie/shopping/frozen-foods-fish/c-150200350";
+        String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
 
         return url;
     }

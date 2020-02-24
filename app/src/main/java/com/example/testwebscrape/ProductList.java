@@ -175,7 +175,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         @Override
         public ArrayList<Products> loadInBackground() {
             ArrayList<Products>  prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(url);
-//            ArrayList<Products>  prod= (ArrayList<Products>) jumiaScrape.getData();
 
             return prod;
         }

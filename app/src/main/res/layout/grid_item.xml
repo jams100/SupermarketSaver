@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:textColor="@color/textColorEarthquakeDetails"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:text="$435678"
                 tools:text="$12000" />
 
@@ -129,8 +129,8 @@
                 android:layout_gravity="end"
                 android:textColor="@color/textColorEarthquakeDetails"
                 android:textSize="12sp"
-                android:text="3000"
-                tools:text="3000"
+                android:text=""
+                tools:text=""
                 />
 
         </LinearLayout>

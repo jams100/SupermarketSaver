@@ -50,6 +50,10 @@ public class Products {
         this.imageLogo=imageLogo;
     }
 
+    public String getImageLogo() {
+        return imageLogo;
+    }
+
     public String getImageProduct() {
         return imageProduct;
     }

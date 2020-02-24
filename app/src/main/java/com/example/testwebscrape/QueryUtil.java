@@ -116,38 +116,42 @@ public class QueryUtil {
         // Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<Products> products = new ArrayList<>();
 
-            // build up a list of Product objects with the corresponding data.
-            Document doc= null;
-            try {
-                doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
-            } catch (IOException e) {
-                e.printStackTrace();
-                // If an error is thrown when executing any of the above statements in the "try" block,
-                // catch the exception here, so the app doesn't crash. Print a log message
-                // with the message from the exception.
-                Log.e("QueryUtil", "Problem parsing  results", e);
+        // build up a list of Product objects with the corresponding data.
+        Document doc= null;
+        try {
+            doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtil", "Problem parsing results", e);
+        }
+
+        //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
+
+        //for (Element row:doc.select("div.desc")) {
+        //for (Element row:doc.select("div.desc")) {
+
+        for (Element row:doc.select("div.desc")) {
+            Products pro = null;
+
+            if (!row.select("a.id").text().equals("")){
+                continue;
+            }else{
+                String imageurl=row.select("img[src]").attr("src");
+                String productLink=row.select("a[ref]").attr("href");
+
+                String productdescription=row.select("h3.inBasketInfoContainer").text();
+                String productPrice=row.select("span.linePrice").text();
+                //String productPrice="2.57";
+                String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
+
+                pro = new Products(productdescription, productPrice, imageurl, productLink, imglogo);
+                //pro = new Products(productPrice);
             }
-
-            //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
-
-            for (Element row:doc.select("div.desc")) {
-                Products pro = null;
-
-                if (!row.select("a.id").text().equals("")){
-                    continue;
-                }else{
-                    String imageurl=row.select("img[src]").attr("src");
-                    String productLink=row.select("a[ref]").attr("href");
-
-                    String productdescription=row.select("h3.inBasketInfoContainer").text();
-                    String productPrice=row.select("span.linePrice").text();
-                    String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
-
-                    pro = new Products(productdescription, productPrice, imageurl, productLink, imglogo);
-                    //pro = new Products(productPrice);
-                }
-                products.add(pro);
-            }
+            products.add(pro);
+        }
 
         // Return the list of products
         return products;

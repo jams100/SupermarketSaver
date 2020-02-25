@@ -23,12 +23,16 @@ public class QueryUtil {
 
     public static final String LOG_TAG =QueryUtil.class.getSimpleName();
 
+    static String url;
+
     public QueryUtil(){
+
     }
 
     /**
      * Query the online website and return an {@link List} object to represent a single earthquake.*/
     public static List<Products> fetchWebsiteData(String requestUrl) {
+        url=requestUrl;
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -116,7 +120,8 @@ public class QueryUtil {
         // build up a list of Product objects with the corresponding data.
         Document doc= null;
         try {
-            doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
+            //doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
+            doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
             // If an error is thrown when executing any of the above statements in the "try" block,

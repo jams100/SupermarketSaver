@@ -46,7 +46,8 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     ProgressBar progressBar;
     int alreadySearched=0;
 
-    static String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
+    //static String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
+    static String url="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,9 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         setContentView(R.layout.activity_product_list);
         list_stub=findViewById(R.id.stub_list);
         grid_stub=findViewById(R.id.stub_grid);
+
+        Bundle bundle=getIntent().getExtras();
+        url=bundle.getString("url");
 
         list_stub.inflate();
         grid_stub.inflate();

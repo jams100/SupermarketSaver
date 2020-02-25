@@ -12,27 +12,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    static String tescoUrl;
+    EditText editSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText editSearch=  findViewById(R.id.product_name);
+        editSearch= findViewById(R.id.product_name);
         editSearch.setOnEditorActionListener(onEditorActionListener);
 
         Button button=findViewById(R.id.search);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buildTescoUrl();
                 Intent intent=new Intent(MainActivity.this,ProductList.class);
+                intent.putExtra("url", tescoUrl);
                 startActivity(intent);
             }
         });
-
     }
 
-    //method used to handle enter key event for search
+    //Method used to handle enter key event for search
     private TextView.OnEditorActionListener onEditorActionListener=new TextView.OnEditorActionListener() {
 
         @Override
@@ -40,17 +43,21 @@ public class MainActivity extends AppCompatActivity {
 
             switch(actionId){
                 case EditorInfo.IME_ACTION_SEARCH:
-                    Intent i =new Intent(MainActivity.this,ProductList.class);
-                    startActivity(i);
+                    buildTescoUrl();
+                    Intent in =new Intent(MainActivity.this,ProductList.class);
+                    in.putExtra("url", tescoUrl);
+                    startActivity(in);
                     break;
             }
             return false;
         }
     };
 
-    //used to build the supervalu url link
-    public void buildSupervaluUrl(){
-
+    //Used to build the Tesco url link
+    public void buildTescoUrl(){
+            tescoUrl="https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
+            String s = editSearch.getText().toString();
+            s = s.replace(" ", "+");
+            tescoUrl += s;
     }
-
 }

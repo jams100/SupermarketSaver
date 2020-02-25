@@ -69,4 +69,9 @@ public class Products {
     public String getUrlLink() {
         return urlLink;
     }
+
+    public void setPrice(String price)
+    {
+        this.Price = price;
+    }
 }

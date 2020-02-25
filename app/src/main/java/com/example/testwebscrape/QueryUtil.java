@@ -25,8 +25,7 @@ public class QueryUtil {
     }
 
     /**
-     * Query the online website and return an {@link List} object to represent a single earthquake.
-     */
+     * Query the online website and return an {@link List} object to represent a single earthquake.*/
     public static List<Products> fetchWebsiteData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
@@ -42,9 +41,7 @@ public class QueryUtil {
         return extractShoppingData(jsonResponse);
     }
 
-    /**
-     * Make an HTTP request to the given URL and return a String as the response.
-     */
+    /*** Make an HTTP request to the given URL and return a String as the response.*/
     private static String makeHttpRequest(URL url) throws IOException {
         String webScrapeResponse = "";
 
@@ -80,10 +77,8 @@ public class QueryUtil {
         return webScrapeResponse;
     }
 
-    /**
-     * Convert the {@link InputStream} into a String which contains the
-     * whole JSON response from the server.
-     */
+    /*** Convert the {@link InputStream} into a String which contains the
+     * whole JSON response from the server.*/
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
@@ -128,11 +123,6 @@ public class QueryUtil {
             Log.e("QueryUtil", "Problem parsing results", e);
         }
 
-        //for (Element row:doc.select("section.products.-mabaya div.sku.-gallery")) {
-
-        //for (Element row:doc.select("div.desc")) {
-        //for (Element row:doc.select("div.desc")) {
-
         for (Element row:doc.select("div.desc")) {
             Products pro = null;
 
@@ -140,17 +130,30 @@ public class QueryUtil {
                 continue;
             }else{
                 String imageurl=row.select("img[src]").attr("src");
-                String productLink=row.select("a[ref]").attr("href");
+                String productLink= row.select("a[ref]").attr("href");
+                //String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
 
                 String productdescription=row.select("h3.inBasketInfoContainer").text();
-                String productPrice=row.select("span.linePrice").text();
-                //String productPrice="2.57";
+                String productPrice="";   //row.select("span.linePrice").text();
                 String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
                 pro = new Products(productdescription, productPrice, imageurl, productLink, imglogo);
-                //pro = new Products(productPrice);
             }
             products.add(pro);
+        }
+        //To Get Price
+        int count = 0;
+        for (Element row:doc.select("div.quantity")) {
+            Products pro = null;
+
+            if (!row.select("a.id").text().equals("")){
+                continue;
+            }else{
+                String productPrice=row.select("span.linePrice").text();
+
+                products.get(count).setPrice(productPrice);
+                count++;
+            }
         }
 
         // Return the list of products

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
+import android.os.PersistableBundle;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     ArrayList<Products> product;
 
     ProgressBar progressBar;
+    int alreadySearched=0;
 
     static String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
 
@@ -70,12 +72,29 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         NetworkInfo networkInfo=conManager.getActiveNetworkInfo();
         if (networkInfo !=null && networkInfo.isConnected()){
 
-            getSupportLoaderManager().initLoader(100,null ,this).forceLoad();
+            if(alreadySearched==0) {
+                getSupportLoaderManager().initLoader(100, null, this).forceLoad();
+                alreadySearched=1;
+            }
         }else{
             progressBar.setVisibility(View.GONE);
 //            emptyState.setText("No network Connection");
         }
 
+    }
+
+    //saving instance for before rotation
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("alreadySearch",alreadySearched);
+        super.onSaveInstanceState(outState);
+    }
+
+    //restoring instaces after rotation
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        alreadySearched=savedInstanceState.getInt("alreadySearch");
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     //used to switch the view
@@ -201,4 +220,8 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
             startActivity(i);
         }
     };
+
+    public void queryProducts(){
+    }
+
 }

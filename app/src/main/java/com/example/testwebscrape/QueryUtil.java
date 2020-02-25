@@ -15,7 +15,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Comparator;
 
 public class QueryUtil {
 
@@ -124,7 +126,7 @@ public class QueryUtil {
         }
 
         for (Element row:doc.select("div.desc")) {
-            Products pro = null;
+            Products pro;
 
             if (!row.select("a.id").text().equals("")){
                 continue;
@@ -134,27 +136,44 @@ public class QueryUtil {
                 //String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
 
                 String productdescription=row.select("h3.inBasketInfoContainer").text();
-                String productPrice="";   //row.select("span.linePrice").text();
+                String NewPrice="";   //row.select("span.linePrice").text();
+                String oldPrice="";
                 String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
-                pro = new Products(productdescription, productPrice, imageurl, productLink, imglogo);
+                pro = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
             }
             products.add(pro);
+
         }
         //To Get Price
         int count = 0;
-        for (Element row:doc.select("div.quantity")) {
+        for (Element row:doc.select("div.quantity"))
+        {
             Products pro = null;
 
             if (!row.select("a.id").text().equals("")){
                 continue;
             }else{
-                String productPrice=row.select("span.linePrice").text();
+                String NewPrice=row.select("span.linePrice").text();
+                //String priceOld=row.select("em").text();
 
-                products.get(count).setPrice(productPrice);
+                products.get(count).setNewPrice(NewPrice);
+                //products.get(count).setpriceOld(priceOld);
+
                 count++;
             }
         }
+
+        //Used for sorting
+        Collections.sort(products, new Comparator<Products>() {
+            @Override
+            public int compare(Products o1, Products o2) {
+                String p1=o1.PriceNew;
+                String p2=o2.PriceNew;
+
+                return p1.compareTo(p2);
+            }
+        });
 
         // Return the list of products
         return products;

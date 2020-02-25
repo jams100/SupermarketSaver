@@ -5,12 +5,12 @@ public class Products {
     String imageLogo;
     String imageProduct;
     String ProductDescription;
-    String Price;
-
+    String PriceOld;
+    String PriceNew;
     String urlLink;
 
     public Products(String price){
-        Price=price;
+        PriceOld=price;
     }
 
     public Products(String imageP,String urlLink){
@@ -18,33 +18,24 @@ public class Products {
         this.urlLink=urlLink;
     }
 
-//    public Products(String ProductDes,String price){
-//        ProductDescription=ProductDes;
-//        Price=price;
-//    }
-
     public Products(String ProductDes, String imageP, String urlLink){
         ProductDescription=ProductDes;
         imageProduct=imageP;
         this.urlLink=urlLink;
     }
 
-    public Products(String ProductDes, String price, String imageP, String urlLink){
-        ProductDescription=ProductDes;
-        Price=price;
-        imageProduct=imageP;
-        this.urlLink=urlLink;
-    }
-
-//    public Products(String ProductDes,String price,String urlLink){
-//        ProductDescription=ProductDes;
-//        Price=price;
-//        this.urlLink=urlLink;
-//    }
-
     public Products(String ProductDes,String price,String imageP,String urlLink,String imageLogo){
         ProductDescription=ProductDes;
-        Price=price;
+        PriceOld=price;
+        imageProduct=imageP;
+        this.urlLink=urlLink;
+        this.imageLogo=imageLogo;
+    }
+
+    public Products(String ProductDes,String priceOld,String imageP,String urlLink,String imageLogo,String PriceNew){
+        ProductDescription=ProductDes;
+        PriceOld=priceOld;
+        this.PriceNew=PriceNew;
         imageProduct=imageP;
         this.urlLink=urlLink;
         this.imageLogo=imageLogo;
@@ -62,16 +53,23 @@ public class Products {
         return ProductDescription;
     }
 
-    public String getPrice() {
-        return Price;
-    }
-
     public String getUrlLink() {
         return urlLink;
     }
 
-    public void setPrice(String price)
-    {
-        this.Price = price;
+    public String getPriceOld() {
+        return PriceOld;
+    }
+
+    public String getPriceNew() {
+        return PriceNew;
+    }
+
+    public void setNewPrice(String price) {
+        this.PriceNew = price;
+    }
+
+    public void setpriceOld(String price) {
+        this.PriceOld = price;
     }
 }

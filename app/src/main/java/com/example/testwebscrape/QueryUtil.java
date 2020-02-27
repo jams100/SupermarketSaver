@@ -21,18 +21,19 @@ import java.util.Comparator;
 
 public class QueryUtil {
 
-    public static final String LOG_TAG =QueryUtil.class.getSimpleName();
+    public static final String LOG_TAG = QueryUtil.class.getSimpleName();
 
     static String url;
 
-    public QueryUtil(){
+    public QueryUtil() {
 
     }
 
     /**
-     * Query the online website and return an {@link List} object to represent a single earthquake.*/
+     * Query the online website and return an {@link List} object to represent a single earthquake.
+     */
     public static List<Products> fetchWebsiteData(String requestUrl) {
-        url=requestUrl;
+        url = requestUrl;
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -118,9 +119,8 @@ public class QueryUtil {
         ArrayList<Products> products = new ArrayList<>();
 
         // build up a list of Product objects with the corresponding data.
-        Document doc= null;
+        Document doc = null;
         try {
-            //doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,41 +130,34 @@ public class QueryUtil {
             Log.e("QueryUtil", "Problem parsing results", e);
         }
 
-        for (Element row:doc.select("div.desc")) {
+            for (Element row : doc.select("div.product-list-item-details")) {
             Products pro;
 
-            if (!row.select("a.id").text().equals("")){
+                if (row.select("h4.product-list-item-details-title").text().equals("")) {
                 continue;
-            }else{
-                String imageurl=row.select("img[src]").attr("src");
-                String productLink= row.select("a[ref]").attr("href");
-                //String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
-
-                String productdescription=row.select("h3.inBasketInfoContainer").text();
-                String NewPrice="";   //row.select("span.linePrice").text();
-                String oldPrice="";
-                String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
+            } else {
+                String productLink = row.select("a[href]").attr("href");
+                String productdescription = row.select("h4.product-list-item-details-title").text();
+                String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price");   //row.select("span.linePrice").text();
+                String oldPrice = "";
+                String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
+                String imageurl= null;
 
                 pro = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
             }
             products.add(pro);
-
         }
-        //To Get Price
+
+        //To Get Image
         int count = 0;
-        for (Element row:doc.select("div.quantity"))
-        {
+        for (Element row : doc.select("div.product-list-item-display")) {
             Products pro = null;
 
-            if (!row.select("a.id").text().equals("")){
+            if (!row.select("img.src").text().equals("")) {
                 continue;
-            }else{
-                String NewPrice=row.select("span.linePrice").text();
-                //String priceOld=row.select("em").text();
-
-                products.get(count).setNewPrice(NewPrice);
-                //products.get(count).setpriceOld(priceOld);
-
+            } else {
+                String imageurl = row.select("img[data-src]").attr("data-src");
+                products.get(count).setNewImage(imageurl);
                 count++;
             }
         }

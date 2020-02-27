@@ -9,8 +9,8 @@ public class Products {
     String PriceNew;
     String urlLink;
 
-    public Products(String price){
-        PriceOld=price;
+    public Products(String image){
+        imageProduct=image;
     }
 
     public Products(String imageP,String urlLink){
@@ -63,6 +63,10 @@ public class Products {
 
     public String getPriceNew() {
         return PriceNew;
+    }
+
+    public void setNewImage(String image) {
+        this.imageProduct = image;
     }
 
     public void setNewPrice(String price) {

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Used to build the Tesco url link
     public void buildTescoUrl(){
-            tescoUrl="https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
+            tescoUrl="https://shop.supervalu.ie/shopping/search/allaisles?q=";
             String s = editSearch.getText().toString();
             s = s.replace(" ", "+");
             tescoUrl += s;

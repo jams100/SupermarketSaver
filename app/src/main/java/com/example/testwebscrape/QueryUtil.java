@@ -21,20 +21,21 @@ import java.util.Comparator;
 
 public class QueryUtil {
 
-    public static final String LOG_TAG =QueryUtil.class.getSimpleName();
+    public static final String LOG_TAG = QueryUtil.class.getSimpleName();
 
     static String url;
     static String superUrl;
 
-    public QueryUtil(){
+    public QueryUtil() {
 
     }
 
     /**
-     * Query the online website and return an {@link List} object to represent a single earthquake.*/
+     * Query the online website and return an {@link List} object to represent a single earthquake.
+     */
     public static List<Products> fetchWebsiteData(String requestUrl, String supervaluUrl) {
-        url=requestUrl;
-        superUrl=supervaluUrl;
+        url = requestUrl;
+        superUrl = supervaluUrl;
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -122,7 +123,7 @@ public class QueryUtil {
         ArrayList<Products> products = new ArrayList<>();
 
         // build up a list of Product objects with the corresponding data.
-        Document doc= null;
+        Document doc = null;
         Document superVdoc = null;
         try {
             doc = Jsoup.connect(url).get();
@@ -136,12 +137,12 @@ public class QueryUtil {
         }
 
         //TESCO Webscraping
-        for (Element row:doc.select("div.desc")) {
+        for (Element row : doc.select("div.desc")) {
             Products pro;
 
-            if (!row.select("a.id").text().equals("")){
+            if (!row.select("a.id").text().equals("")) {
                 continue;
-            }else{
+            } else {
                 String imageurl = row.select("img[src]").attr("src");
                 String productLink = row.select("a[href]").attr("href");
 
@@ -152,26 +153,25 @@ public class QueryUtil {
 
                 //String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
 
-                String productdescription=row.select("h3.inBasketInfoContainer").text();
-                String NewPrice="";   //row.select("span.linePrice").text();
-                String oldPrice="";
-                String imglogo="https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
+                String productdescription = row.select("h3.inBasketInfoContainer").text();
+                String NewPrice = "";   //row.select("span.linePrice").text();
+                String oldPrice = "";
+                String imglogo = "https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
                 pro = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
             }
             products.add(pro);
 
         }
-        //To Get Price
+        //To Get Price for Tesco Products
         int count = 0;
-        for (Element row:doc.select("div.quantity"))
-        {
+        for (Element row : doc.select("div.quantity")) {
             Products pro = null;
 
-            if (!row.select("a.id").text().equals("")){
+            if (!row.select("a.id").text().equals("")) {
                 continue;
-            }else{
-                String NewPrice=row.select("span.linePrice").text();
+            } else {
+                String NewPrice = row.select("span.linePrice").text();
                 //String priceOld=row.select("em").text();
 
                 products.get(count).setNewPrice(NewPrice);
@@ -180,44 +180,65 @@ public class QueryUtil {
                 count++;
             }
         }
+//
+//        //Used for sorting Tesco prices
+//        Collections.sort(products, new Comparator<Products>() {
+//            @Override
+//            public int compare(Products o1, Products o2) {
+//                String p1=o1.PriceNew;
+//                String p2=o2.PriceNew;
+//
+//                return p1.compareTo(p2);
+//            }
+//        });
 
-        //Used for sorting
+        //SUPERVALU Webscraping
+        for (Element row : superVdoc.select("div.product-list-item-details")) {
+            Products pro1;
+
+            if (row.select("h4.product-list-item-details-title").text().equals("")) {
+                continue;
+            } else {
+                //String imageurl = "https://d2wwnnx8tks4e8.cloudfront.net/images/app/medium/5011001295277_2.JPG";
+                String productLink = row.select("a[href]").attr("href");
+                String productdescription = row.select("h4.product-list-item-details-title").text();
+                String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price"); //row.select("span.linePrice").text();
+                String oldPrice = "";
+                String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
+                String Imageurl = null;
+
+                pro1 = new Products(productdescription, oldPrice, Imageurl, productLink, imglogo, NewPrice);
+            }
+            products.add(pro1);
+        }
+
+//        //To Get Image For Supervalu
+//        int county = 0;
+//        for (Element row : superVdoc.select("div.product-list-item-display")) {
+//            Products pro1 = null;
+//
+//            if (!row.select("img.src").text().equals("")) {
+//                continue;
+//            } else {
+//                String Imageurl = row.select("img[data-src]").attr("data-src");
+//                products.get(county).setNewImage(Imageurl);
+//                county++;
+//            }
+//        }
+
+        //Sorts Tesco & Supervalu prices
         Collections.sort(products, new Comparator<Products>() {
             @Override
             public int compare(Products o1, Products o2) {
-                String p1=o1.PriceNew;
-                String p2=o2.PriceNew;
+                String p1 = o1.PriceNew;
+                String p2 = o2.PriceNew;
 
                 return p1.compareTo(p2);
             }
         });
 
-        //SUPERVALU Webscraping
-            for (Element row:superVdoc.select("div.product-list-item-details")) {
-                Products pro1;
-
-                if (!row.select("h4.product-list-item-details-title").text().equals("")) {
-                    continue;
-                } else {
-                    //String imageurl = row.select("img[src]").attr("src");
-                    String imageurl = "";
-                    //String productLink = row.select("a[href]").attr("href");
-                    String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
-
-                    String productdescription = row.select("h4.product-list-item-details-title").text();
-                    String NewPrice = "";   //row.select("span.linePrice").text();
-                    String oldPrice = "";
-                    String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
-
-                    pro1 = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
-                }
-                products.add(pro1);
-            }
-            
-        // Return the list of product
+        // Return the list of products
         return products;
     }
-
-
 
 }

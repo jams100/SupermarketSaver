@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     static String tescoUrl;
+    static String superValuUrl;
     EditText editSearch;
 
     @Override
@@ -28,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buildTescoUrl();
+                buildSupervaluUrl();
                 Intent intent=new Intent(MainActivity.this,ProductList.class);
-                intent.putExtra("url", tescoUrl);
+                intent.putExtra("TescoUrl", tescoUrl);
+                intent.putExtra("SupervaluUrl", superValuUrl);
                 startActivity(intent);
             }
         });
@@ -44,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
             switch(actionId){
                 case EditorInfo.IME_ACTION_SEARCH:
                     buildTescoUrl();
+                    buildSupervaluUrl();
                     Intent in =new Intent(MainActivity.this,ProductList.class);
-                    in.putExtra("url", tescoUrl);
+                    in.putExtra("TescoUrl", tescoUrl);
+                    in.putExtra("SupervaluUrl", superValuUrl);
                     startActivity(in);
                     break;
             }
@@ -53,11 +58,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //Used to build the Tesco url link
+    //Used to build the TescoUrl link
     public void buildTescoUrl(){
             tescoUrl="https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
             String s = editSearch.getText().toString();
             s = s.replace(" ", "+");
+
             tescoUrl += s;
+    }
+
+    //used to build the SuperValuUrl link
+    public void buildSupervaluUrl(){
+        superValuUrl="https://shop.supervalu.ie/shopping/search/allaisles?q=";
+        String s=editSearch.getText().toString();
+        s=s.replace(" ","+");
+
+        superValuUrl+=s;
     }
 }

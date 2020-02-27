@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
-import android.os.PersistableBundle;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,9 +22,6 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.testwebscrape.supervalu.supervaluScrape;
 
 import java.util.ArrayList;
 
@@ -46,8 +42,8 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     ProgressBar progressBar;
     int alreadySearched=0;
 
-    //static String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
-    static String url="";
+    static String TescoUrl="";
+    static String SupervaluUrl ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +53,8 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         grid_stub=findViewById(R.id.stub_grid);
 
         Bundle bundle=getIntent().getExtras();
-        url=bundle.getString("url");
+        TescoUrl=bundle.getString("TescoUrl");
+        SupervaluUrl=bundle.getString("SupervaluUrl");
 
         list_stub.inflate();
         grid_stub.inflate();
@@ -197,7 +194,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         @Nullable
         @Override
         public ArrayList<Products> loadInBackground() {
-            ArrayList<Products>  prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(url);
+            ArrayList<Products>  prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(TescoUrl, SupervaluUrl);
 
             return prod;
         }
@@ -220,7 +217,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
             String url=pro.getUrlLink();
 
             Intent i=new Intent(ProductList.this,webView.class);
-            i.putExtra("url",url);
+            i.putExtra("UrlWebLink",url);
             startActivity(i);
         }
     };

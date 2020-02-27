@@ -24,6 +24,7 @@ public class QueryUtil {
     public static final String LOG_TAG =QueryUtil.class.getSimpleName();
 
     static String url;
+    static String superUrl;
 
     public QueryUtil(){
 
@@ -31,10 +32,13 @@ public class QueryUtil {
 
     /**
      * Query the online website and return an {@link List} object to represent a single earthquake.*/
-    public static List<Products> fetchWebsiteData(String requestUrl) {
+    public static List<Products> fetchWebsiteData(String requestUrl, String supervaluUrl) {
         url=requestUrl;
+        superUrl=supervaluUrl;
         // Create URL object
         URL url = createUrl(requestUrl);
+
+        //**PROBLEM HERE????????***//
 
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
@@ -119,9 +123,10 @@ public class QueryUtil {
 
         // build up a list of Product objects with the corresponding data.
         Document doc= null;
+        Document superVdoc = null;
         try {
-            //doc = Jsoup.connect("https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028").get();
             doc = Jsoup.connect(url).get();
+            superVdoc = Jsoup.connect(superUrl).get();
         } catch (IOException e) {
             e.printStackTrace();
             // If an error is thrown when executing any of the above statements in the "try" block,
@@ -130,14 +135,21 @@ public class QueryUtil {
             Log.e("QueryUtil", "Problem parsing results", e);
         }
 
+        //TESCO Webscraping
         for (Element row:doc.select("div.desc")) {
             Products pro;
 
             if (!row.select("a.id").text().equals("")){
                 continue;
             }else{
-                String imageurl=row.select("img[src]").attr("src");
-                String productLink= row.select("a[ref]").attr("href");
+                String imageurl = row.select("img[src]").attr("src");
+                String productLink = row.select("a[href]").attr("href");
+
+//                String productLink = "https://www.tesco.ie";
+//                String s = row.select("a[ref]").attr("href");
+//                s = s.replace(" ", "+");
+//                productLink += s;
+
                 //String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
 
                 String productdescription=row.select("h3.inBasketInfoContainer").text();
@@ -180,7 +192,32 @@ public class QueryUtil {
             }
         });
 
+        //SUPERVALU Webscraping
+            for (Element row:superVdoc.select("div.product-list-item-details")) {
+                Products pro1;
+
+                if (!row.select("h4.product-list-item-details-title").text().equals("")) {
+                    continue;
+                } else {
+                    //String imageurl = row.select("img[src]").attr("src");
+                    String imageurl = "";
+                    //String productLink = row.select("a[href]").attr("href");
+                    String productLink = "https://www.tesco.ie/groceries/Product/Details/?id=259009761";
+
+                    String productdescription = row.select("h4.product-list-item-details-title").text();
+                    String NewPrice = "";   //row.select("span.linePrice").text();
+                    String oldPrice = "";
+                    String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
+
+                    pro1 = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
+                }
+                products.add(pro1);
+            }
+            
         // Return the list of products
         return products;
     }
+
+
+
 }

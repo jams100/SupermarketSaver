@@ -33,11 +33,11 @@ public class Products {
     }
 
     public Products(String ProductDes,String priceOld,String imageP,String urlLink,String imageLogo,String PriceNew){
-        ProductDescription=ProductDes;
-        PriceOld=priceOld;
+        this.ProductDescription=ProductDes;
+        this.PriceOld=priceOld;
         this.PriceNew=PriceNew;
-        imageProduct=imageP;
         this.urlLink=urlLink;
+        this.imageProduct=imageP;
         this.imageLogo=imageLogo;
     }
 

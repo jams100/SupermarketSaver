@@ -214,7 +214,7 @@ public class QueryUtil {
                 products.add(pro1);
             }
             
-        // Return the list of products
+        // Return the list of product
         return products;
     }
 

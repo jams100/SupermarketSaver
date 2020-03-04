@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,20 @@ public class GridProductAdapter extends ArrayAdapter<Products> {
         OldPrice.setText(currentProduct.getPriceOld());
 
         ImageView img=listview.findViewById(R.id.product_image);
+        final ProgressBar progressBar=listview.findViewById(R.id.image_progress);
 
         String url =currentProduct.getImageProduct();
-        Picasso.get().load(url).into(img);
+        Picasso.get().load(url).into(img, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
 
         ImageView imgLogo=listview.findViewById(R.id.website_logo);
         String urlLogo=currentProduct.getImageLogo();

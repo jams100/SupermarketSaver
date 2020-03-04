@@ -240,5 +240,4 @@ public class QueryUtil {
         // Return the list of products
         return products;
     }
-
 }

@@ -65,6 +65,10 @@ public class Products {
         return PriceNew;
     }
 
+    public void setNewImage(String image) {
+        this.imageProduct = image;
+    }
+
     public void setNewPrice(String price) {
         this.PriceNew = price;
     }

@@ -23,14 +23,12 @@ public class supervaluScrape {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return supervaluproduct;
     }
 
     //building the url
     public static String buildUrl(){
         String url="https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294848143&Ne=4294954028";
-
         return url;
     }
 

@@ -8,6 +8,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,12 +30,16 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!editSearch.getText().toString().trim().isEmpty()){
                 buildTescoUrl();
                 buildSupervaluUrl();
                 Intent intent=new Intent(MainActivity.this,ProductList.class);
                 intent.putExtra("TescoUrl", tescoUrl);
                 intent.putExtra("SupervaluUrl", superValuUrl);
                 startActivity(intent);
+                }else {
+                    Toast.makeText(MainActivity.this,"Search can not be empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -46,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
             switch(actionId){
                 case EditorInfo.IME_ACTION_SEARCH:
+                    if(!editSearch.getText().toString().trim().isEmpty()){
                     buildTescoUrl();
                     buildSupervaluUrl();
                     Intent in =new Intent(MainActivity.this,ProductList.class);
                     in.putExtra("TescoUrl", tescoUrl);
                     in.putExtra("SupervaluUrl", superValuUrl);
                     startActivity(in);
+                    }else {
+                        Toast.makeText(MainActivity.this,"Search can not be empty",Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
             return false;
@@ -61,18 +71,19 @@ public class MainActivity extends AppCompatActivity {
     //Used to build the TescoUrl link
     public void buildTescoUrl(){
             tescoUrl="https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
-            String s = editSearch.getText().toString();
-            s = s.replace(" ", "+");
-
-            tescoUrl += s;
+            tescoUrl+=buildUrlEnd();
     }
 
     //used to build the SuperValuUrl link
     public void buildSupervaluUrl(){
         superValuUrl="https://shop.supervalu.ie/shopping/search/allaisles?q=";
-        String s=editSearch.getText().toString();
-        s=s.replace(" ","+");
+        superValuUrl+=buildUrlEnd();
+    }
 
-        superValuUrl+=s;
+    //building last part of url
+    public String buildUrlEnd() {
+        String s = editSearch.getText().toString().trim();
+        s = s.replace(" ", "+");
+        return s;
     }
 }

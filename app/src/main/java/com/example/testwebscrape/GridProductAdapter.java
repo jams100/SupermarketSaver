@@ -16,10 +16,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Callback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GridProductAdapter extends ArrayAdapter<Products> {
-
 
     public GridProductAdapter(@NonNull Context context,  @NonNull ArrayList<Products> objects) {
         super(context, 0, objects);
@@ -55,15 +53,17 @@ public class GridProductAdapter extends ArrayAdapter<Products> {
 
             @Override
             public void onError(Exception e) {
-
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
 
         ImageView imgLogo=listview.findViewById(R.id.website_logo);
         String urlLogo=currentProduct.getImageLogo();
         Picasso.get().load(urlLogo).into(imgLogo);
+        //          Glide.with(context)
+//                .load(urlLogo)
+//                .into(imgLogo);
 
         return listview;
     }
-
 }

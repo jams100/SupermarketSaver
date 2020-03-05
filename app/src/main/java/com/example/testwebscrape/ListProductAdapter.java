@@ -55,17 +55,30 @@ public class ListProductAdapter extends ArrayAdapter<Products> {
 
             @Override
             public void onError(Exception e) {
-
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
-
-
 
         ImageView imgLogo=listview.findViewById(R.id.website_logo);
         String urlLogo=currentProduct.getImageLogo();
         Picasso.get().load(urlLogo).into(imgLogo);
 
+        ImageView share =listview.findViewById(R.id.share);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ImageView save =listview.findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return listview;
     }
 }
-

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,12 +48,19 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     static String TescoUrl="";
     static String SupervaluUrl ="";
 
+    private RecyclerView recyclerView;
+    private RecycleListAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         list_stub=findViewById(R.id.stub_list);
         grid_stub=findViewById(R.id.stub_grid);
+
+        progressBar=findViewById(R.id.progress_circular);
+        progressBar.setVisibility(View.VISIBLE);
 
         Bundle bundle=getIntent().getExtras();
         TescoUrl=bundle.getString("TescoUrl");
@@ -62,15 +72,21 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         rootList=findViewById(R.id.listView);
         rootGrid=findViewById(R.id.gridView);
 
-        progressBar=findViewById(R.id.progress_circular);
+        recyclerView=findViewById(R.id.recycle_list);
+        layoutManager=new LinearLayoutManager(this);
 
+
+        //Checking the default view saved in the shared preference
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
         currentViewMode=sharedPreferences.getInt("currentViewMode",VIEW_MODE_LISTVIEW);
 
+        //Displays back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Checking the network connectivity
         ConnectivityManager conManager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=conManager.getActiveNetworkInfo();
+        //Checking network connectivity
         if (networkInfo !=null && networkInfo.isConnected()){
 
             if(alreadySearched==0) {
@@ -81,7 +97,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
             progressBar.setVisibility(View.GONE);
 //            emptyState.setText("No network Connection");
         }
-
     }
 
     //saving instance for before rotation
@@ -114,8 +129,43 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     //used to set the Adapter
     private void setAdapter() {
         if (VIEW_MODE_LISTVIEW==currentViewMode){
-            listAdapter=new ListProductAdapter(this,product);
-            rootList.setAdapter(listAdapter);
+            adapter=new RecycleListAdapter(product);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new RecycleListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Products pro=product.get(position);
+                    String url=pro.getUrlLink();
+
+                    Intent i=new Intent(ProductList.this,webView.class);
+                    i.putExtra("UrlWebLink",url);
+                    startActivity(i);
+                }
+
+                @Override
+                public void onShareClick(int position) {
+                    Products pro=product.get(position);
+                    String url=pro.getUrlLink();
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n"+url);
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                    Toast.makeText(ProductList.this,"the share postion "+position,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSaveClick(int position) {
+                    product.get(position);
+                    Toast.makeText(ProductList.this,"the postion "+position,Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //listAdapter=new ListProductAdapter(this,product);
+            //rootList.setAdapter(listAdapter);
         }else{
             gridAdapter=new GridProductAdapter(this,product);
             rootGrid.setAdapter(gridAdapter);
@@ -170,13 +220,17 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         return new ProductAsyncLoader(ProductList.this);
     }
 
+    //Call when background thread has finished loading
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Products>> loader, ArrayList<Products> data) {
         progressBar.setVisibility(View.GONE);
         if (data!=null){
-//            emptyState.setText("No  Data Found");
             UpdateUi(data);
+        }else {
+
         }
+
+
     }
 
     @Override
@@ -190,7 +244,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
             super(context);
         }
 
-
         @Nullable
         @Override
         public ArrayList<Products> loadInBackground() {
@@ -200,6 +253,7 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         }
     }
 
+    //Used to update xml layouts
     private void UpdateUi(ArrayList<Products> data) {
         product=data;
         switchView();
@@ -224,5 +278,4 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
 
     public void queryProducts(){
     }
-
 }

@@ -8,6 +8,7 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,10 +32,7 @@ import java.util.ArrayList;
 public class ProductList extends AppCompatActivity  implements  LoaderManager.LoaderCallbacks<ArrayList<Products>> {
     private ViewStub list_stub;
     private ViewStub grid_stub;
-    GridView rootGrid;
-    ListView rootList;
-    GridProductAdapter gridAdapter;
-    ListProductAdapter listAdapter;
+
     private int currentViewMode=0;
 
     TextView emptyState;
@@ -52,16 +50,19 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
     private RecycleListAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    RecyclerView gridRecyclerView;
+    private RecycleGridAdapter gridAdapter;
+    private RecyclerView.LayoutManager gridlayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+
         list_stub=findViewById(R.id.stub_list);
         grid_stub=findViewById(R.id.stub_grid);
 
-        progressBar=findViewById(R.id.progress_circular);
-        progressBar.setVisibility(View.VISIBLE);
-
+        //Getting url links for websites
         Bundle bundle=getIntent().getExtras();
         TescoUrl=bundle.getString("TescoUrl");
         SupervaluUrl=bundle.getString("SupervaluUrl");
@@ -69,12 +70,14 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         list_stub.inflate();
         grid_stub.inflate();
 
-        rootList=findViewById(R.id.listView);
-        rootGrid=findViewById(R.id.gridView);
-
         recyclerView=findViewById(R.id.recycle_list);
         layoutManager=new LinearLayoutManager(this);
 
+        gridRecyclerView=findViewById(R.id.recycle_grid);
+        gridlayoutManager=new GridLayoutManager(this,2);
+
+        progressBar=findViewById(R.id.progress_circular);
+        progressBar.setVisibility(View.VISIBLE);
 
         //Checking the default view saved in the shared preference
         SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
@@ -167,8 +170,44 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
             //listAdapter=new ListProductAdapter(this,product);
             //rootList.setAdapter(listAdapter);
         }else{
-            gridAdapter=new GridProductAdapter(this,product);
-            rootGrid.setAdapter(gridAdapter);
+
+            gridAdapter=new RecycleGridAdapter(product);
+            gridRecyclerView.setLayoutManager(gridlayoutManager);
+            gridRecyclerView.setAdapter(gridAdapter);
+
+            gridAdapter.setOnItemClickListener(new RecycleGridAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Products pro=product.get(position);
+                    String url=pro.getUrlLink();
+
+                    Intent i=new Intent(ProductList.this,webView.class);
+                    i.putExtra("UrlWebLink",url);
+                    startActivity(i);
+                }
+
+                @Override
+                public void onShareClick(int position) {
+                    Products pro=product.get(position);
+                    String url=pro.getUrlLink();
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n"+url);
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                    Toast.makeText(ProductList.this,"the share postion "+position,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSaveClick(int position) {
+                    product.get(position);
+                    Toast.makeText(ProductList.this,"the postion "+position,Toast.LENGTH_SHORT).show();
+                }
+            });
+
+//            gridAdapter=new GridProductAdapter(this,product);
+//            rootGrid.setAdapter(gridAdapter);
         }
     }
 
@@ -210,7 +249,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -229,8 +267,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         }else {
 
         }
-
-
     }
 
     @Override
@@ -258,8 +294,8 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         product=data;
         switchView();
 
-        rootList.setOnItemClickListener(onItemClickListener);
-        rootGrid.setOnItemClickListener(onItemClickListener);
+       // rootList.setOnItemClickListener(onItemClickListener);
+       // rootGrid.setOnItemClickListener(onItemClickListener);
     }
 
     //used to set item listener

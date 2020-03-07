@@ -1,6 +1,8 @@
-package com.example.testwebscrape;
+package com.example.testwebscrape.WebScraper;
 
 import android.util.Log;
+
+import com.example.testwebscrape.Products;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,8 +18,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Comparator;
+import java.util.List;
 
 public class QueryUtil {
 

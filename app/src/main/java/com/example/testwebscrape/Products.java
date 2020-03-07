@@ -6,7 +6,7 @@ public class Products {
     String imageProduct;
     String ProductDescription;
     String PriceOld;
-    String PriceNew;
+    public String PriceNew;
     String urlLink;
 
     public Products(String price){

@@ -8,8 +8,8 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="always"/>
 
-
-    <item android:id="@+id/item1"
+    <item android:id="@+id/menu_switch_layout"
         android:title="switch Menu"
-        android:icon="@drawable/ic_four_squares"/>
+        android:icon="@drawable/ic_grid_icon"
+        app:showAsAction="always"/>
 </menu>

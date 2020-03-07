@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.testwebscrape.AdapterHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testwebscrape.Products;
+import com.example.testwebscrape.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ListViewHolder>{

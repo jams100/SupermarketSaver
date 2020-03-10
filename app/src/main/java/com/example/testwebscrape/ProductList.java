@@ -116,37 +116,37 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         gridRecyclerView.setLayoutManager(gridlayoutManager);
         gridRecyclerView.setAdapter(gridAdapter);
 
-            gridAdapter.setOnItemClickListener(new RecycleGridAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    Products pro=product.get(position);
-                    String url=pro.getUrlLink();
+        gridAdapter.setOnItemClickListener(new RecycleGridAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Products pro=product.get(position);
+                String url=pro.getUrlLink();
 
-                    Intent i=new Intent(ProductList.this,webView.class);
-                    i.putExtra("UrlWebLink",url);
-                    startActivity(i);
-                }
+                Intent i=new Intent(ProductList.this,webView.class);
+                i.putExtra("UrlWebLink",url);
+                startActivity(i);
+            }
 
-                @Override
-                public void onShareClick(int position) {
-                    Products pro=product.get(position);
-                    String url=pro.getUrlLink();
+            @Override
+            public void onShareClick(int position) {
+                Products pro=product.get(position);
+                String url=pro.getUrlLink();
 
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n"+url);
-                    shareIntent.setType("text/plain");
-                    startActivity(shareIntent);
-                    Toast.makeText(ProductList.this,"the share postion "+position,Toast.LENGTH_SHORT).show();
-                }
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n"+url);
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
+                Toast.makeText(ProductList.this,"the share postion "+position,Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onSaveClick(int position) {
-                    product.get(position);
-                    Toast.makeText(ProductList.this,"the postion "+position,Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onSaveClick(int position) {
+                product.get(position);
+                Toast.makeText(ProductList.this,"the postion "+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     //setting the menu with the switch mode option
     @Override
@@ -252,7 +252,6 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         public void deliverResult(ArrayList<Products> data) {
             // We’ll save the data for later retrieval
             produ = data;
-
             super.deliverResult(data);
         }
 
@@ -261,6 +260,19 @@ public class ProductList extends AppCompatActivity  implements  LoaderManager.Lo
         public ArrayList<Products> loadInBackground() {
             ArrayList<Products>  prod= (ArrayList<Products>) QueryUtil.fetchWebsiteData(TescoUrl, SupervaluUrl);
 
+            if(prod!=null){
+
+                //Used to sorting
+                Collections.sort(prod, new Comparator<Products>() {
+            @Override
+            public int compare(Products o1, Products o2) {
+                String p1 = o1.PriceNew;
+                String p2 = o2.PriceNew;
+
+                return p1.compareTo(p2);
+            }
+        });
+            }
             produ = prod;
             return prod;
         }

@@ -25,8 +25,8 @@ public class QueryUtil {
 
     public static final String LOG_TAG = QueryUtil.class.getSimpleName();
 
-    static String url;
-    static String superUrl;
+    private static String url;
+    private static String superUrl;
 
     public QueryUtil() {
 
@@ -38,105 +38,22 @@ public class QueryUtil {
     public static List<Products> fetchWebsiteData(String requestUrl, String supervaluUrl) {
         url = requestUrl;
         superUrl = supervaluUrl;
-        // Create URL object
-        URL url = createUrl(requestUrl);
 
-        //**PROBLEM HERE????????***//
-
-        // Perform HTTP request to the URL and receive a JSON response back
-        String jsonResponse = null;
-        try {
-            jsonResponse = makeHttpRequest(url);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error closing input stream", e);
-        }
-        // Return the {@link Event}
-        return extractShoppingData(jsonResponse);
+        return extractShoppingData();
     }
 
-    /*** Make an HTTP request to the given URL and return a String as the response.*/
-    private static String makeHttpRequest(URL url) throws IOException {
-        String webScrapeResponse = "";
+    //Method is used to web scrape the online websites
+    public static ArrayList<Products> extractShoppingData() {
 
-        // If the URL is null, then return early.
-        if (url == null) {
-            return webScrapeResponse;
-        }
-
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            // If the request was successful (response code 200),
-            if (urlConnection.getResponseCode() == 200) {
-                inputStream = urlConnection.getInputStream();
-                webScrapeResponse = readFromStream(inputStream);
-
-            } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-        return webScrapeResponse;
-    }
-
-    /*** Convert the {@link InputStream} into a String which contains the
-     * whole JSON response from the server.*/
-    private static String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
-    }
-
-    /**
-     * Returns new URL object from the given string URL.
-     */
-    public static URL createUrl(String stringUrl) {
-        URL url = null;
-        try {
-            url = new URL(stringUrl);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Error with creating URL ", e);
-        }
-        return url;
-    }
-
-    public static ArrayList<Products> extractShoppingData(String sample) {
-
-        // Create an empty ArrayList that we can start adding earthquakes to
+        //Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<Products> products = new ArrayList<>();
 
-        // build up a list of Product objects with the corresponding data.
+        //Build up a list of Product objects with the corresponding data.
         Document doc = null;
         Document superVdoc = null;
         try {
             doc = Jsoup.connect(url).get();
             superVdoc = Jsoup.connect(superUrl).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
-            Log.e("QueryUtil", "Problem parsing results", e);
-        }
 
         //TESCO Webscraping
         for (Element row : doc.select("div.desc")) {
@@ -175,24 +92,12 @@ public class QueryUtil {
             } else {
                 String NewPrice = row.select("span.linePrice").text();
                 //String priceOld=row.select("em").text();
-
                 products.get(count).setNewPrice(NewPrice);
                 //products.get(count).setpriceOld(priceOld);
 
                 count++;
             }
         }
-//
-//        //Used for sorting Tesco prices
-//        Collections.sort(products, new Comparator<Products>() {
-//            @Override
-//            public int compare(Products o1, Products o2) {
-//                String p1=o1.PriceNew;
-//                String p2=o2.PriceNew;
-//
-//                return p1.compareTo(p2);
-//            }
-//        });
 
         //SUPERVALU Webscraping
         for (Element row : superVdoc.select("div.product-list-item-details")) {
@@ -214,6 +119,15 @@ public class QueryUtil {
             products.add(pro1);
         }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtil", "Problem parsing results", e);
+        }
+
+
 //        //To Get Image For Supervalu
 //        int county = 0;
 //        for (Element row : superVdoc.select("div.product-list-item-display")) {
@@ -227,17 +141,6 @@ public class QueryUtil {
 //                county++;
 //            }
 //        }
-
-        //Sorts Tesco & Supervalu prices
-        Collections.sort(products, new Comparator<Products>() {
-            @Override
-            public int compare(Products o1, Products o2) {
-                String p1 = o1.PriceNew;
-                String p2 = o2.PriceNew;
-
-                return p1.compareTo(p2);
-            }
-        });
 
         // Return the list of products
         return products;

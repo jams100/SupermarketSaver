@@ -1,4 +1,4 @@
-package com.example.supermarketSaver;
+package com.example.testwebscrape;
 
 import org.junit.Test;
 

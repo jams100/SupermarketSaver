@@ -1,4 +1,4 @@
-package com.example.supermarketSaver;
+package com.example.testwebscrape;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +23,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.TextView;
 
-import com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter;
-import com.example.supermarketSaver.WebScraper.QueryUtil;
+import com.example.testwebscrape.AdapterHelper.RecycleGridAdapter;
+import com.example.testwebscrape.WebScraper.QueryUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_ONE;
-import static com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_TWO;
+import static com.example.testwebscrape.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_ONE;
+import static com.example.testwebscrape.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_TWO;
 
 public class ProductList extends AppCompatActivity  implements  LoaderManager.LoaderCallbacks<ArrayList<Products>> {
 

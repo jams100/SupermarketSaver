@@ -1,4 +1,4 @@
-package com.example.testwebscrape.AdapterHelper;
+package com.example.supermarketSaver.AdapterHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,32 +8,39 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testwebscrape.Products;
-import com.example.testwebscrape.R;
+import com.example.supermarketSaver.Products;
+import com.example.supermarketSaver.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.ListViewHolder>{
+public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.GridViewHolder>{
 
+    public static final int SPAN_COUNT_ONE = 1;
+    public static final int SPAN_COUNT_TWO = 2;
+
+    private static final int LIST_VIEW = 1;
+    private static final int GRID_VIEW = 2;
+
+    private GridLayoutManager mLayoutManager;
     ArrayList<Products> products;
+    private RecycleGridAdapter.OnItemClickListener mListener;
 
-    private OnItemClickListener mListener;
-
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
         void onShareClick(int position);
         void onSaveClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(RecycleGridAdapter.OnItemClickListener listener){
         mListener=listener;
     }
 
-    public static class ListViewHolder extends RecyclerView.ViewHolder{
+    class GridViewHolder extends RecyclerView.ViewHolder{
         public TextView productDescrption;
         public TextView NewPrice;
         public TextView OldPrice;
@@ -43,7 +50,7 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
         public ImageView share;
         public ImageView save;
 
-        public ListViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public GridViewHolder(@NonNull View itemView, final RecycleGridAdapter.OnItemClickListener listener, int viewType) {
             super(itemView);
             productDescrption=itemView.findViewById(R.id.product_description);
             NewPrice=itemView.findViewById(R.id.new_price);
@@ -66,7 +73,7 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
                 }
             });
 
-            //click listener for sharing
+            //click listener for share
             share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -79,7 +86,7 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
                 }
             });
 
-            //click listener for saving
+            //click listener for save
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,21 +101,26 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
         }
     }
 
-    public RecycleListAdapter(ArrayList<Products> prod){
+    public RecycleGridAdapter(ArrayList<Products> prod,GridLayoutManager gridLayoutManager){
         products=prod;
+        mLayoutManager=gridLayoutManager;
     }
 
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-        ListViewHolder listViewHolder=new ListViewHolder(v, mListener);
-
-        return listViewHolder;
+    public GridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v;
+        if (viewType==LIST_VIEW){
+            v=LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        }else {
+            v= LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item,parent,false);
+        }
+        return new RecycleGridAdapter.GridViewHolder(v,mListener,viewType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
+    public void onBindViewHolder(final GridViewHolder holder, int position) {
+
         Products currentProduct=products.get(position);
         holder.OldPrice.setText(currentProduct.getPriceOld());
         holder.NewPrice.setText(currentProduct.getPriceNew());
@@ -122,10 +134,20 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
 
             @Override
             public void onError(Exception e) {
-
             }
         });
+
         Picasso.get().load(currentProduct.getImageLogo()).into(holder.imgLogo);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        int spanCount = mLayoutManager.getSpanCount();
+        if (spanCount == SPAN_COUNT_ONE) {
+            return LIST_VIEW;
+        } else {
+            return GRID_VIEW;
+        }
     }
 
     @Override

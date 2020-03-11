@@ -1,8 +1,8 @@
-package com.example.testwebscrape.WebScraper;
+package com.example.supermarketSaver.WebScraper;
 
 import android.util.Log;
 
-import com.example.testwebscrape.Products;
+import com.example.supermarketSaver.Products;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

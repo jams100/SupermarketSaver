@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.supermarketSaver;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.testwebscrape", appContext.getPackageName());
+        assertEquals("com.example.supermarketSaver", appContext.getPackageName());
     }
 }

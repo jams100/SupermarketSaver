@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.supermarketSaver;
 
 public class Products {
 

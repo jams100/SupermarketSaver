@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.supermarketSaver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -20,24 +19,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.TextView;
 
-import com.example.testwebscrape.AdapterHelper.RecycleGridAdapter;
-import com.example.testwebscrape.AdapterHelper.RecycleListAdapter;
-import com.example.testwebscrape.WebScraper.QueryUtil;
+import com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter;
+import com.example.supermarketSaver.WebScraper.QueryUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.example.testwebscrape.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_ONE;
-import static com.example.testwebscrape.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_TWO;
+import static com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_ONE;
+import static com.example.supermarketSaver.AdapterHelper.RecycleGridAdapter.SPAN_COUNT_TWO;
 
 public class ProductList extends AppCompatActivity  implements  LoaderManager.LoaderCallbacks<ArrayList<Products>> {
 

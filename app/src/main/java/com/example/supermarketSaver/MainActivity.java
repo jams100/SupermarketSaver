@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.supermarketSaver;
 
 import android.content.Intent;
 import android.os.Bundle;

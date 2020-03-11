@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.supermarketSaver;
 
 import androidx.appcompat.app.AppCompatActivity;
 

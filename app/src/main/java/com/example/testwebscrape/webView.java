@@ -20,13 +20,13 @@ public class webView extends AppCompatActivity {
         //Obtaining the FirebaseAnalytics instance.
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        WebView web=findViewById(R.id.web);
+        WebView web = findViewById(R.id.web);
 
         web.setWebViewClient(new WebViewClient());
-        WebSettings webSettings=web.getSettings();
+        WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        Bundle bundle=getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         web.loadUrl(bundle.getString("UrlWebLink"));
     }
 }

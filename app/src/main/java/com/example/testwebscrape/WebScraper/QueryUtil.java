@@ -22,9 +22,8 @@ public class QueryUtil {
     public QueryUtil() {
     }
 
-    /**
-     * Query the online website and return an {@link List} object to represent a single earthquake.
-     */
+
+    //Query the online website and return website data
     public static List<Products> fetchWebsiteData(String requestUrl, String supervaluUrl) {
         url = requestUrl;
         superUrl = supervaluUrl;
@@ -103,7 +102,7 @@ public class QueryUtil {
                 products.add(pro1);
             }
 
-              //To Get Image For Supervalu
+            //To Get Image For Supervalu
 //            int county = 0;
 //            for (Element row : superVdoc.select("div.product-list-item-display")) {
 //                if (!row.select("img.src").text().equals("")) {

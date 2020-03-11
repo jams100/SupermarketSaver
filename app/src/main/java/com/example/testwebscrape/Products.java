@@ -9,36 +9,36 @@ public class Products {
     public String PriceNew;
     String urlLink;
 
-    public Products(String price){
-        PriceOld=price;
+    public Products(String price) {
+        PriceOld = price;
     }
 
-    public Products(String imageP,String urlLink){
-        imageProduct=imageP;
-        this.urlLink=urlLink;
+    public Products(String imageP, String urlLink) {
+        imageProduct = imageP;
+        this.urlLink = urlLink;
     }
 
-    public Products(String ProductDes, String imageP, String urlLink){
-        ProductDescription=ProductDes;
-        imageProduct=imageP;
-        this.urlLink=urlLink;
+    public Products(String ProductDes, String imageP, String urlLink) {
+        ProductDescription = ProductDes;
+        imageProduct = imageP;
+        this.urlLink = urlLink;
     }
 
-    public Products(String ProductDes,String price,String imageP,String urlLink,String imageLogo){
-        ProductDescription=ProductDes;
-        PriceOld=price;
-        imageProduct=imageP;
-        this.urlLink=urlLink;
-        this.imageLogo=imageLogo;
+    public Products(String ProductDes, String price, String imageP, String urlLink, String imageLogo) {
+        ProductDescription = ProductDes;
+        PriceOld = price;
+        imageProduct = imageP;
+        this.urlLink = urlLink;
+        this.imageLogo = imageLogo;
     }
 
-    public Products(String ProductDes,String priceOld,String imageP,String urlLink,String imageLogo,String PriceNew){
-        this.ProductDescription=ProductDes;
-        this.PriceOld=priceOld;
-        this.PriceNew=PriceNew;
-        this.urlLink=urlLink;
-        this.imageProduct=imageP;
-        this.imageLogo=imageLogo;
+    public Products(String ProductDes, String priceOld, String imageP, String urlLink, String imageLogo, String PriceNew) {
+        this.ProductDescription = ProductDes;
+        this.PriceOld = priceOld;
+        this.PriceNew = PriceNew;
+        this.urlLink = urlLink;
+        this.imageProduct = imageP;
+        this.imageLogo = imageLogo;
     }
 
     public String getImageLogo() {

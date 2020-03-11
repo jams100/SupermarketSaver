@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "79415918178",
+    "firebase_url": "https://supermarketsaverjames.firebaseio.com",
+    "project_id": "supermarketsaverjames",
+    "storage_bucket": "supermarketsaverjames.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79415918178:android:22206b9ce55d72999b5b3b",
+        "android_client_info": {
+          "package_name": "com.example.testwebscrape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79415918178-321f93huisovr9qs9q90dsh1apl75o55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPbVelrvOQvv6VUCJZjtwqtBz_YY2Y-6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79415918178-321f93huisovr9qs9q90dsh1apl75o55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

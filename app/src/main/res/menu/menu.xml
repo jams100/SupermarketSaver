@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Search"
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="always"/>
+        android:title="Search"
+        app:showAsAction="always" />
 
-    <item android:id="@+id/menu_switch_layout"
-        android:title="switch Menu"
-        android:icon="@drawable/ic_grid_icon"
-        app:showAsAction="always"/>
+    <item
+        android:icon="@drawable/three_dots"
+        android:title="More Options"
+        app:showAsAction="always">
+        <menu>
+
+            <item
+                android:id="@+id/saved_items"
+                android:icon="@drawable/ic_saved_grey"
+                android:title="Saved" />
+        </menu>
+    </item>
 </menu>

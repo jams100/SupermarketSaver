@@ -13,10 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.testwebscrape.CompareProducts"></activity>
-        <activity android:name="com.example.testwebscrape.webView" />
-        <activity android:name="com.example.testwebscrape.ProductList" />
-        <activity android:name="com.example.testwebscrape.MainActivity">
+        <activity android:name=".SignUp"></activity>
+        <activity android:name=".LoginPage" />
+        <activity android:name=".CompareProducts" />
+        <activity android:name=".webView" />
+        <activity android:name=".ProductList" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

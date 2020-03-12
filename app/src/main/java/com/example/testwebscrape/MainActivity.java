@@ -128,12 +128,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Handle navigation view item clicks here.
         switch (item.getItemId()){
             case R.id.nav_login:
+                Intent i=new Intent(MainActivity.this, LoginPage.class);
+                startActivity(i);
                 break;
             case R.id.nav_settings:
+                Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:
+                Toast.makeText(MainActivity.this, "Share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_saved:
+                Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                 break;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

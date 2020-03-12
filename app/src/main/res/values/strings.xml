@@ -17,6 +17,8 @@
     <string name="hint_password">Enter your Password</string>
     <string name="login_error_message">Wrong email or password try again</string>
     <string name="hint_confirm_password">Confirm your password</string>
+    <string name="logOut">Log Out</string>
+    <string name="password_dont_match">Passwords do not match</string>
 
     <string name="menu_login">Login</string>
     <string name="menu_saved">Saved</string>

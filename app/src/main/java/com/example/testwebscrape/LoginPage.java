@@ -2,6 +2,7 @@ package com.example.testwebscrape;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 public class LoginPage extends AppCompatActivity {
 
@@ -31,7 +29,6 @@ public class LoginPage extends AppCompatActivity {
     EditText emailAddress;
     EditText password;
     ProgressBar progressBar;
-
     String TAG = LoginPage.class.getSimpleName();
 
     private FirebaseAnalytics myFirebaseAnalytics;
@@ -60,7 +57,7 @@ public class LoginPage extends AppCompatActivity {
         //Used to display the back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Initialize Firebase Auth
+        //Initialising Firebase Auth
         myAuth = FirebaseAuth.getInstance();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +102,7 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    //listener when an item is selected
+    //Listener when an item is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -120,12 +117,11 @@ public class LoginPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        //Check if user is signed in and update UI accordingly.
         FirebaseUser currentUser = myAuth.getCurrentUser();
         if (currentUser != null) {
             finish();
         }
-        //updateUI(currentUser);
     }
 
     @Override
@@ -137,4 +133,3 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 }
-

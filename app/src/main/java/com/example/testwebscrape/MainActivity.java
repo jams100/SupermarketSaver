@@ -3,6 +3,7 @@ package com.example.testwebscrape;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -20,14 +21,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static String tescoUrl;
     static String superValuUrl;
-    static EditText editSearch;
+    //static EditText editSearch;
+    static TextView editSearch;
 
     private FirebaseAnalytics myFirebaseAnalytics;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    TextView userEmail;
+    String user_email;
+    Boolean checkLogin;
+    MenuItem logOut;
+    TextView navUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +73,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        customSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Search.class);
-                startActivity(intent);
-            }
-        });
+//        customSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Search.class);
+//                startActivity(intent);
+//            }
+//        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -77,6 +88,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser= firebaseAuth.getCurrentUser();
+
+        View headerView = navigationView.getHeaderView(0);
+        navUsername = (TextView) headerView.findViewById(R.id.user_label_email);
+        if (firebaseUser != null) {
+            navUsername.setText(firebaseUser.getEmail());
+        }
     }
 
     //Method used to handle enter key event for search
@@ -123,6 +143,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return s;
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu,menu);
+        logOut=menu.findItem(R.id.action_logout);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.action_logout:
+                FirebaseUser User= firebaseAuth.getCurrentUser();
+                if (User!=null){
+                    firebaseAuth.signOut();
+                    checkLogin=false;
+                    user_email="user email ";
+                    navUsername.setText(user_email);
+
+                    Toast.makeText(this, "Logged out successful", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, "Swipe Right to Login", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Handle navigation view item clicks here.
@@ -153,6 +202,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            user_email=currentUser.getEmail();
+            Toast.makeText(MainActivity.this,user_email,Toast.LENGTH_LONG).show();
+            checkLogin=true;
+            navUsername.setText(user_email);
+        }else{
+            user_email="user email ";
+            checkLogin=false;
+            navUsername.setText(user_email);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            user_email=currentUser.getEmail();
+            Toast.makeText(MainActivity.this,user_email,Toast.LENGTH_LONG).show();
+            checkLogin=true;
+            navUsername.setText(user_email);
+        }else{
+            user_email="user email ";
+            navUsername.setText(user_email);
+            checkLogin=false;
         }
     }
 }

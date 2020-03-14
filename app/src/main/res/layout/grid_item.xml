@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="380dp"
-    android:layout_margin="2dp"
+    android:layout_margin="1dp"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="13dp">
 
     <RelativeLayout
@@ -83,20 +85,20 @@
 
         <ImageView
             android:id="@+id/save"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/save"
-            android:padding="14dp" />
+            android:src="@drawable/save"
+            android:padding="3dp" />
 
         <ImageView
             android:id="@+id/share"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/share"
-            android:padding="14dp" />
+            android:src="@drawable/share"
+            android:padding="3dp" />
 
         <LinearLayout
             android:id="@+id/linear_bottom"
@@ -131,7 +133,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="$435678"
                         android:textColor="#000"
                         android:textSize="16sp"
                         tools:text="$12000" />
@@ -143,6 +144,7 @@
                         android:layout_gravity="end"
                         android:text=""
                         android:textSize="12sp"
+                        android:textColor="#000000"
                         tools:text="" />
 
                 </LinearLayout>
@@ -152,7 +154,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-
                     android:layout_toRightOf="@id/prices"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"

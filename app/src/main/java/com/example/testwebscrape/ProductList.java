@@ -177,10 +177,10 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in the Supermarket Saver App, check it out. \n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
-                Toast.makeText(ProductList.this, "Sharing " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductList.this, "Sharing one sec" , Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -191,24 +191,24 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         });
     }
 
-    //setting the menu with the switch mode option
+    //Setting the menu with the switch mode option
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    //listener when an item is selected
+    //Listener for when an item is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            //used to close the activity
+            //Used to close the activity
             case R.id.search:
                 finish();
                 break;
 
-            //back button used to close the activity
+            //Back button used to close the activity
             case android.R.id.home:
                 finish();
                 break;

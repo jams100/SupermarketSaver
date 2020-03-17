@@ -23,6 +23,11 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -143,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return s;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu,menu);
@@ -162,14 +166,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     checkLogin=false;
                     user_email="user email ";
                     navUsername.setText(user_email);
+                    LogOutGoogleSignIn();
 
-                    Toast.makeText(this, "Logged out successful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Logged out successfully", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(this, "Swipe Right to Login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Click top left to login", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void LogOutGoogleSignIn() {
+        GoogleSignInOptions googleSignInOptions=new GoogleSignInOptions
+                .Builder()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
     }
 
     @Override

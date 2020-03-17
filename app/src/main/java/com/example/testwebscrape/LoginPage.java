@@ -2,6 +2,7 @@ package com.example.testwebscrape;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -17,13 +18,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginPage extends AppCompatActivity {
 
+    private static final int GOOGLE_SIGN = 40;
     Button signUpBtn;
     Button loginBtn;
     EditText emailAddress;
@@ -35,6 +44,8 @@ public class LoginPage extends AppCompatActivity {
     FirebaseAuth myAuth;
     FirebaseUser firebaseUser;
     TextView errorMessage;
+    Button googleSign;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,7 @@ public class LoginPage extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_login_bar);
         errorMessage = findViewById(R.id.error_message);
         Toolbar toolbar = findViewById(R.id.login_toolbar);
+        googleSign = findViewById(R.id.google_button);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Login");
 
@@ -98,6 +110,59 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginPage.this, SignUp.class));
+            }
+        });
+
+        //Used when signing in with google
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+
+        googleSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signIntent=mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signIntent,GOOGLE_SIGN);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==GOOGLE_SIGN){
+            Task<GoogleSignInAccount> task= GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account=task.getResult(ApiException.class);
+                if (account!=null){
+                    firebaseAuthWithGoogle(account);
+                }
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        Log.d(TAG ,"FIREBASE authentication with google "+ account.getId());
+
+        AuthCredential authCredential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        myAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Log.d(TAG,"signin success");
+                    firebaseUser= myAuth.getCurrentUser();
+                    Toast.makeText(LoginPage.this, "Signed in successfully", Toast.LENGTH_LONG).show();
+                    finish();
+                }else {
+                    Log.d(TAG,"signin failed "+task.getException());
+                    Toast.makeText(LoginPage.this, "Sign in failed", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

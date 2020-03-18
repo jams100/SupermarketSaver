@@ -125,7 +125,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signIntent=mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signIntent,GOOGLE_SIGN);
+                startActivityForResult(signIntent, GOOGLE_SIGN);
             }
         });
     }
@@ -133,13 +133,16 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode==GOOGLE_SIGN){
+            // The Task returned from this call is always completed
             Task<GoogleSignInAccount> task= GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
                 GoogleSignInAccount account=task.getResult(ApiException.class);
                 if (account!=null){
                     firebaseAuthWithGoogle(account);
+                    //Toast.makeText(LoginPage.this, "Issue here", Toast.LENGTH_LONG).show();
                 }
             } catch (ApiException e) {
                 e.printStackTrace();
@@ -160,7 +163,7 @@ public class LoginPage extends AppCompatActivity {
                     Toast.makeText(LoginPage.this, "Signed in successfully", Toast.LENGTH_LONG).show();
                     finish();
                 }else {
-                    Log.d(TAG,"signin failed "+task.getException());
+                    Log.d(TAG,"signin failed "+ task.getException());
                     Toast.makeText(LoginPage.this, "Sign in failed", Toast.LENGTH_LONG).show();
                 }
             }

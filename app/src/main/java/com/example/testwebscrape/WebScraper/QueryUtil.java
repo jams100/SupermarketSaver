@@ -89,13 +89,22 @@ public class QueryUtil {
                 if (row.select("h4.product-list-item-details-title").text().equals("")) {
                     continue;
                 } else {
-                    //String imageurl = "https://d2wwnnx8tks4e8.cloudfront.net/images/app/medium/5011001295277_2.JPG";
+                    //String Imageurl = "https://d2wwnnx8tks4e8.cloudfront.net/images/app/medium/5011001295277_2.JPG";
                     String productLink = row.select("a[href]").attr("href");
                     String productdescription = row.select("h4.product-list-item-details-title").text();
                     String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price"); //row.select("span.linePrice").text();
                     String oldPrice = "";
                     String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
                     String Imageurl = null;
+
+                    for (Element row1 : superVdoc.select("div.product-list-item-display"))
+                    {
+                        if (!row.select("img.src").text().equals("")) {
+                            continue;
+                        } else {
+                            Imageurl = row1.select("img[data-src]").attr("data-src");
+                        }
+                    }
 
                     pro1 = new Products(productdescription, oldPrice, Imageurl, productLink, imglogo, NewPrice);
                 }
@@ -104,10 +113,14 @@ public class QueryUtil {
 
             //To Get Image For Supervalu
 //            int county = 0;
-//            for (Element row : superVdoc.select("div.product-list-item-display")) {
-//                if (!row.select("img.src").text().equals("")) {
+//            for (Element row : superVdoc.select("div.product-list-item-display"))
+//            {
+//                Products pro1 = null;
+//                if (!row.select("img.src").text().equals(""))
+//                {
 //                    continue;
-//                } else if (products.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG")) {
+//                } else if (products.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG"))
+//                {
 //                    String Imageurl = row.select("img[data-src]").attr("data-src");
 //                    products.get(county).setNewImage(Imageurl);
 //                    county++;
@@ -119,8 +132,7 @@ public class QueryUtil {
         } catch (IOException e) {
             e.printStackTrace();
             // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
+            // catch the exception here, so the app doesn't crash. Print a log message with the message from the exception.
             Log.e("QueryUtil", "Problem parsing results", e);
         }
 

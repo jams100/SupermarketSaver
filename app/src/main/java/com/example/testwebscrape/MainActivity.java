@@ -129,25 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
-    //Used to build the TescoUrl link
-    public void buildTescoUrl() {
-        tescoUrl = "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
-        tescoUrl += buildUrlEnd();
-    }
-
-    //Used to build the SuperValuUrl link
-    public void buildSupervaluUrl() {
-        superValuUrl = "https://shop.supervalu.ie/shopping/search/allaisles?q=";
-        superValuUrl += buildUrlEnd();
-    }
-
-    //Building last part of url
-    public String buildUrlEnd() {
-        String s = editSearch.getText().toString().trim();
-        s = s.replace(" ", "+");
-        return s;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu,menu);
@@ -209,10 +190,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_saved:
                 Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_alcohol:
+                Toast.makeText(MainActivity.this, "Searching for Alcohol...", Toast.LENGTH_SHORT).show();
+                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=alcohol";
+                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=alcohol&departmentId=150100075";
+                Intent intent = new Intent(MainActivity.this, ProductList.class);
+                intent.putExtra("TescoUrl", tescoUrl);
+                intent.putExtra("SupervaluUrl", superValuUrl);
+                startActivity(intent);
+                break;
+            case R.id.nav_fruit:
+                Toast.makeText(MainActivity.this, "Searching for Fruit...", Toast.LENGTH_SHORT).show();
+                tescoUrl= "https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294954026&Ne=4294954028";
+                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=fruit&departmentId=150100001";
+                Intent intent2 = new Intent(MainActivity.this, ProductList.class);
+                intent2.putExtra("TescoUrl", tescoUrl);
+                intent2.putExtra("SupervaluUrl", superValuUrl);
+                startActivity(intent2);
+                break;
+            case R.id.nav_baby:
+                Toast.makeText(MainActivity.this, "Searching for Baby products...", Toast.LENGTH_SHORT).show();
+                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=baby";
+                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=baby%20items&departmentId=150100060";
+                Intent intent3 = new Intent(MainActivity.this, ProductList.class);
+                intent3.putExtra("TescoUrl", tescoUrl);
+                intent3.putExtra("SupervaluUrl", superValuUrl);
+                startActivity(intent3);
+                break;
+            case R.id.nav_gluten_free:
+                Toast.makeText(MainActivity.this, "Searching for Gluten free products...", Toast.LENGTH_SHORT).show();
+                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=gluten%20free";
+                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=gluten%20free";
+                Intent intent4 = new Intent(MainActivity.this, ProductList.class);
+                intent4.putExtra("TescoUrl", tescoUrl);
+                intent4.putExtra("SupervaluUrl", superValuUrl);
+                startActivity(intent4);
+                break;
+            case R.id.nav_vegan:
+                Toast.makeText(MainActivity.this, "Searching for Vegan products...", Toast.LENGTH_SHORT).show();
+                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=vegan";
+                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=vegan";
+                Intent intent5 = new Intent(MainActivity.this, ProductList.class);
+                intent5.putExtra("TescoUrl", tescoUrl);
+                intent5.putExtra("SupervaluUrl", superValuUrl);
+                startActivity(intent5);
+                break;
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //Used to build the TescoUrl link
+    public void buildTescoUrl() {
+        tescoUrl = "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
+        tescoUrl += buildUrlEnd();
+    }
+
+    //Used to build the SuperValuUrl link
+    public void buildSupervaluUrl() {
+        superValuUrl = "https://shop.supervalu.ie/shopping/search/allaisles?q=";
+        superValuUrl += buildUrlEnd();
+    }
+
+    //Building last part of url
+    public String buildUrlEnd() {
+        String s = editSearch.getText().toString().trim();
+        s = s.replace(" ", "+");
+        return s;
     }
 
     @Override

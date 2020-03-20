@@ -20,6 +20,35 @@
             android:title="@string/menu_settings" />
     </group>
 
+    <item android:title="Popular Categories">
+        <menu>
+            <item
+                android:id="@+id/nav_alcohol"
+                android:icon="@drawable/ic_alcohol"
+                android:title="@string/menu_alcohol" />
+
+            <item
+                android:id="@+id/nav_baby"
+                android:icon="@drawable/ic_baby"
+                android:title="@string/menu_baby" />
+
+            <item
+                android:id="@+id/nav_fruit"
+                android:icon="@drawable/ic_fruit"
+                android:title="@string/menu_fruit" />
+
+            <item
+                android:id="@+id/nav_gluten_free"
+                android:icon="@drawable/ic_gluten_free"
+                android:title="@string/menu_gluten_free" />
+
+            <item
+                android:id="@+id/nav_vegan"
+                android:icon="@drawable/ic_vegan"
+                android:title="@string/menu_vegan" />
+        </menu>
+    </item>
+
     <item android:title="Communicate">
         <menu>
             <item

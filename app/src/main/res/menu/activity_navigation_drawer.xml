@@ -20,6 +20,15 @@
             android:title="@string/menu_settings" />
     </group>
 
+    <item android:title="Special Offers">
+        <menu>
+            <item
+                android:id="@+id/nav_special_offers"
+                android:icon="@drawable/ic_local_offer_black_24dp"
+                android:title="@string/menu_special_offers" />
+        </menu>
+    </item>
+
     <item android:title="Popular Categories">
         <menu>
             <item

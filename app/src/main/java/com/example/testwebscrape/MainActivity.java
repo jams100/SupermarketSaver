@@ -1,14 +1,12 @@
 package com.example.testwebscrape;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,35 +54,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         editSearch = findViewById(R.id.product_name);
-        editSearch.setOnEditorActionListener(onEditorActionListener);
+        Display display = getWindowManager().getDefaultDisplay();
+        final Point size = new Point();
+        display.getSize(size);
 
-        Button button = findViewById(R.id.search);
-        Button customSearch = findViewById(R.id.custom_search);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        editSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!editSearch.getText().toString().trim().isEmpty()) {
-                    buildTescoUrl();
-                    buildSupervaluUrl();
-                    Intent intent = new Intent(MainActivity.this, ProductList.class);
-                    intent.putExtra("TescoUrl", tescoUrl);
-                    intent.putExtra("SupervaluUrl", superValuUrl);
-                    intent.putExtra("ProductName", editSearch.getText().toString());
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Search can not be empty", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(MainActivity.this, Search.class));
             }
         });
-
-//        customSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, Search.class);
-//                startActivity(intent);
-//            }
-//        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -103,31 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navUsername.setText(firebaseUser.getEmail());
         }
     }
-
-    //Method used to handle enter key event for search
-    private TextView.OnEditorActionListener onEditorActionListener = new TextView.OnEditorActionListener() {
-
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-            switch (actionId) {
-                case EditorInfo.IME_ACTION_SEARCH:
-                    if (!editSearch.getText().toString().trim().isEmpty()) {
-                        buildTescoUrl();
-                        buildSupervaluUrl();
-                        Intent in = new Intent(MainActivity.this, ProductList.class);
-                        in.putExtra("TescoUrl", tescoUrl);
-                        in.putExtra("SupervaluUrl", superValuUrl);
-                        in.putExtra("ProductName", editSearch.getText().toString());
-                        startActivity(in);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Search can not be empty", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-            }
-            return false;
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -190,75 +144,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_saved:
                 Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_special_offers:
+                Toast.makeText(MainActivity.this, "Special Offers", Toast.LENGTH_SHORT).show();
+                Intent inte = new Intent(MainActivity.this, ProductList.class);
+                inte.putExtra("TescoUrl", "https://www.tesco.ie/groceries/ProductBuylist/default.aspx?id=L00005147&icid=Top_Offers_top");
+                inte.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/specialoffers");
+                startActivity(inte);
+                break;
             case R.id.nav_alcohol:
                 Toast.makeText(MainActivity.this, "Searching for Alcohol...", Toast.LENGTH_SHORT).show();
-                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=alcohol";
-                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=alcohol&departmentId=150100075";
                 Intent intent = new Intent(MainActivity.this, ProductList.class);
-                intent.putExtra("TescoUrl", tescoUrl);
-                intent.putExtra("SupervaluUrl", superValuUrl);
+                intent.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=alcohol");
+                intent.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=alcohol&departmentId=150100075");
                 startActivity(intent);
                 break;
             case R.id.nav_fruit:
                 Toast.makeText(MainActivity.this, "Searching for Fruit...", Toast.LENGTH_SHORT).show();
-                tescoUrl= "https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294954026&Ne=4294954028";
-                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=fruit&departmentId=150100001";
                 Intent intent2 = new Intent(MainActivity.this, ProductList.class);
-                intent2.putExtra("TescoUrl", tescoUrl);
-                intent2.putExtra("SupervaluUrl", superValuUrl);
+                intent2.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294954026&Ne=4294954028");
+                intent2.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=fruit&departmentId=150100001");
                 startActivity(intent2);
                 break;
             case R.id.nav_baby:
                 Toast.makeText(MainActivity.this, "Searching for Baby products...", Toast.LENGTH_SHORT).show();
-                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=baby";
-                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=baby%20items&departmentId=150100060";
                 Intent intent3 = new Intent(MainActivity.this, ProductList.class);
-                intent3.putExtra("TescoUrl", tescoUrl);
-                intent3.putExtra("SupervaluUrl", superValuUrl);
+                intent3.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=baby");
+                intent3.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=baby%20items&departmentId=150100060");
                 startActivity(intent3);
                 break;
             case R.id.nav_gluten_free:
                 Toast.makeText(MainActivity.this, "Searching for Gluten free products...", Toast.LENGTH_SHORT).show();
-                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=gluten%20free";
-                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=gluten%20free";
                 Intent intent4 = new Intent(MainActivity.this, ProductList.class);
-                intent4.putExtra("TescoUrl", tescoUrl);
-                intent4.putExtra("SupervaluUrl", superValuUrl);
+                intent4.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=gluten%20free");
+                intent4.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=gluten%20free");
                 startActivity(intent4);
                 break;
             case R.id.nav_vegan:
                 Toast.makeText(MainActivity.this, "Searching for Vegan products...", Toast.LENGTH_SHORT).show();
-                tescoUrl= "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=vegan";
-                superValuUrl= "https://shop.supervalu.ie/shopping/search/allaisles?q=vegan";
                 Intent intent5 = new Intent(MainActivity.this, ProductList.class);
-                intent5.putExtra("TescoUrl", tescoUrl);
-                intent5.putExtra("SupervaluUrl", superValuUrl);
+                intent5.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=vegan");
+                intent5.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=vegan");
                 startActivity(intent5);
                 break;
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    //Used to build the TescoUrl link
-    public void buildTescoUrl() {
-        tescoUrl = "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
-        tescoUrl += buildUrlEnd();
-    }
-
-    //Used to build the SuperValuUrl link
-    public void buildSupervaluUrl() {
-        superValuUrl = "https://shop.supervalu.ie/shopping/search/allaisles?q=";
-        superValuUrl += buildUrlEnd();
-    }
-
-    //Building last part of url
-    public String buildUrlEnd() {
-        String s = editSearch.getText().toString().trim();
-        s = s.replace(" ", "+");
-        return s;
     }
 
     @Override

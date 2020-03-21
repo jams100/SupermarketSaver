@@ -18,6 +18,7 @@
         <activity android:name=".CompareProducts" />
         <activity android:name=".webView" />
         <activity android:name=".ProductList" />
+        <activity android:name=".Search" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

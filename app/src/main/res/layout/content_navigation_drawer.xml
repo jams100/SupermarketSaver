@@ -9,6 +9,29 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_navigation_drawer">
 
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/supermarketlogo1"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome To Supermarket Saver"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:maxLines="2"
+        android:textSize="20sp"
+        android:layout_marginTop="140dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_marginRight="40dp"
@@ -19,14 +42,28 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:paddingLeft="25dp"
-        android:drawableStart="@drawable/ic_search"
+        android:drawableStart="@drawable/ic_search_black_24dp"
         android:paddingRight="20dp"
         android:hint="@string/search_hint"
         android:inputType="text"
         android:imeOptions="actionSearch"
         android:layout_centerInParent="true"
         android:textSize="24sp"
-        android:drawableLeft="@drawable/ic_search" />
+        android:drawableLeft="@drawable/ic_search_black_24dp" />
 
+
+    <Button
+        android:id="@+id/locator_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:background="@color/white"
+        android:text="@string/supermarkets_near_me"
+        android:drawableStart="@drawable/ic_location"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

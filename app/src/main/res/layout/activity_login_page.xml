@@ -13,18 +13,25 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:id="@+id/login_toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Login"
-        app:titleTextColor="@color/white"
-        />
+        app:titleTextColor="@color/white" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/error_message"
         android:layout_marginTop="14dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="34dp"
         android:textColor="@color/red"
-        tools:text="Error message" />
+        tools:text="Error Invalid Credentials" />
 
     <EditText
         android:layout_width="match_parent"
@@ -34,7 +41,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="10dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -44,7 +53,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:hint="@string/hint_password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:drawableStart="@drawable/ic_lock_outline"
+        android:drawablePadding="10dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,7 +76,11 @@
             android:id="@+id/login_button"
             android:text="@string/login_button"
             android:layout_marginTop="20dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:paddingStart="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"/>
     </RelativeLayout>
 
     <Button
@@ -73,7 +88,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/sign_up_button"
         android:layout_marginTop="20dp"
-        android:text="@string/signup"/>
+        android:text="@string/signup"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -90,11 +108,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:paddingStart="20dp"
-        android:paddingLeft="20dp"
         android:background="@color/white"
         android:drawableStart="@drawable/google_logo"
-        android:drawableLeft="@drawable/google_logo"
         android:text="@string/google_sign_in"/>
 
+</LinearLayout>
+    </ScrollView>
 </LinearLayout>

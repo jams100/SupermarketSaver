@@ -15,6 +15,15 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Sign Up"
         app:titleTextColor="@color/white"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +39,10 @@
         android:id="@+id/signup_email"
         android:hint="@string/hint_email"
         android:layout_marginTop="30dp"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_email"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -38,7 +50,10 @@
         android:layout_marginTop="20dp"
         android:id="@+id/signup_password"
         android:hint="@string/hint_password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:drawableStart="@drawable/ic_lock_outline"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -46,7 +61,10 @@
         android:layout_marginTop="20dp"
         android:id="@+id/signp_confirm_password"
         android:hint="@string/hint_confirm_password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:drawableStart="@drawable/ic_lock_outline"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,13 +77,20 @@
             android:layout_centerInParent="true"
             android:layout_margin="8dp"
             android:elevation="10dp"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_centerInParent="true"
             android:hint="@string/signup"
-            android:id="@+id/signup_btn"/>
+            android:id="@+id/signup_btn"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingStart="20dp"
+            android:gravity="center"/>
 
     </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

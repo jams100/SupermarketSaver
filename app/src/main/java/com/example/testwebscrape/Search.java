@@ -73,6 +73,18 @@ public class Search extends AppCompatActivity {
             if (requestCode == RECOGNIZER_RESULT && resultCode == RESULT_OK && data != null) {
                 ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 editSearch.setText(matches.get(0).toString());
+
+                if (!editSearch.getText().toString().trim().isEmpty()) {
+                    buildTescoUrl();
+                    buildSupervaluUrl();
+                    Intent in = new Intent(Search.this, ProductList.class);
+                    in.putExtra("TescoUrl", tescoUrl);
+                    in.putExtra("SupervaluUrl", superValuUrl);
+                    in.putExtra("ProductName", editSearch.getText().toString());
+                    startActivity(in);
+                } else {
+                    Toast.makeText(Search.this, "Search can not be empty", Toast.LENGTH_SHORT).show();
+                }
             }
             super.onActivityResult(requestCode, resultCode, data);
         }

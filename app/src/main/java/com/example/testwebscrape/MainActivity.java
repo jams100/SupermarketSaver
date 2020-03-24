@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent i=new Intent(MainActivity.this, LoginPage.class);
                 startActivity(i);
                 break;
-            case R.id.nav_settings:
+            case R.id.nav_info:
                 Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:

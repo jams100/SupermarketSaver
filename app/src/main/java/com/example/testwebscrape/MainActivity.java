@@ -136,13 +136,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
                 break;
             case R.id.nav_info:
-                Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "About App", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:
                 Toast.makeText(MainActivity.this, "Share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_saved:
-                Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SavedProducts.class));
                 break;
             case R.id.nav_special_offers:
                 Toast.makeText(MainActivity.this, "Special Offers", Toast.LENGTH_SHORT).show();

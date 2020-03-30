@@ -133,7 +133,6 @@ public class SavedProducts extends AppCompatActivity {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
-                //Toast.makeText(SavedProducts.this, "Sharing " + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -1,6 +1,5 @@
 package com.example.testwebscrape.AdapterHelper;
 
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,21 +36,19 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
     }
 
     class GridViewHolder extends RecyclerView.ViewHolder{
-        public TextView productDescription;
-        public TextView NewPrice;
-        //public TextView OldPrice;
-        public ImageView img;
-        public ProgressBar progressBar;
-        public ImageView imgLogo;
-        public ImageView share;
-        public ImageView delete;
+        TextView productDescription;
+        TextView NewPrice;
+        ImageView img;
+        ProgressBar progressBar;
+        ImageView imgLogo;
+        ImageView share;
+        ImageView delete;
 
         public GridViewHolder(@NonNull View itemView, final SaveAdapter.OnItemClickListener listener, int viewType) {
             super(itemView);
 
             productDescription=itemView.findViewById(R.id.save_product_description);
             NewPrice=itemView.findViewById(R.id.save_new_price);
-            //OldPrice=itemView.findViewById(R.id.save_old_price);
             progressBar=itemView.findViewById(R.id.save_image_progress);
             img=itemView.findViewById(R.id.save_product_image);
             imgLogo=itemView.findViewById(R.id.save_website_logo);
@@ -116,8 +113,6 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
     public void onBindViewHolder(final SaveAdapter.GridViewHolder holder, int position) {
 
         Products currentProduct=products.get(position);
-        //holder.OldPrice.setText(currentProduct.getPriceOld());
-        //holder.OldPrice.setPaintFlags(holder.OldPrice.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
 

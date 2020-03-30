@@ -34,9 +34,9 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder{
-        public TextView productDescrption;
+        public TextView productDescription;
         public TextView NewPrice;
-        public TextView OldPrice;
+        //public TextView OldPrice;
         public ImageView img;
         public ProgressBar progressBar;
         public ImageView imgLogo;
@@ -45,9 +45,9 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
 
         public ListViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            productDescrption=itemView.findViewById(R.id.product_description);
+            productDescription=itemView.findViewById(R.id.product_description);
             NewPrice=itemView.findViewById(R.id.new_price);
-            OldPrice=itemView.findViewById(R.id.old_price);
+            //OldPrice=itemView.findViewById(R.id.old_price);
             progressBar=itemView.findViewById(R.id.image_progress);
             img=itemView.findViewById(R.id.product_image);
             imgLogo=itemView.findViewById(R.id.website_logo);
@@ -110,9 +110,9 @@ public class RecycleListAdapter extends RecyclerView.Adapter<RecycleListAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
         Products currentProduct=products.get(position);
-        holder.OldPrice.setText(currentProduct.getPriceOld());
+        //holder.OldPrice.setText(currentProduct.getPriceOld());
         holder.NewPrice.setText(currentProduct.getPriceNew());
-        holder.productDescrption.setText(currentProduct.getProductDescription());
+        holder.productDescription.setText(currentProduct.getProductDescription());
 
         Picasso.get().load(currentProduct.getImageProduct()).into(holder.img, new Callback() {
             @Override

@@ -2,12 +2,15 @@ package com.example.testwebscrape;
 
 public class Products {
 
-    String imageLogo;
-    String imageProduct;
-    String ProductDescription;
-    String PriceOld;
-    public String PriceNew;
-    String urlLink;
+    private String imageLogo;
+    private String imageProduct;
+    private String ProductDescription;
+    private String PriceOld;
+    private String PriceNew;
+    private String urlLink;
+    public boolean isImageChanged;
+
+    public Products() {}
 
     public Products(String price) {
         PriceOld = price;
@@ -76,4 +79,8 @@ public class Products {
     public void setpriceOld(String price) {
         this.PriceOld = price;
     }
+
+    public boolean isImageChanged() { return isImageChanged; }
+
+    public void setImageChanged(boolean imageChanged) { isImageChanged = imageChanged; }
 }

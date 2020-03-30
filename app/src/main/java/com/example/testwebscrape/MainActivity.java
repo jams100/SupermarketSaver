@@ -29,15 +29,11 @@ import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    static String tescoUrl;
-    static String superValuUrl;
-    //static EditText editSearch;
     static TextView editSearch;
 
     private FirebaseAnalytics myFirebaseAnalytics;
     FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    TextView userEmail;
+    FirebaseUser fireUser;
     String user_email;
     Boolean checkLogin;
     MenuItem logOut;
@@ -74,12 +70,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseUser= firebaseAuth.getCurrentUser();
+        fireUser= firebaseAuth.getCurrentUser();
 
         View headerView = navigationView.getHeaderView(0);
         navUsername = (TextView) headerView.findViewById(R.id.user_label_email);
-        if (firebaseUser != null) {
-            navUsername.setText(firebaseUser.getEmail());
+        if (fireUser != null) {
+            navUsername.setText(fireUser.getEmail());
         }
     }
 
@@ -99,11 +95,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (User!=null){
                     firebaseAuth.signOut();
                     checkLogin=false;
-                    user_email="user email ";
+                    user_email="User email ";
                     navUsername.setText(user_email);
                     LogOutGoogleSignIn();
 
-                    Toast.makeText(this, "Logged out successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(this, "Click top left to login", Toast.LENGTH_LONG).show();
                 }
@@ -139,10 +135,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "About App", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:
-                Toast.makeText(MainActivity.this, "Share", Toast.LENGTH_SHORT).show();
+                String url = "App link here";
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
+                        " check it out! \n" + url);
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
                 break;
             case R.id.nav_saved:
-                //Toast.makeText(MainActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, SavedProducts.class));
                 break;
             case R.id.nav_special_offers:
@@ -214,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             checkLogin=true;
             navUsername.setText(user_email);
         }else{
-            user_email="user email ";
+            user_email="User email ";
             checkLogin=false;
             navUsername.setText(user_email);
         }
@@ -227,11 +229,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             user_email=currentUser.getEmail();
-            Toast.makeText(MainActivity.this,user_email,Toast.LENGTH_LONG).show();
             checkLogin=true;
             navUsername.setText(user_email);
         }else{
-            user_email="user email ";
+            user_email="User email ";
             navUsername.setText(user_email);
             checkLogin=false;
         }

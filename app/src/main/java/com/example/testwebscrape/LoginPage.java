@@ -86,7 +86,6 @@ public class LoginPage extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         //Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
-                                        //Toast.makeText(LoginPage.this, "Login Successful.", Toast.LENGTH_LONG).show();
                                         firebaseUser = myAuth.getCurrentUser();
                                         finish();
                                     } else {
@@ -159,7 +158,7 @@ public class LoginPage extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Log.d(TAG,"signin success");
                     firebaseUser= myAuth.getCurrentUser();
-                    Toast.makeText(LoginPage.this, "Signed in successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginPage.this, "Signed in success", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
                     Log.d(TAG,"signin failed "+ task.getException());

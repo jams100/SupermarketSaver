@@ -29,6 +29,10 @@ import android.widget.RelativeLayout;
 import com.example.testwebscrape.AdapterHelper.RecycleGridAdapter;
 import com.example.testwebscrape.WebScraper.QueryUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +45,6 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
     private int currentViewMode = 1;
     ArrayList<Products> product;
-    TextView emptyState;
 
     ProgressBar progressBar1;
     ImageButton switchLayout;
@@ -56,6 +59,9 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     private FirebaseAnalytics myFirebaseAnalytics;
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private static Bundle mBundleRecyclerViewState;
+    FirebaseAuth myAuth;
+    FirebaseUser fireUser;
+    DatabaseReference databaseReference;
 
     RecyclerView gridRecyclerView;
     private RecycleGridAdapter gridAdapter;
@@ -69,12 +75,14 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         SharedPreferences sharedPreferences = getSharedPreferences("ViewMode", MODE_PRIVATE);
         currentViewMode = sharedPreferences.getInt("currentViewMode", currentViewMode);
 
+        //Firebase database Reference
+        databaseReference= FirebaseDatabase.getInstance().getReference("SavedProducts");
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         //Obtain the FirebaseAnalytics instance.
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setSupportActionBar((Toolbar) findViewById(R.id.product_toolbar));
-
         progressBar1 = findViewById(R.id.progress_circular);
 
         switchLayout = findViewById(R.id.layout_switcher);
@@ -104,6 +112,8 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                 editor.commit();
             }
         });
+        //Initializing Firebase Auth
+        myAuth = FirebaseAuth.getInstance();
 
         //Getting url links for websites
         Bundle bundle = getIntent().getExtras();
@@ -180,13 +190,33 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in the Supermarket Saver App, check it out. \n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
-                Toast.makeText(ProductList.this, "Sharing one sec" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductList.this, "Sharing one sec", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onSaveClick(int position) {
-                product.get(position);
-                Toast.makeText(ProductList.this, "Saved " + position, Toast.LENGTH_SHORT).show();
+            public void onSaveClick(final int position) {
+                Products prod = product.get(position);
+                fireUser = myAuth.getCurrentUser();
+
+                if (fireUser != null) {
+                    if (!prod.isImageChanged()) {
+                        //Used to save a product
+                        String userid = fireUser.getUid();
+                        String id = databaseReference.push().getKey();
+
+                        Products products = new Products(prod.getProductDescription(), prod.getPriceOld(), prod.getImageProduct(),
+                                prod.getUrlLink(), prod.getImageLogo(), prod.getPriceNew());
+
+                        assert id != null;
+                        databaseReference.child(userid).child(id).setValue(products);
+                        Toast.makeText(ProductList.this, "Saved " + position, Toast.LENGTH_SHORT).show();
+                        gridAdapter.changeImage(position);
+                    }
+                } else
+                    {
+                        Toast.makeText(ProductList.this, "Need to Login/Sign up to save products ", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ProductList.this, LoginPage.class));
+                }
             }
         });
     }
@@ -203,14 +233,20 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            //Used to close the activity
-            case R.id.search:
+            //Back button used to close the activity
+            case android.R.id.home:
+                mBundleRecyclerViewState = null;
+                MainActivity.editSearch.setFocusable(true);
                 finish();
                 break;
 
-            //Back button used to close the activity
-            case android.R.id.home:
-                finish();
+            case R.id.saved_items:
+                fireUser = myAuth.getCurrentUser();
+                if (fireUser != null) {
+                    startActivity(new Intent(ProductList.this, SavedProducts.class));
+                } else {
+                    startActivity(new Intent(ProductList.this, LoginPage.class));
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -255,7 +291,6 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     }
 
     private static class ProductAsyncLoader extends AsyncTaskLoader<ArrayList<Products>> {
-
         private ArrayList<Products> produ;
 
         ProductAsyncLoader(@NonNull Context context) {
@@ -284,18 +319,19 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         public ArrayList<Products> loadInBackground() {
             ArrayList<Products> prod = (ArrayList<Products>) QueryUtil.fetchWebsiteData(TescoUrl, SupervaluUrl);
 
+            //If there is no data then do not sort
             if (prod != null) {
 
-                //Used to sorting
+                //Used to sort by price from cheapest to most expensive
                 Collections.sort(prod, new Comparator<Products>() {
-                    @Override
-                    public int compare(Products o1, Products o2) {
-                        String p1 = o1.PriceNew;
-                        String p2 = o2.PriceNew;
+                            @Override
+                            public int compare(Products o1, Products o2) {
+                                String p1 = o1.getPriceNew().trim();
+                                String p2 = o2.getPriceNew().trim();
 
-                        return p1.compareTo(p2);
-                    }
-                });
+                                return p1.compareTo(p2);
+                            }
+                        });
             }
             produ = prod;
             return prod;

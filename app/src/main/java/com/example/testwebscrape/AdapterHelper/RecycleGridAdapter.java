@@ -126,7 +126,6 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
         //holder.OldPrice.setText(currentProduct.getPriceOld());
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
-        //holder.imgLogo.setContentDescription(currentProduct.getImgLogoDescrption());
 
         Picasso.get().load(currentProduct.getImageProduct()).into(holder.img, new Callback() {
             @Override

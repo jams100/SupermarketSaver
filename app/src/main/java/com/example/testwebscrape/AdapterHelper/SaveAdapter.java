@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder>{
+public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder> {
 
     private GridLayoutManager mLayoutManager;
     ArrayList<Products> products;

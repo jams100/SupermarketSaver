@@ -158,7 +158,7 @@ public class LoginPage extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Log.d(TAG,"signin success");
                     firebaseUser= myAuth.getCurrentUser();
-                    Toast.makeText(LoginPage.this, "Signed in success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
                     Log.d(TAG,"signin failed "+ task.getException());

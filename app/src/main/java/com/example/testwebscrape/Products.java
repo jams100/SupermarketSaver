@@ -27,10 +27,10 @@ public class Products {
         this.urlLink = urlLink;
     }
 
-    public Products(String ProductDes, String price, String imageP, String urlLink, String imageLogo) {
-        ProductDescription = ProductDes;
-        PriceOld = price;
-        imageProduct = imageP;
+    public Products(String ProductDes, String PriceNew, String imageP, String urlLink, String imageLogo) {
+        this.ProductDescription = ProductDes;
+        this.PriceNew = PriceNew;
+        this.imageProduct = imageP;
         this.urlLink = urlLink;
         this.imageLogo = imageLogo;
     }

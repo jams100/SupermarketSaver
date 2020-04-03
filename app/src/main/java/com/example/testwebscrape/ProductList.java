@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,8 +32,12 @@ import com.example.testwebscrape.WebScraper.QueryUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,6 +67,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     FirebaseAuth myAuth;
     FirebaseUser fireUser;
     DatabaseReference databaseReference;
+    String TAG=ProductList.class.getSimpleName();
 
     RecyclerView gridRecyclerView;
     private RecycleGridAdapter gridAdapter;
@@ -187,7 +193,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in the Supermarket Saver App, check it out. \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App, check it out. \n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
                 Toast.makeText(ProductList.this, "Sharing one sec", Toast.LENGTH_SHORT).show();
@@ -211,7 +217,29 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                         databaseReference.child(userid).child(id).setValue(products);
                         Toast.makeText(ProductList.this, "Saved " + position, Toast.LENGTH_SHORT).show();
                         gridAdapter.changeImage(position);
-                    }
+
+                }else {
+                    //Method used to delete a saved product by unclicking save button
+                    DatabaseReference ref =FirebaseDatabase.getInstance().getReference("SavedProducts").child(fireUser.getUid());
+                    Query deleteQuery = ref.orderByChild("urlLink").equalTo(prod.getUrlLink());
+
+                    deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot deleteSnapShot : dataSnapshot.getChildren()){
+                                deleteSnapShot.getRef().removeValue();
+                                Toast.makeText(ProductList.this, "Item removed ", Toast.LENGTH_SHORT).show();
+                                gridAdapter.removeImage(position);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "onCancelled", databaseError.toException());
+                        }
+                    });
+                }
                 } else
                     {
                         Toast.makeText(ProductList.this, "Need to Login/Sign up to save products ", Toast.LENGTH_LONG).show();

@@ -130,7 +130,7 @@ public class SavedProducts extends AppCompatActivity {
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item in price Compare App \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App \n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
             }

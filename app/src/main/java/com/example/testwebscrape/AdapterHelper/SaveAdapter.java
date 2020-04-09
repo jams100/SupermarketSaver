@@ -115,6 +115,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
         Products currentProduct=products.get(position);
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
+        //logoutput
 
         Picasso.get().load(currentProduct.getImageProduct()).into(holder.img, new Callback() {
             @Override

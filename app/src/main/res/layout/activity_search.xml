@@ -44,6 +44,7 @@
                         android:singleLine="true"
                         android:paddingRight="85dp"
                         android:hint="@string/search_hint"
+                        android:textColorHint="@color/grey"
                         android:paddingStart="15dp"
                         android:paddingEnd="85dp"
                         android:imeOptions="actionSearch" />
@@ -57,8 +58,8 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:padding="10dp"
-                        android:layout_marginRight="10dp"
+                        android:padding="16dp"
+                        android:layout_marginRight="14dp"
                         android:focusable="true" />
 
                 </RelativeLayout>

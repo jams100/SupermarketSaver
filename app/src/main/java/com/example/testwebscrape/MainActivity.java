@@ -7,6 +7,10 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +43,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem logOut;
     TextView navUsername;
 
+    ImageView btnlogo;
+    Button getLocation;
+    TextView searchProducts, welcomemsg;
+    Animation frombottom, slowerfrombottom, fromtop;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Animation for Loading Location Button
+        getLocation = (Button) findViewById(R.id.locator_button);
+        slowerfrombottom = AnimationUtils.loadAnimation(this, R.anim.slowerfrombottom);
+        getLocation.setAnimation(slowerfrombottom);
+
+        //Animation for Loading Search TextBox
+        searchProducts = (TextView) findViewById(R.id.product_name);
+        frombottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
+        searchProducts.setAnimation(frombottom);
+
+        //Animation for Loading Welcome Message
+        welcomemsg = (TextView) findViewById(R.id.welcome);
+        fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
+        welcomemsg.setAnimation(fromtop);
+
+        //Animation for Loading Supermarket Saver logo
+        btnlogo = (ImageView) findViewById(R.id.logo_image);
+        fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
+        btnlogo.setAnimation(fromtop);
 
         // Obtain the Firebase Analytics instance.
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

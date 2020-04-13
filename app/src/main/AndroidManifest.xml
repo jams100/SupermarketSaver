@@ -16,7 +16,6 @@
         <activity android:name=".SavedProducts"></activity>
         <activity android:name=".SignUp" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".CompareProducts" />
         <activity android:name=".webView" />
         <activity android:name=".ProductList" />
         <activity android:name=".Search" />

@@ -1,5 +1,4 @@
 package com.example.testwebscrape;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -40,13 +39,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-
 public class GoogleMapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener
-
 {
 
     private GoogleMap mMap;
@@ -137,7 +134,7 @@ public class GoogleMapsActivity extends FragmentActivity implements
         googleURL.append("&radius=" + proximityRadius);
         googleURL.append("&type=" + supermarkets);
         googleURL.append("&sensor=true");
-        googleURL.append("&key=" + "AIzaSyBVBtSJFXBHMS2z28ACG9MDi03wyXKZlvY");
+        googleURL.append("&key=" + "AIzaSyB3a_qxl0dLBcpN_ueRPKY5WQHG3kP5qmA");
 
         Log.d("GoogleMapsActivity", "url = " + googleURL.toString());
 

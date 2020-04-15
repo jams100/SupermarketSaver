@@ -35,4 +35,7 @@
     <string name="menu_vegan">Vegan</string>
     <string name="menu_special_offers">Special Offers</string>
 
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_google_maps">Map</string>
+
 </resources>

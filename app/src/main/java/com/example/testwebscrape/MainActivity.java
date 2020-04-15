@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+//import com.example.testwebscrape.Location.MapsActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView navUsername;
 
     ImageView btnlogo;
-    Button getLocation;
+    Button getLocation, getSupermarketLocation;
     TextView searchProducts, welcomemsg;
     Animation frombottom, slowerfrombottom, fromtop;
 
@@ -87,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Search.class));
+            }
+        });
+
+        getSupermarketLocation = findViewById(R.id.locator_button);
+        getSupermarketLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
 

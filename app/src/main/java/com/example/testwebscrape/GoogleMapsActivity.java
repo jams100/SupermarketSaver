@@ -1,6 +1,8 @@
 package com.example.testwebscrape;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -16,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,7 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class GoogleMapsActivity extends FragmentActivity implements
+public class GoogleMapsActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -59,6 +62,11 @@ public class GoogleMapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
+
+        Toolbar toolbar = findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
+        //Used to display the back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -125,6 +133,18 @@ public class GoogleMapsActivity extends FragmentActivity implements
                 Toast.makeText(this, "Showing Nearby Supermarkets...", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    //listener when an item is selected
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        switch (item.getItemId()) {
+            //Back button
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private String getUrl(double latitude, double longitude, String supermarkets)

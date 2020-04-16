@@ -69,9 +69,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recent"
-        android:paddingTop="12dp"
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:paddingTop="12dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.testwebscrape.Location;
 
 import java.io.BufferedReader;
 import java.io.IOException;

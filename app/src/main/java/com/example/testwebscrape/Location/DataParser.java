@@ -1,4 +1,4 @@
-package com.example.testwebscrape;
+package com.example.testwebscrape.Location;
 
 import org.json.JSONArray;
 import org.json.JSONException;

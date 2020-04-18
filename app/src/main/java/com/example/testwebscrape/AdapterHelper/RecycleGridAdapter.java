@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testwebscrape.Products;
+import com.example.testwebscrape.DataModel.Products;
 import com.example.testwebscrape.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;

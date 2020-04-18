@@ -1,5 +1,6 @@
 package com.example.testwebscrape.AdapterHelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testwebscrape.Products;
+import com.example.testwebscrape.DataModel.Products;
 import com.example.testwebscrape.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -22,6 +23,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
 
     private GridLayoutManager mLayoutManager;
     ArrayList<Products> products;
+    private static final String TAG = "MyActivity";
 
     private SaveAdapter.OnItemClickListener mListener;
 
@@ -116,6 +118,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
         //logoutput
+        Log.i(TAG, "SaveAdapter.getView() — get item number " + position + currentProduct.getProductDescription());
 
         Picasso.get().load(currentProduct.getImageProduct()).into(holder.img, new Callback() {
             @Override

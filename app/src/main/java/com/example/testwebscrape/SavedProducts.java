@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.annotation.NonNull;
 
 import com.example.testwebscrape.AdapterHelper.SaveAdapter;
+import com.example.testwebscrape.DataModel.Products;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

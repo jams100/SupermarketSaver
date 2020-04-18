@@ -22,6 +22,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 //import com.example.testwebscrape.Location.MapsActivity;
+import com.example.testwebscrape.Location.GoogleMapsActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;

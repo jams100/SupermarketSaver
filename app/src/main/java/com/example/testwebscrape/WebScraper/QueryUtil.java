@@ -2,7 +2,7 @@ package com.example.testwebscrape.WebScraper;
 
 import android.util.Log;
 
-import com.example.testwebscrape.Products;
+import com.example.testwebscrape.DataModel.Products;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -23,11 +23,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.example.testwebscrape.AdapterHelper.RecycleGridAdapter;
+import com.example.testwebscrape.DataModel.Products;
 import com.example.testwebscrape.WebScraper.QueryUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;

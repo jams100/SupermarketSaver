@@ -1,12 +1,12 @@
-package com.example.testwebscrape;
+package com.example.testwebscrape.DataModel;
 
 public class Products {
 
     private String imageLogo;
     private String imageProduct;
-    private String ProductDescription;
+    private String productDescription;
     private String PriceOld;
-    private String PriceNew;
+    private String priceNew;
     private String urlLink;
     public boolean isImageChanged;
 
@@ -22,23 +22,23 @@ public class Products {
     }
 
     public Products(String ProductDes, String imageP, String urlLink) {
-        ProductDescription = ProductDes;
+        productDescription = ProductDes;
         imageProduct = imageP;
         this.urlLink = urlLink;
     }
 
     public Products(String ProductDes, String PriceNew, String imageP, String urlLink, String imageLogo) {
-        this.ProductDescription = ProductDes;
-        this.PriceNew = PriceNew;
+        this.productDescription = ProductDes;
+        this.priceNew = PriceNew;
         this.imageProduct = imageP;
         this.urlLink = urlLink;
         this.imageLogo = imageLogo;
     }
 
     public Products(String ProductDes, String priceOld, String imageP, String urlLink, String imageLogo, String PriceNew) {
-        this.ProductDescription = ProductDes;
+        this.productDescription = ProductDes;
         this.PriceOld = priceOld;
-        this.PriceNew = PriceNew;
+        this.priceNew = PriceNew;
         this.urlLink = urlLink;
         this.imageProduct = imageP;
         this.imageLogo = imageLogo;
@@ -53,7 +53,7 @@ public class Products {
     }
 
     public String getProductDescription() {
-        return ProductDescription;
+        return productDescription;
     }
 
     public String getUrlLink() {
@@ -65,7 +65,7 @@ public class Products {
     }
 
     public String getPriceNew() {
-        return PriceNew;
+        return priceNew;
     }
 
     public void setNewImage(String image) {
@@ -73,7 +73,7 @@ public class Products {
     }
 
     public void setNewPrice(String price) {
-        this.PriceNew = price;
+        this.priceNew = price;
     }
 
     public void setpriceOld(String price) {

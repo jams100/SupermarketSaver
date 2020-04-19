@@ -112,13 +112,13 @@ public class GoogleMapsActivity extends AppCompatActivity implements
                                 mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
                             }
                         } else {
-                            Toast.makeText(this, "Location not found...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.location_not_found), Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(this, "Search bar cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -130,7 +130,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements
 
                 getNearbyPlaces.execute(transferData);
                 Toast.makeText(this, "Searching for Nearby Supermarkets...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.searching_nearby_supermarkets), Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Showing Nearby Supermarkets...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.showing_nearby_supermarkets), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

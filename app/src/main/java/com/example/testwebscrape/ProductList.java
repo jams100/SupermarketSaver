@@ -193,10 +193,12 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App, check it out. \n" + url);
+                //shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App, check it out. \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, ProductList.this.getString(R.string.item_found) + "\n" + url);
+
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
-                Toast.makeText(ProductList.this, "Sharing one sec", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductList.this, ProductList.this.getString(R.string.searching_product), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -215,7 +217,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                         assert id != null;
                         databaseReference.child(userid).child(id).setValue(products);
-                        Toast.makeText(ProductList.this, "Saved " + position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductList.this, ProductList.this.getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
                         gridAdapter.changeImage(position);
 
                 }else {
@@ -228,7 +230,8 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot deleteSnapShot : dataSnapshot.getChildren()){
                                 deleteSnapShot.getRef().removeValue();
-                                Toast.makeText(ProductList.this, "Item removed ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProductList.this, ProductList.this.getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
+
                                 gridAdapter.removeImage(position);
                             }
 
@@ -242,7 +245,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                 }
                 } else
                     {
-                        Toast.makeText(ProductList.this, "Need to Login/Sign up to save products ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProductList.this, ProductList.this.getString(R.string.loginOrSignup_toSave), Toast.LENGTH_LONG).show();
                         startActivity(new Intent(ProductList.this, LoginPage.class));
                 }
             }

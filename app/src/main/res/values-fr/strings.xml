@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Supermarché Épargnant</string>
+    <string name="no_network">Pas de connexion réseau</string>
+    <string name="no_data">Aucune donnée disponible</string>
+    <string name="try_again">Réessayer</string>
+    <string name="load_error">Erreur lors du chargement des données</string>
+    <string name="search_hint">Chercher...</string>
+    <string name="nav_header_desc">En-tête de navigation</string>
+    <string name="nav_header_title">Supermarché Épargnant</string>
+    <string name="nav_header_subtitle">SupermarchéÉpargnant@gmail.com</string>
+    <string name="action_settings">Réglages</string>
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+
+    <!-- Allows user to log out of their account -->
+    <string name="logOut">Se déconnecter</string>
+    <string name="welcome_message">Bienvenue à Supermarché Épargnant</string>
+
+    <!-- Sign in & sign up buttons, EditTexts etc -->
+    <string name="hint_email">Entrer votre Email</string>
+    <string name="hint_password">Tapez votre mot de passe</string>
+    <string name="login_error_message">E-mail ou mot de passe incorrect, réessayez</string>
+    <string name="hint_confirm_password">Confirmer votre mot de passe</string>
+    <string name="password_dont_match">Les mots de passe ne correspondent pas</string>
+    <string name="or">OU</string>
+    <string name="google_sign_in">Connexion à Google</string>
+    <string name="signup">S\'inscrire</string>
+    <string name="login_button">S\'identifier</string>
+
+    <!-- Button that enables users to search for supermarkets near them -->
+    <string name="supermarkets_near_me">Supermarchés à proximité</string>
+    <!-- Displayed in saved products class if user hasn't saved any items -->
+    <string name="no_items_saved">Aucun élément enregistré</string>
+
+    <!-- Drawer Layout Menu options -->
+    <string name="menu_login">S\'identifier</string>
+    <string name="menu_saved">Enregistré</string>
+    <string name="menu_about">À propos</string>
+    <string name="menu_share">Partager l\'application</string>
+    <string name="menu_fruit">Fruit</string>
+    <string name="menu_alcohol">De l\'alcool</string>
+    <string name="menu_baby">Bébé</string>
+    <string name="menu_gluten_free">Sans Gluten</string>
+    <string name="menu_vegan">Végétalien</string>
+    <string name="menu_special_offers">Offres Spéciales</string>
+
+    <!-- Maps to show nearest supermarkets -->
+    <string name="title_activity_maps">Carte</string>
+    <string name="title_activity_google_maps">Carte</string>
+    <string name="supermarkets_near_me_btn">Supermarchés</string>
+    <string name="search_for_a_location">Rechercher un lieu</string>
+    <string name="location_not_found">Emplacement introuvable ...</string>
+    <string name="searching_nearby_supermarkets">Recherche de supermarchés à proximité...</string>
+    <string name="showing_nearby_supermarkets">Affichage des supermarchés à proximité</string>
+
+    <!-- Toast messages for login page-->
+    <string name="must_enter_email_password">Veuillez remplir les champs e-mail et mot de passe</string>
+    <string name="authentication_failed">Authentification échouée</string>
+    <string name="login_successful">Connexion réussie</string>
+    <string name="login_fail">La connexion a échoué</string>
+    <!-- Toast messages for MainActivity.java-->
+    <string name="log_out">Déconnecté</string>
+    <string name="click_to_login">Cliquez en haut à gauche pour vous connecter</string>
+    <string name="about_app">À propos de l\'application</string>
+    <string name="searching_special_offers">Offres Spéciales</string>
+    <string name="searching_alcohol">Recherche d\'alcool...</string>
+    <string name="searching_fruit">À la recherche de fruits ...</string>
+    <string name="searching_baby">Recherche de produits pour bébé...</string>
+    <string name="searching_gluten">Recherche de produits sans gluten...</string>
+    <string name="searching_vegan">Recherche de produits végétaliens </string>
+    <string name="sharing_app_message">J\'ai trouvé cette application de comparaison de prix de supermarché sur le Play Store, vérifiez-la!</string>
+    <!-- Toast messages for main ProductList.java-->
+    <string name="searching_product">Partager une seconde</string>
+    <string name="item_found">J\'ai trouvé cet article sur l\'application SupermarketSaver, vérifiez-le.</string>
+    <string name="product_saved">Enregistré</string>
+    <string name="item_removed">Élément supprimé</string>
+    <string name="loginOrSignup_toSave">Besoin de se connecter / S\'inscrire pour enregistrer les produits </string>
+    <!-- Toast messages for main SavedProducts.java-->
+    <string name="login_for_saved_items">Connectez-vous pour voir les produits enregistrés</string>
+    <string name="item_deleted">Élément supprimé</string>
+    <string name="saved_products_title">Produits Enregistrés</string>
+    <!-- Toast messages for main Search.java-->
+    <string name="search_not_empty">La recherche ne peut pas être vide</string>
+    <string name="voice_search_error">Une erreur s\'est produite lors du redémarrage de la recherche vocale, essayez à nouveau</string>
+    <!-- Toast messages for main SignUp.java-->
+    <string name="account_created">Compte créé avec succès</string>
+</resources>

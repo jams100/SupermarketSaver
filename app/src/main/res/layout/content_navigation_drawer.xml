@@ -22,7 +22,7 @@
         android:id="@+id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome To Supermarket Saver"
+        android:text="@string/welcome_message"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:maxLines="2"

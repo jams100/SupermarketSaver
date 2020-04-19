@@ -43,7 +43,7 @@
             android:paddingRight="85dp"
             android:paddingStart="15dp"
             android:paddingEnd="85dp"
-            android:hint="Search a location"
+            android:hint="@string/search_for_a_location"
             android:textColorHint="@color/grey"
             android:imeOptions="actionSearch"/>
 
@@ -97,7 +97,7 @@
             android:onClick="onClick"
             android:padding="5dp"
             android:textAllCaps="false"
-            android:text="Supermarkets" />
+            android:text="@string/supermarkets_near_me_btn" />
 
     </RelativeLayout>
 

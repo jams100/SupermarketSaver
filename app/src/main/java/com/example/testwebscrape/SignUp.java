@@ -73,18 +73,16 @@ public class SignUp extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         progressBar.setVisibility(View.GONE);
                                         if (task.isSuccessful()) {
-                                            //If the sign in is successful, update UI with the signed-in user's information
+                                            //If the sign up is successful, update UI with the signed-in user's information
                                             Log.d(TAG, "createUserWithEmail:success");
                                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                                            Toast.makeText(SignUp.this, "Account created successfully",
-                                                    Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SignUp.this, SignUp.this.getString(R.string.account_created), Toast.LENGTH_LONG).show();
                                             finish();
 
                                         } else {
-                                            //If the sign in fails, display a message to the user.
+                                            //If the sign up fails, display a message to the user.
                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                            Toast.makeText(SignUp.this, "Authentication failed.",
-                                                    Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SignUp.this, SignUp.this.getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -92,8 +90,7 @@ public class SignUp extends AppCompatActivity {
                         errorMessage.setText(getString(R.string.password_dont_match));
                     }
                 }else{
-                    Toast.makeText(SignUp.this, "Fill both Email and Passwords Fields",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, SignUp.this.getString(R.string.must_enter_email_password), Toast.LENGTH_LONG).show();
                 }
             }
         });

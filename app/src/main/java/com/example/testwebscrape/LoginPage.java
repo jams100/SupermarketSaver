@@ -92,14 +92,12 @@ public class LoginPage extends AppCompatActivity {
                                         errorMessage.setText(getString(R.string.login_error_message));
                                         //If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginPage.this, "Authentication failed",
-                                                Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                 } else {
-                    Toast.makeText(LoginPage.this, "Please Fill both Email and Password Fields",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.must_enter_email_password), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -140,7 +138,6 @@ public class LoginPage extends AppCompatActivity {
                 GoogleSignInAccount account=task.getResult(ApiException.class);
                 if (account!=null){
                     firebaseAuthWithGoogle(account);
-                    //Toast.makeText(LoginPage.this, "Issue here", Toast.LENGTH_LONG).show();
                 }
             } catch (ApiException e) {
                 e.printStackTrace();
@@ -158,11 +155,11 @@ public class LoginPage extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Log.d(TAG,"signin success");
                     firebaseUser= myAuth.getCurrentUser();
-                    Toast.makeText(LoginPage.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
                     Log.d(TAG,"signin failed "+ task.getException());
-                    Toast.makeText(LoginPage.this, "Sign in failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
                 }
             }
         });

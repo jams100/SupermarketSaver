@@ -21,7 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-//import com.example.testwebscrape.Location.MapsActivity;
 import com.example.testwebscrape.Location.GoogleMapsActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.android.material.navigation.NavigationView;
@@ -138,9 +137,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     navUsername.setText(user_email);
                     LogOutGoogleSignIn();
 
-                    Toast.makeText(this, "Logged Out", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.log_out), Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(this, "Click top left to login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.click_to_login), Toast.LENGTH_LONG).show();
                 }
                 break;
         }
@@ -171,15 +170,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
                 break;
             case R.id.nav_info:
-                Toast.makeText(MainActivity.this, "About App", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.about_app), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:
                 String url = "App link here";
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
-                        " check it out! \n" + url);
+               // shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
+               //         " check it out! \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.this.getString(R.string.sharing_app_message) + "\n" + url);
+
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
                 break;
@@ -187,42 +188,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, SavedProducts.class));
                 break;
             case R.id.nav_special_offers:
-                Toast.makeText(MainActivity.this, "Special Offers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_special_offers), Toast.LENGTH_SHORT).show();
                 Intent inte = new Intent(MainActivity.this, ProductList.class);
                 inte.putExtra("TescoUrl", "https://www.tesco.ie/groceries/ProductBuylist/default.aspx?id=L00005147&icid=Top_Offers_top");
                 inte.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/specialoffers");
                 startActivity(inte);
                 break;
             case R.id.nav_alcohol:
-                Toast.makeText(MainActivity.this, "Searching for Alcohol...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_alcohol), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ProductList.class);
                 intent.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=alcohol");
                 intent.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=alcohol&departmentId=150100075");
                 startActivity(intent);
                 break;
             case R.id.nav_fruit:
-                Toast.makeText(MainActivity.this, "Searching for Fruit...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_fruit), Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(MainActivity.this, ProductList.class);
                 intent2.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/browse/default.aspx?N=4294954026&Ne=4294954028");
                 intent2.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=fruit&departmentId=150100001");
                 startActivity(intent2);
                 break;
             case R.id.nav_baby:
-                Toast.makeText(MainActivity.this, "Searching for Baby products...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_baby), Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(MainActivity.this, ProductList.class);
                 intent3.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=baby");
                 intent3.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=baby%20items&departmentId=150100060");
                 startActivity(intent3);
                 break;
             case R.id.nav_gluten_free:
-                Toast.makeText(MainActivity.this, "Searching for Gluten free products...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_gluten), Toast.LENGTH_SHORT).show();
                 Intent intent4 = new Intent(MainActivity.this, ProductList.class);
                 intent4.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=gluten%20free");
                 intent4.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=gluten%20free");
                 startActivity(intent4);
                 break;
             case R.id.nav_vegan:
-                Toast.makeText(MainActivity.this, "Searching for Vegan products...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.searching_vegan), Toast.LENGTH_SHORT).show();
                 Intent intent5 = new Intent(MainActivity.this, ProductList.class);
                 intent5.putExtra("TescoUrl", "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=vegan");
                 intent5.putExtra("SupervaluUrl", "https://shop.supervalu.ie/shopping/search/allaisles?q=vegan");

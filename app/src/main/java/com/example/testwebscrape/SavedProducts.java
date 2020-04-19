@@ -52,7 +52,7 @@ public class SavedProducts extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance().getReference("SavedProducts").child(fireUser.getUid());
         } else {
             finish();
-            Toast.makeText(this, "Login to view Saved Products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SavedProducts.this, SavedProducts.this.getString(R.string.login_for_saved_items), Toast.LENGTH_SHORT).show();
         }
 
         toolbar = findViewById(R.id.saved_toolbar);
@@ -131,7 +131,7 @@ public class SavedProducts extends AppCompatActivity {
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, SavedProducts.this.getString(R.string.item_found) + "\n" + url);
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
             }
@@ -147,7 +147,7 @@ public class SavedProducts extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot deleteSnapShot : dataSnapshot.getChildren()) {
                             deleteSnapShot.getRef().removeValue();
-                            Toast.makeText(SavedProducts.this, "Item Deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SavedProducts.this, SavedProducts.this.getString(R.string.item_deleted), Toast.LENGTH_SHORT).show();
                         }
                         gridAdapter.notifyDataSetChanged();
                     }

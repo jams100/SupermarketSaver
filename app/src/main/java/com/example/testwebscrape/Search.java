@@ -78,7 +78,7 @@ public class Search extends AppCompatActivity {
                     i.putExtra("ProductName",editSearch.getText().toString());
                     startActivity(i);
                 }else {
-                    Toast.makeText(Search.this,"Search cannot be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -137,7 +137,7 @@ public class Search extends AppCompatActivity {
                 try {
                     startActivityForResult(speechIntent, RECOGNIZER_RESULT);
                 } catch (Exception e) {
-                    Toast.makeText(Search.this, "Something went wrong with starting the voice search try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Search.this, Search.this.getString(R.string.voice_search_error), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -161,7 +161,7 @@ public class Search extends AppCompatActivity {
                     in.putExtra("ProductName", editSearch.getText().toString());
                     startActivity(in);
                 } else {
-                    Toast.makeText(Search.this, "Search cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
                 }
             }
             super.onActivityResult(requestCode, resultCode, data);
@@ -197,7 +197,7 @@ public class Search extends AppCompatActivity {
                             in.putExtra("ProductName", editSearch.getText().toString());
                             startActivity(in);
                         } else {
-                            Toast.makeText(Search.this, "Search cannot be empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }

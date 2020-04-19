@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/saved_toolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Saved Products"
+        app:title="@string/saved_products_title"
         app:titleTextColor="@color/white"
         android:background="@color/colorPrimary">
 

@@ -61,10 +61,10 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="420dp"
         android:layout_marginRight="50dp"
-        android:background="@color/white"
         android:drawableStart="@drawable/ic_location"
         android:paddingStart="35dp"
         android:paddingLeft="35dp"
         android:textAllCaps="false"
-        android:text="@string/supermarkets_near_me" />
+        android:text="@string/supermarkets_near_me"
+        android:background="@drawable/btn_layout"/>
 </RelativeLayout>

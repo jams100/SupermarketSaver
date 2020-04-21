@@ -21,7 +21,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -64,10 +67,11 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     private FirebaseAnalytics myFirebaseAnalytics;
     private final String KEY_RECYCLER_STATE = "recycler_state";
     private static Bundle mBundleRecyclerViewState;
+    private static final String TAG = "MyActivity";
     FirebaseAuth myAuth;
     FirebaseUser fireUser;
     DatabaseReference databaseReference;
-    String TAG=ProductList.class.getSimpleName();
+    //String TAG=ProductList.class.getSimpleName();
 
     RecyclerView gridRecyclerView;
     private RecycleGridAdapter gridAdapter;
@@ -95,7 +99,56 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         relLayout = findViewById(R.id.container_switcher);
         relLayout.setVisibility(View.GONE);
 
-        //used to switch the layout
+        Spinner mySpinner=findViewById(R.id.sort_product);
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            String selectedText = null;
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedText = parentView.getItemAtPosition(position).toString();
+                switch (selectedText)
+                {
+                    case "Price (Low to High)":
+                        sortPriceOrder(0);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                    case "Price (High to Low)":
+                        sortPriceOrder(1);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                    case "Precio (Bajo a Alto)":
+                        sortPriceOrder(0);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                    case "Precio (Alto a Bajo)":
+                        sortPriceOrder(1);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                    case "Prix (Bas en Haut)":
+                        sortPriceOrder(0);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                    case "Prix (Haut en Bas)":
+                        sortPriceOrder(1);
+                        gridAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
+
+        //Setting spinner input
+        ArrayAdapter<String> sortAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.sort));
+        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mySpinner.setAdapter(sortAdapter);
+
+        //Used to switch the layout
         switchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -360,7 +413,16 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                                 String p1 = o1.getPriceNew().trim();
                                 String p2 = o2.getPriceNew().trim();
 
-                                return p1.compareTo(p2);
+                                p1 = p1.replace("€", "");
+                                p1 = p1.replace(".", "");
+                                p1 = p1.trim();
+                                Log.i(TAG, "SaveAdapter.getView() — get item number " + p1 + p2);
+
+                                p2 = p2.replace("€", "");
+                                p2 = p2.replace(".", "");
+                                p2 = p2.trim();
+
+                                return Integer.valueOf(p1) - (Integer.valueOf(p2));
                             }
                         });
             }
@@ -373,5 +435,38 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     private void UpdateUi(ArrayList<Products> data) {
         product = data;
         setAdapter();
+    }
+
+    public void sortPriceOrder(final int order) {
+        progressBar1.setVisibility(View.VISIBLE);
+        if (product != null)
+        {
+            //Used for sorting
+            Collections.sort(product, new Comparator<Products>() {
+                @Override
+                public int compare(Products o1, Products o2) {
+                    String p1 = o1.getPriceNew().trim();
+                    String p2 = o2.getPriceNew().trim();
+
+                    p1 = p1.replace("€", "");
+                    p1 = p1.replace(".", "");
+                    p1 = p1.trim();
+
+                    p2 = p2.replace("€", "");
+                    p2 = p2.replace(".", "");
+                    p2 = p2.trim();
+
+                    switch (order) {
+                        case 0:
+                            return Integer.valueOf(p1) - (Integer.valueOf(p2));
+                        case 1:
+                            return Integer.valueOf(p2) - (Integer.valueOf(p1));
+                        default:
+                            return Integer.valueOf(p1) - (Integer.valueOf(p2));
+                    }
+                }
+            });
+        }
+        progressBar1.setVisibility(View.GONE);//Remove circular progress when finished
     }
 }

@@ -76,6 +76,12 @@
     <string name="product_saved">Salvado</string>
     <string name="item_removed">Artículo eliminado</string>
     <string name="loginOrSignup_toSave">Necesita iniciar sesión / Registrarse para guardar productos </string>
+
+    <string-array name="sort">
+        <item>Precio (Bajo a Alto)</item>
+        <item>Precio (Alto a Bajo)</item>
+    </string-array>
+
     <!-- Toast messages for main SavedProducts.java-->
     <string name="login_for_saved_items">Inicie sesión para ver los productos guardados</string>
     <string name="item_deleted">Artículo eliminado</string>

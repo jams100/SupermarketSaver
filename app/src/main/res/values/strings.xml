@@ -75,6 +75,12 @@
     <string name="product_saved">Saved</string>
     <string name="item_removed">Item removed</string>
     <string name="loginOrSignup_toSave">Need to Login/Sign up to save products </string>
+
+    <string-array name="sort">
+        <item>Price (Low to High)</item>
+        <item>Price (High to Low)</item>
+    </string-array>
+
     <!-- Toast messages for main SavedProducts.java-->
     <string name="login_for_saved_items">Login to view Saved Products</string>
     <string name="item_deleted">Item Deleted</string>

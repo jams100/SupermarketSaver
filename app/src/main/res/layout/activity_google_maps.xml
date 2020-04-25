@@ -89,15 +89,16 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="590dp"
+            android:layout_marginTop="550dp"
             android:layout_marginRight="50dp"
-            android:background="@color/white"
+            android:layout_marginBottom="52dp"
+            android:background="@drawable/btn_layout"
             android:clickable="true"
             android:drawableStart="@drawable/ic_location"
             android:onClick="onClick"
             android:padding="5dp"
-            android:textAllCaps="false"
-            android:text="@string/supermarkets_near_me_btn" />
+            android:text="@string/supermarkets_near_me_btn"
+            android:textAllCaps="false" />
 
     </RelativeLayout>
 

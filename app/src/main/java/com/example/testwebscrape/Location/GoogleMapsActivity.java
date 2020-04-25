@@ -19,6 +19,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -60,6 +62,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
 
@@ -129,9 +133,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements
                 transferData[1] = url;
 
                 getNearbyPlaces.execute(transferData);
-                Toast.makeText(this, "Searching for Nearby Supermarkets...", Toast.LENGTH_SHORT).show();
                 Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.searching_nearby_supermarkets), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Showing Nearby Supermarkets...", Toast.LENGTH_SHORT).show();
                 Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.showing_nearby_supermarkets), Toast.LENGTH_SHORT).show();
                 break;
         }

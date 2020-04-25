@@ -36,6 +36,7 @@ public class QueryUtil {
 
         //Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<Products> products = new ArrayList<>();
+        ArrayList<Products> products1 = new ArrayList<>();
 
         //Build up a list of Product objects with the corresponding data.
         Document doc = null;
@@ -57,7 +58,7 @@ public class QueryUtil {
                     s = s.replace(" ", "+");
                     productLink += s;
                     String productdescription = row.select("h3.inBasketInfoContainer").text();
-                    String NewPrice = "";   //row.select("span.linePrice").text();
+                    String NewPrice = "";//Price is in a different element so got outside for loop
                     String oldPrice = "";
                     String imglogo = "https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
@@ -77,7 +78,6 @@ public class QueryUtil {
                     //String priceOld=row.select("em").text();
                     products.get(count).setNewPrice(NewPrice);
                     //products.get(count).setpriceOld(priceOld);
-
                     count++;
                 }
             }
@@ -89,45 +89,44 @@ public class QueryUtil {
                 if (row.select("h4.product-list-item-details-title").text().equals("")) {
                     continue;
                 } else {
-                    //String Imageurl = "https://d2wwnnx8tks4e8.cloudfront.net/images/app/medium/5011001295277_2.JPG";
                     String productLink = row.select("a[href]").attr("href");
                     String productdescription = row.select("h4.product-list-item-details-title").text();
                     String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price"); //row.select("span.linePrice").text();
                     String oldPrice = "";
                     String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
-                    String Imageurl = null;
+                    String Imageurll = null;
 
                     for (Element row1 : superVdoc.select("div.product-list-item-display"))
                     {
                         if (!row.select("img.src").text().equals("")) {
                             continue;
                         } else {
-                            Imageurl = row1.select("img[data-src]").attr("data-src");
+                            Imageurll = row1.select("img[data-src]").attr("data-src");
                         }
                     }
 
-                    pro1 = new Products(productdescription, oldPrice, Imageurl, productLink, imglogo, NewPrice);
+                    pro1 = new Products(productdescription, oldPrice, Imageurll, productLink, imglogo, NewPrice);
                 }
-                products.add(pro1);
+                products1.add(pro1);
             }
 
             //To Get Image For Supervalu
-//            int county = 0;
-//            for (Element row : superVdoc.select("div.product-list-item-display"))
-//            {
-//                Products pro1 = null;
-//                if (!row.select("img.src").text().equals(""))
-//                {
-//                    continue;
-//                } else if (products.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG"))
-//                {
-//                    String Imageurl = row.select("img[data-src]").attr("data-src");
-//                    products.get(county).setNewImage(Imageurl);
-//                    county++;
-//                } else {
-//                    county++;
-//                }
-//            }
+            int county = 0;
+            for (Element row : superVdoc.select("div.product-list-item-display"))
+            {
+                Products pro1 = null;
+                if (!row.select("img.src").text().equals(""))
+                {
+                    continue;
+                } else if (products1.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG"))
+                {
+                    String Imageurll = row.select("img[data-src]").attr("data-src");
+                    products1.get(county).setNewImage(Imageurll);
+                    county++;
+                } else {
+                    county++;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,6 +136,7 @@ public class QueryUtil {
         }
 
         // Return the list of products
+        products.addAll(products1);//Merge both lists
         return products;
     }
 }

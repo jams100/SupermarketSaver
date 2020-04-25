@@ -21,6 +21,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -79,6 +81,8 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
@@ -402,7 +406,6 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         @Override
         public ArrayList<Products> loadInBackground() {
             ArrayList<Products> prod = (ArrayList<Products>) QueryUtil.fetchWebsiteData(TescoUrl, SupervaluUrl);
-
             //If there is no data then do not sort
             if (prod != null) {
 

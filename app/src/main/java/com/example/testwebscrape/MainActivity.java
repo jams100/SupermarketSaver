@@ -7,6 +7,8 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,6 +34,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import static android.view.View.GONE;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static TextView editSearch;
@@ -51,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -136,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     user_email="User email ";
                     navUsername.setText(user_email);
                     LogOutGoogleSignIn();
+                    //logOut.setVisibility(true);
 
                     Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.log_out), Toast.LENGTH_LONG).show();
                 }else{

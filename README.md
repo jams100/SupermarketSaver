@@ -16,16 +16,17 @@
 # Project Details<a name = "details"></a>
 | Project Details   |     |
 | --- | --- |
-| **Course** | BSc (Hons) in Business Information Systems |
+| **Course** | BSc (Hons) in Business Computing |
 | **Module** |  Final Year Project - FPRJ4000 |
 | **College** | [Technological University Dublin](https://www.tudublin.ie/) |
 | **Student** | [James Redmond]()&nbsp; - C15339336<br/>
-| **Project Supervisor** | Neil O'Connor |
+| **Project Supervisor** | Dr. Neil O'Connor |
 | **Second Reader** | Thoa Pham |
 | **Project Title** | Supermarket Saver |
 
 # Introduction<a name = "intro"></a>
-For my final year project I decided to create a Supermarket Price Comparisson app called Supermarket Saver for savy shoppers. 
+This aim of this project was to create a mobile application that can compare the prices of products in Supermarkets to find the best prices. I was inspired to develop this project after working in Tesco for over two years and noticing the significant difference in prices of certain items between two shops that are just meters apart.
+For this project I used data from Tesco and Supervalu and designed the app with a strong focus on user experience. This application is targeted towards savvy shoppers but can easily be adapted by anyone.
 
 # Features <a name = "features"></a>
 The following are the main features of my project:
@@ -34,15 +35,83 @@ The following are the main features of my project:
 * Users can Create their own Acccount
 * Users can Log into their Account
 * Users can view products by category
-* Users can add products to favorites 
+* Users can add products to favorites
 * Users can see their recent search history
+* Users can see their nearest supermarkets
+* Users can use this application in multiple languages
+* Users can share products
+* Users can sort products by price, both Low to High & High to Low
+* Users can be receive notifications about products
 
-[Top](#contents) 
+[Top](#contents)
 
 # App Preview <a name = "preview"></a>
+The following images are previews of various pages in our application.
+
+* Homepage
+
+| Homepage  | DrawerLayout |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/CLrYFLCM/Homepage.png" width="300" height="450"/>  | <img src="https://i.postimg.cc/Bb40YjTs/Drawer-Layout.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Login/Signup
+
+| Login  | Signup |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/ZRKztC7L/Login.png" width="300" height="450" />  | <img src="https://i.postimg.cc/0y24yLd8/SignUp.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Search for products
+
+| Search Products  | Search By Voice |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/Bvvm92jJ/Search.png" width="300" height="450" />  | <img src="https://i.postimg.cc/VktY9bfL/Search-By-Voice.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Displaying Products
+
+| Products (List Layout)  | Products (Grid Layout) |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/jqQKjr8C/View-Products-List.png" width="300" height="450" />  | <img src="https://i.postimg.cc/Hx9KTTpg/View-Products-Grid.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Saving Product to Shopping List
+
+| My Shopping List (Saving A Product)  | Viewing My Shopping List |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/02v8PNPz/My-Shopping-List.png" width="300" height="450" />  | <img src="https://i.postimg.cc/kgp36M3F/My-Shopping-List-List.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Sharing a product
+
+| Sharing a product  | View Of Shared Product on Messenger |
+| :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/Gt7RTH2r/Sharing-a-product.jpg" width="300" height="450" />  | <img src="https://i.postimg.cc/wvrFtzpZ/Viewing-Share-AProduct.png" width="300" height="450"/>  |
+
+[Top](#contents)
+
+* Viewing Supermarkets Nearby
+
+| Allowing permission  | Current Location | Displaying Supermarkets |
+| :-------------: | :-------------: | :-------------: |
+| <img src="https://i.postimg.cc/ZRFHcM1K/Location.png" width="240" height="400" />  | <img src="https://i.postimg.cc/8CgL0bdF/Location1.png" width="240" height="400"/>  | <img src="https://i.postimg.cc/PfCzNNq5/Location2.png" width="240" height="400"/>  |
+
+[Top](#contents)
 
 # Deployment <a name = "deploy"></a>
 
 # Further Reading <a name = "further"></a>
 
-[Top](#contents) 
+- [JSOUP Documentation](https://jsoup.org/)
+- [Using Glide](https://bumptech.github.io/glide/)
+- [Google Places API](https://developers.google.com/places/web-service/intro)
+- [Authenticate Using Google Sign-In on Android](https://firebase.google.com/docs/auth/android/google-signin)
+- [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/)
+
+[Top](#contents)

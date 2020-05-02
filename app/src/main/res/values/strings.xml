@@ -34,7 +34,7 @@
 
     <!-- Drawer Layout Menu options -->
     <string name="menu_login">Login</string>
-    <string name="menu_saved">Saved</string>
+    <string name="menu_saved">My Shopping List</string>
     <string name="menu_about">About</string>
     <string name="menu_share">Share App</string>
     <string name="menu_fruit">Fruit</string>
@@ -72,8 +72,8 @@
     <!-- Toast messages for main ProductList.java-->
     <string name="searching_product">Sharing one sec</string>
     <string name="item_found">I found this item on the SupermarketSaver App, check it out.</string>
-    <string name="product_saved">Saved</string>
-    <string name="item_removed">Item removed</string>
+    <string name="product_saved">Saved to shopping list </string>
+    <string name="item_removed">Item removed from shopping list</string>
     <string name="loginOrSignup_toSave">Need to Login/Sign up to save products </string>
 
     <string-array name="sort">
@@ -84,7 +84,7 @@
     <!-- Toast messages for main SavedProducts.java-->
     <string name="login_for_saved_items">Login to view Saved Products</string>
     <string name="item_deleted">Item Deleted</string>
-    <string name="saved_products_title">Saved Products</string>
+    <string name="saved_products_title">My Shopping List</string>
     <!-- Toast messages for main Search.java-->
     <string name="search_not_empty">Search cannot be empty</string>
     <string name="voice_search_error">Something went wrong with starting the voice search try again</string>

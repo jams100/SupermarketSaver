@@ -132,8 +132,8 @@
                         android:shadowDy="0.0"
                         android:shadowRadius="2.0"
                         android:textSize="12sp"
-                        android:text="3000"
-                        tools:text="3000" />
+                        android:text=""
+                        tools:text="" />
 
                 </LinearLayout>
                 <TextView

@@ -29,7 +29,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,7 +49,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener
 {
-
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
@@ -113,7 +111,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements
                                 userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                                 mMap.addMarker(userMarkerOptions);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                                mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
                             }
                         } else {
                             Toast.makeText(GoogleMapsActivity.this, GoogleMapsActivity.this.getString(R.string.location_not_found), Toast.LENGTH_SHORT).show();
@@ -173,7 +171,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
             buildGoogleApiClient();
-
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -198,7 +195,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
             return true;
         }
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
@@ -241,7 +237,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
     {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-
         lastLocation = location;
 
         if (currentUserLocationMarker != null)
@@ -260,7 +255,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements
 
         //When we find users current location then move camera/map to that location
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomBy(9));
 
         if (googleApiClient != null)
         {
@@ -271,7 +266,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
     @Override
     public void onConnected(@Nullable Bundle bundle)
     {
-
         locationRequest = new LocationRequest();
         locationRequest.setInterval(1100);
         locationRequest.setFastestInterval(1100);
@@ -283,7 +277,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements
             //Fused location api will get current location of user
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
         }
-
     }
 
     @Override

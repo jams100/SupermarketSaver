@@ -1,7 +1,10 @@
 package com.example.testwebscrape;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
@@ -34,8 +37,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import static android.view.View.GONE;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static TextView editSearch;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button getLocation, getSupermarketLocation;
     TextView searchProducts, welcomemsg;
     Animation frombottom, slowerfrombottom, fromtop;
+
+    public static final String CHANNEL_ID = "notifications";
+    private static final String CHANNEL_NAME = "Simple Message";
+    private static final String CHANNEL_DESC = "Supermarket Saver Notifications";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btnlogo = (ImageView) findViewById(R.id.logo_image);
         fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
         btnlogo.setAnimation(fromtop);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         // Obtain the Firebase Analytics instance.
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

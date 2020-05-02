@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testwebscrape.DataModel.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,6 +32,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -48,6 +53,9 @@ public class LoginPage extends AppCompatActivity {
     TextView errorMessage;
     Button googleSign;
     GoogleSignInClient mGoogleSignInClient;
+
+    public static final String NODE_USERS = "users";//Table that users are saved into
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,7 @@ public class LoginPage extends AppCompatActivity {
 
         //Initialising Firebase Auth
         myAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +101,21 @@ public class LoginPage extends AppCompatActivity {
                                         //Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         firebaseUser = myAuth.getCurrentUser();
+
+                                        FirebaseInstanceId.getInstance().getInstanceId()
+                                                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                                        if (task.isSuccessful()) {
+                                                            String token = task.getResult().getToken();
+                                                            saveToken(token);
+                                                        } else {
+
+                                                        }
+                                                    }
+                                                });
+
+
                                         finish();
                                     } else {
                                         errorMessage.setText(getString(R.string.login_error_message));
@@ -127,6 +151,25 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signIntent=mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signIntent, GOOGLE_SIGN);
+            }
+        });
+    }
+
+    //Saving Token To Firebase
+    private void saveToken(String token) {
+        String email = mAuth.getCurrentUser().getEmail();
+        User user = new User(email, token);
+
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        dbUsers.child(mAuth.getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG ,"User's Token from Login Page Saved");
+                    //Toast.makeText(LoginPage.this, "Token Saved", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

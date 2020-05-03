@@ -82,7 +82,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
@@ -90,7 +90,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         currentViewMode = sharedPreferences.getInt("currentViewMode", currentViewMode);
 
         //Firebase database Reference
-        databaseReference= FirebaseDatabase.getInstance().getReference("SavedProducts");
+        databaseReference = FirebaseDatabase.getInstance().getReference("SavedProducts");
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         //Obtain the FirebaseAnalytics instance.
@@ -103,15 +103,14 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         relLayout = findViewById(R.id.container_switcher);
         relLayout.setVisibility(View.GONE);
 
-        Spinner mySpinner=findViewById(R.id.sort_product);
+        Spinner mySpinner = findViewById(R.id.sort_product);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             String selectedText = null;
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 selectedText = parentView.getItemAtPosition(position).toString();
-                switch (selectedText)
-                {
+                switch (selectedText) {
                     case "Price (Low to High)":
                         sortPriceOrder(0);
                         gridAdapter.notifyDataSetChanged();
@@ -146,7 +145,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
         });
 
         //Setting spinner input
-        ArrayAdapter<String> sortAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+        ArrayAdapter<String> sortAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.sort));
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -277,33 +276,32 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
                         Toast.makeText(ProductList.this, ProductList.this.getString(R.string.product_saved), Toast.LENGTH_SHORT).show();
                         gridAdapter.changeImage(position);
 
-                }else {
-                    //Method used to delete a saved product by unclicking save button
-                    DatabaseReference ref =FirebaseDatabase.getInstance().getReference("SavedProducts").child(fireUser.getUid());
-                    Query deleteQuery = ref.orderByChild("urlLink").equalTo(prod.getUrlLink());
+                    } else {
+                        //Method used to delete a saved product by unclicking save button
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("SavedProducts").child(fireUser.getUid());
+                        Query deleteQuery = ref.orderByChild("urlLink").equalTo(prod.getUrlLink());
 
-                    deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot deleteSnapShot : dataSnapshot.getChildren()){
-                                deleteSnapShot.getRef().removeValue();
-                                Toast.makeText(ProductList.this, ProductList.this.getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
+                        deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot deleteSnapShot : dataSnapshot.getChildren()) {
+                                    deleteSnapShot.getRef().removeValue();
+                                    Toast.makeText(ProductList.this, ProductList.this.getString(R.string.item_removed), Toast.LENGTH_SHORT).show();
 
-                                gridAdapter.removeImage(position);
+                                    gridAdapter.removeImage(position);
+                                }
+
                             }
 
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e(TAG, "onCancelled", databaseError.toException());
-                        }
-                    });
-                }
-                } else
-                    {
-                        Toast.makeText(ProductList.this, ProductList.this.getString(R.string.loginOrSignup_toSave), Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ProductList.this, LoginPage.class));
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.e(TAG, "onCancelled", databaseError.toException());
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(ProductList.this, ProductList.this.getString(R.string.loginOrSignup_toSave), Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ProductList.this, LoginPage.class));
                 }
             }
         });
@@ -411,23 +409,23 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                 //Used to sort by price from cheapest to most expensive
                 Collections.sort(prod, new Comparator<Products>() {
-                            @Override
-                            public int compare(Products o1, Products o2) {
-                                String p1 = o1.getPriceNew().trim();
-                                String p2 = o2.getPriceNew().trim();
+                    @Override
+                    public int compare(Products o1, Products o2) {
+                        String p1 = o1.getPriceNew().trim();
+                        String p2 = o2.getPriceNew().trim();
 
-                                p1 = p1.replace("€", "");
-                                p1 = p1.replace(".", "");
-                                p1 = p1.trim();
-                                Log.i(TAG, "SaveAdapter.getView() — get item number " + p1 + p2);
+                        p1 = p1.replace("€", "");
+                        p1 = p1.replace(".", "");
+                        p1 = p1.trim();
+                        Log.i(TAG, "SaveAdapter.getView() — get item number " + p1 + p2);
 
-                                p2 = p2.replace("€", "");
-                                p2 = p2.replace(".", "");
-                                p2 = p2.trim();
+                        p2 = p2.replace("€", "");
+                        p2 = p2.replace(".", "");
+                        p2 = p2.trim();
 
-                                return Integer.valueOf(p1) - (Integer.valueOf(p2));
-                            }
-                        });
+                        return Integer.valueOf(p1) - (Integer.valueOf(p2));
+                    }
+                });
             }
             produ = prod;
             return prod;
@@ -442,8 +440,7 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
     public void sortPriceOrder(final int order) {
         progressBar1.setVisibility(View.VISIBLE);
-        if (product != null)
-        {
+        if (product != null) {
             //Used for sorting
             Collections.sort(product, new Comparator<Products>() {
                 @Override

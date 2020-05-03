@@ -23,6 +23,4 @@
         app:menu="@menu/activity_navigation_drawer" />
 
 
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

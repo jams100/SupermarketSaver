@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -60,7 +61,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
@@ -84,7 +85,6 @@ public class LoginPage extends AppCompatActivity {
 
         //Initialising Firebase Auth
         myAuth = FirebaseAuth.getInstance();
-        mAuth = FirebaseAuth.getInstance();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +149,7 @@ public class LoginPage extends AppCompatActivity {
         googleSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signIntent=mGoogleSignInClient.getSignInIntent();
+                Intent signIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signIntent, GOOGLE_SIGN);
             }
         });
@@ -167,7 +167,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.d(TAG ,"User's Token from Login Page Saved");
+                    Log.d(TAG, "User's Token from Login Page Saved");
                     //Toast.makeText(LoginPage.this, "Token Saved", Toast.LENGTH_LONG).show();
                 }
             }
@@ -178,13 +178,13 @@ public class LoginPage extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode==GOOGLE_SIGN){
+        if (requestCode == GOOGLE_SIGN) {
             // The Task returned from this call is always completed
-            Task<GoogleSignInAccount> task= GoogleSignIn.getSignedInAccountFromIntent(data);
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
-                GoogleSignInAccount account=task.getResult(ApiException.class);
-                if (account!=null){
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                if (account != null) {
                     firebaseAuthWithGoogle(account);
                 }
             } catch (ApiException e) {
@@ -194,19 +194,19 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        Log.d(TAG ,"FIREBASE authentication with google "+ account.getId());
+        Log.d(TAG, "FIREBASE authentication with google " + account.getId());
 
-        AuthCredential authCredential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         myAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Log.d(TAG,"signin success");
-                    firebaseUser= myAuth.getCurrentUser();
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signin success");
+                    firebaseUser = myAuth.getCurrentUser();
                     Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                     finish();
-                }else {
-                    Log.d(TAG,"signin failed "+ task.getException());
+                } else {
+                    Log.d(TAG, "signin failed " + task.getException());
                     Toast.makeText(LoginPage.this, LoginPage.this.getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
                 }
             }

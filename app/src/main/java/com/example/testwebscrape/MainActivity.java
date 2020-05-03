@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
         btnlogo.setAnimation(fromtop);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESC);
             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        fireUser= firebaseAuth.getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        fireUser = firebaseAuth.getCurrentUser();
 
         View headerView = navigationView.getHeaderView(0);
         navUsername = (TextView) headerView.findViewById(R.id.user_label_email);
@@ -138,27 +138,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_menu,menu);
-        logOut=menu.findItem(R.id.action_logout);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        logOut = menu.findItem(R.id.action_logout);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_logout:
-                FirebaseUser User= firebaseAuth.getCurrentUser();
-                if (User!=null){
+                FirebaseUser User = firebaseAuth.getCurrentUser();
+                if (User != null) {
                     firebaseAuth.signOut();
-                    checkLogin=false;
-                    user_email="User email ";
+                    checkLogin = false;
+                    user_email = "User email ";
                     navUsername.setText(user_email);
                     LogOutGoogleSignIn();
                     //logOut.setVisibility(true);
 
                     Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.log_out), Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.click_to_login), Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void LogOutGoogleSignIn() {
-        GoogleSignInOptions googleSignInOptions=new GoogleSignInOptions
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -184,9 +184,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Handle navigation view item clicks here.
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_login:
-                Intent i=new Intent(MainActivity.this, LoginPage.class);
+                Intent i = new Intent(MainActivity.this, LoginPage.class);
                 startActivity(i);
                 break;
             case R.id.nav_info:
@@ -197,8 +197,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-               // shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
-               //         " check it out! \n" + url);
+                // shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
+                //         " check it out! \n" + url);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.this.getString(R.string.sharing_app_message) + "\n" + url);
 
                 shareIntent.setType("text/plain");
@@ -271,13 +271,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            user_email=currentUser.getEmail();
-            Toast.makeText(MainActivity.this,user_email,Toast.LENGTH_LONG).show();
-            checkLogin=true;
+            user_email = currentUser.getEmail();
+            Toast.makeText(MainActivity.this, user_email, Toast.LENGTH_LONG).show();
+            checkLogin = true;
             navUsername.setText(user_email);
-        }else{
-            user_email="User email ";
-            checkLogin=false;
+        } else {
+            user_email = "User email ";
+            checkLogin = false;
             navUsername.setText(user_email);
         }
     }
@@ -288,13 +288,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            user_email=currentUser.getEmail();
-            checkLogin=true;
+            user_email = currentUser.getEmail();
+            checkLogin = true;
             navUsername.setText(user_email);
-        }else{
-            user_email="User email ";
+        } else {
+            user_email = "User email ";
             navUsername.setText(user_email);
-            checkLogin=false;
+            checkLogin = false;
         }
     }
 }

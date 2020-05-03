@@ -6,7 +6,7 @@ public class RecentSearch {
     private int recentImage;
     private int leftImage;
 
-    public RecentSearch(){
+    public RecentSearch() {
     }
 
     public RecentSearch(String name, int recentImage, int leftImage) {

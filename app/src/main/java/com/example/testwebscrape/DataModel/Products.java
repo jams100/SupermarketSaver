@@ -10,7 +10,8 @@ public class Products {
     private String urlLink;
     public boolean isImageChanged;
 
-    public Products() {}
+    public Products() {
+    }
 
     public Products(String price) {
         PriceOld = price;
@@ -80,7 +81,11 @@ public class Products {
         this.PriceOld = price;
     }
 
-    public boolean isImageChanged() { return isImageChanged; }
+    public boolean isImageChanged() {
+        return isImageChanged;
+    }
 
-    public void setImageChanged(boolean imageChanged) { isImageChanged = imageChanged; }
+    public void setImageChanged(boolean imageChanged) {
+        isImageChanged = imageChanged;
+    }
 }

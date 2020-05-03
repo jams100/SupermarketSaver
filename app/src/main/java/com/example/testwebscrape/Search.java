@@ -35,8 +35,8 @@ public class Search extends AppCompatActivity {
     ImageButton voiceSearch;
     static String superValuUrl;
     static String tescoUrl;
-    private static final int RECOGNIZER_RESULT=1;
-    static ArrayList<RecentSearch>  recentSearch=new ArrayList<RecentSearch>();
+    private static final int RECOGNIZER_RESULT = 1;
+    static ArrayList<RecentSearch> recentSearch = new ArrayList<RecentSearch>();
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     RecentSearches recentAdapter;
@@ -47,7 +47,7 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_search);
 
@@ -60,36 +60,36 @@ public class Search extends AppCompatActivity {
         //Used to display the back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView=findViewById(R.id.rv_recent);
-        gridLayoutManager=new GridLayoutManager(this,1);
-        recentAdapter=new RecentSearches(recentSearch,gridLayoutManager);
+        recyclerView = findViewById(R.id.rv_recent);
+        gridLayoutManager = new GridLayoutManager(this, 1);
+        recentAdapter = new RecentSearches(recentSearch, gridLayoutManager);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recentAdapter);
 
-        recentAdapter.setOnItemClickListener(new RecentSearches.OnItemClickListener(){
+        recentAdapter.setOnItemClickListener(new RecentSearches.OnItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
-                RecentSearch recent=recentSearch.get(position);
+                RecentSearch recent = recentSearch.get(position);
                 editSearch.setText(recent.getName());
 
-                if(!editSearch.getText().toString().trim().isEmpty()) {
+                if (!editSearch.getText().toString().trim().isEmpty()) {
                     buildSupervaluUrl();
                     buildTescoUrl();
 
-                    Intent i =new Intent(Search.this,ProductList.class);
-                    i.putExtra("TescoUrl",tescoUrl);
-                    i.putExtra("SupervaluUrl",superValuUrl);
-                    i.putExtra("ProductName",editSearch.getText().toString());
+                    Intent i = new Intent(Search.this, ProductList.class);
+                    i.putExtra("TescoUrl", tescoUrl);
+                    i.putExtra("SupervaluUrl", superValuUrl);
+                    i.putExtra("ProductName", editSearch.getText().toString());
                     startActivity(i);
-                }else {
+                } else {
                     Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onDeleteClick(int position) {
-                RecentSearch recent=recentSearch.get(position);
+                RecentSearch recent = recentSearch.get(position);
                 recentSearch.remove(recent);
                 recentAdapter.notifyDataSetChanged();
             }
@@ -106,23 +106,24 @@ public class Search extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s!=null && !s.toString().trim().isEmpty()){
-                    ArrayList<RecentSearch> found=new ArrayList<RecentSearch>();
-                    for (RecentSearch item:  recentSearch){
-                        if (item.getName().contains(s.toString())){
+                if (s != null && !s.toString().trim().isEmpty()) {
+                    ArrayList<RecentSearch> found = new ArrayList<RecentSearch>();
+                    for (RecentSearch item : recentSearch) {
+                        if (item.getName().contains(s.toString())) {
                             found.add(item);
                         }
                     }
 
-                    recentAdapter=new RecentSearches(found,gridLayoutManager);
+                    recentAdapter = new RecentSearches(found, gridLayoutManager);
                     recyclerView.setAdapter(recentAdapter);
                     RecentListener(found);
-                }else{
-                    recentAdapter=new RecentSearches(recentSearch,gridLayoutManager);
+                } else {
+                    recentAdapter = new RecentSearches(recentSearch, gridLayoutManager);
                     recyclerView.setAdapter(recentAdapter);
                     RecentListener(recentSearch);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -148,116 +149,116 @@ public class Search extends AppCompatActivity {
         });
     }
 
-        //Result from voice search
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-            if (requestCode == RECOGNIZER_RESULT && resultCode == RESULT_OK && data != null) {
-                ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                editSearch.setText(matches.get(0).toString());
+    //Result from voice search
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == RECOGNIZER_RESULT && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            editSearch.setText(matches.get(0).toString());
 
-                if (!editSearch.getText().toString().trim().isEmpty()) {
-                    buildTescoUrl();
-                    buildSupervaluUrl();
-                    recentSearch.add(new RecentSearch(editSearch.getText().toString(), R.drawable.ic_microphone, R.drawable.ic_close));
+            if (!editSearch.getText().toString().trim().isEmpty()) {
+                buildTescoUrl();
+                buildSupervaluUrl();
+                recentSearch.add(new RecentSearch(editSearch.getText().toString(), R.drawable.ic_microphone, R.drawable.ic_close));
 
-                    Intent in = new Intent(Search.this, ProductList.class);
-                    in.putExtra("TescoUrl", tescoUrl);
-                    in.putExtra("SupervaluUrl", superValuUrl);
-                    in.putExtra("ProductName", editSearch.getText().toString());
-                    startActivity(in);
-                } else {
-                    Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
-                }
+                Intent in = new Intent(Search.this, ProductList.class);
+                in.putExtra("TescoUrl", tescoUrl);
+                in.putExtra("SupervaluUrl", superValuUrl);
+                in.putExtra("ProductName", editSearch.getText().toString());
+                startActivity(in);
+            } else {
+                Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
             }
-            super.onActivityResult(requestCode, resultCode, data);
         }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-        //listener when an item is selected
+    //listener when an item is selected
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            //Back button
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Method used to handle enter key event for search
+    private TextView.OnEditorActionListener onEditorActionListener = new TextView.OnEditorActionListener() {
+
         @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            switch (item.getItemId()) {
-                //Back button
-                case android.R.id.home:
-                    finish();
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            switch (actionId) {
+                case EditorInfo.IME_ACTION_SEARCH:
+                    if (!editSearch.getText().toString().trim().isEmpty()) {
+                        buildTescoUrl();
+                        buildSupervaluUrl();
+                        recentSearch.add(new RecentSearch(editSearch.getText().toString(), R.drawable.ic_suggest, R.drawable.ic_close));
+
+                        Intent in = new Intent(Search.this, ProductList.class);
+                        in.putExtra("TescoUrl", tescoUrl);
+                        in.putExtra("SupervaluUrl", superValuUrl);
+                        in.putExtra("ProductName", editSearch.getText().toString());
+                        startActivity(in);
+                    } else {
+                        Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
-            return super.onOptionsItemSelected(item);
+            return false;
         }
+    };
 
-        //Method used to handle enter key event for search
-        private TextView.OnEditorActionListener onEditorActionListener = new TextView.OnEditorActionListener() {
+    //Used to build the TescoUrl link
+    public void buildTescoUrl() {
+        tescoUrl = "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
+        tescoUrl += buildUrlEnd();
+    }
 
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_SEARCH:
-                        if (!editSearch.getText().toString().trim().isEmpty()) {
-                            buildTescoUrl();
-                            buildSupervaluUrl();
-                            recentSearch.add(new RecentSearch(editSearch.getText().toString(), R.drawable.ic_suggest, R.drawable.ic_close));
+    //Used to build the SuperValuUrl link
+    public void buildSupervaluUrl() {
+        superValuUrl = "https://shop.supervalu.ie/shopping/search/allaisles?q=";
+        superValuUrl += buildUrlEnd();
+    }
 
-                            Intent in = new Intent(Search.this, ProductList.class);
-                            in.putExtra("TescoUrl", tescoUrl);
-                            in.putExtra("SupervaluUrl", superValuUrl);
-                            in.putExtra("ProductName", editSearch.getText().toString());
-                            startActivity(in);
-                        } else {
-                            Toast.makeText(Search.this, Search.this.getString(R.string.search_not_empty), Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
-                return false;
-            }
-        };
+    //Building last part of url
+    public String buildUrlEnd() {
+        String s = editSearch.getText().toString().trim();
+        s = s.replace(" ", "+");
+        return s;
+    }
 
-        //Used to build the TescoUrl link
-        public void buildTescoUrl () {
-            tescoUrl = "https://www.tesco.ie/groceries/product/search/default.aspx?searchBox=";
-            tescoUrl += buildUrlEnd();
-        }
-
-        //Used to build the SuperValuUrl link
-        public void buildSupervaluUrl () {
-            superValuUrl = "https://shop.supervalu.ie/shopping/search/allaisles?q=";
-            superValuUrl += buildUrlEnd();
-        }
-
-        //Building last part of url
-        public String buildUrlEnd () {
-            String s = editSearch.getText().toString().trim();
-            s = s.replace(" ", "+");
-            return s;
-        }
-
-    public void RecentListener(final ArrayList<RecentSearch> list){
-        recentAdapter.setOnItemClickListener(new RecentSearches.OnItemClickListener(){
+    public void RecentListener(final ArrayList<RecentSearch> list) {
+        recentAdapter.setOnItemClickListener(new RecentSearches.OnItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
-                RecentSearch recent=list.get(position);
+                RecentSearch recent = list.get(position);
                 editSearch.setText(recent.getName());
 
-                if(!editSearch.getText().toString().trim().isEmpty()) {
+                if (!editSearch.getText().toString().trim().isEmpty()) {
                     buildSupervaluUrl();
                     buildTescoUrl();
 
-                    Intent i =new Intent(Search.this,ProductList.class);
-                    i.putExtra("TescoUrl",tescoUrl);
-                    i.putExtra("SupervaluUrl",superValuUrl);
-                    i.putExtra("ProductName",editSearch.getText().toString());
+                    Intent i = new Intent(Search.this, ProductList.class);
+                    i.putExtra("TescoUrl", tescoUrl);
+                    i.putExtra("SupervaluUrl", superValuUrl);
+                    i.putExtra("ProductName", editSearch.getText().toString());
                     startActivity(i);
-                }else {
-                    Toast.makeText(Search.this,"Search cannot be empty",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Search.this, "Search cannot be empty", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onDeleteClick(int position) {
-                RecentSearch recent=list.get(position);
+                RecentSearch recent = list.get(position);
                 list.remove(recent);
                 recentAdapter.notifyDataSetChanged();
 
-                if (recentSearch!=null) {
+                if (recentSearch != null) {
                     if (recentSearch.indexOf(recent) != -1) {
                         recentSearch.remove(recent);
                     }
@@ -265,4 +266,4 @@ public class Search extends AppCompatActivity {
             }
         });
     }
-    }
+}

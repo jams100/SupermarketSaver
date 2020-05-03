@@ -9,16 +9,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 //This class essentially returns the data in json format via HttpURLConnection
-public class DownloadUrl
-{
-    public String ReadTheURL(String placeURL) throws IOException
-    {
+public class DownloadUrl {
+    public String ReadTheURL(String placeURL) throws IOException {
         String Data = "";
         InputStream inputStream = null;
         HttpURLConnection httpURLConnection = null;
 
-        try
-        {
+        try {
             URL url = new URL(placeURL);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.connect();
@@ -29,22 +26,17 @@ public class DownloadUrl
 
             String line = "";
 
-            while ((line = bufferedReader.readLine()) != null)
-            {
+            while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line);
             }
 
             Data = stringBuffer.toString();
             bufferedReader.close();
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             inputStream.close();
             httpURLConnection.disconnect();
         }

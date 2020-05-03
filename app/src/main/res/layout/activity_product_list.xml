@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,50 +7,48 @@
     tools:context="com.example.testwebscrape.ProductList">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBar">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/product_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:titleTextColor="@color/white"
-            app:popupTheme="@style/CardView.Dark">
-        </androidx.appcompat.widget.Toolbar>
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/CardView.Dark"
+            app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
             android:id="@+id/container_switcher"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:background="#fff"
-            android:visibility="gone"
-            android:layout_height="?attr/actionBarSize">
+            android:visibility="gone">
 
             <Spinner
                 android:id="@+id/sort_product"
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp">
-            </Spinner>
+                android:layout_marginLeft="8dp"></Spinner>
 
             <ImageButton
                 android:id="@+id/layout_switcher"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
-                android:layout_marginRight="25dp"
-                android:padding="5dp"
-                android:scaleType="center"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/ic_list_icon"
                 android:layout_marginEnd="25dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_marginRight="25dp"
+                android:background="@drawable/ic_list_icon"
+                android:padding="5dp"
+                android:scaleType="center" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -61,14 +58,13 @@
         android:layout_height="match_parent"
         android:padding="3dp"
         android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/empty_state"

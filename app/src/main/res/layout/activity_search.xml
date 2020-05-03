@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,9 +12,9 @@
         android:theme="@style/AppTheme">
 
         <FrameLayout
+            android:id="@+id/toolbar_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar_container">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarSearch"
@@ -23,44 +22,45 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:titleTextColor="@color/black"
-                app:popupTheme="@style/CardView.Dark">
+                app:popupTheme="@style/CardView.Dark"
+                app:titleTextColor="@color/black">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize">
 
                     <EditText
+                        android:id="@+id/search_product"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:background="@drawable/search_layout"
                         android:backgroundTint="@color/white"
-                        android:layout_centerVertical="true"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        android:id="@+id/search_product"
-                        android:textColor="@color/black"
-                        android:paddingLeft="15dp"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:paddingRight="85dp"
                         android:hint="@string/search_hint"
-                        android:textColorHint="@color/grey"
+                        android:imeOptions="actionSearch"
+                        android:maxLines="1"
                         android:paddingStart="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="7dp"
                         android:paddingEnd="85dp"
-                        android:imeOptions="actionSearch" />
+                        android:paddingRight="85dp"
+                        android:paddingBottom="7dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey" />
 
                     <ImageButton
+                        android:id="@+id/voice_search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/voice_search"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="14dp"
                         android:background="@drawable/ic_microphone"
                         android:clickable="true"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:padding="16dp"
-                        android:layout_marginRight="14dp"
-                        android:focusable="true" />
+                        android:focusable="true"
+                        android:padding="16dp" />
 
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>

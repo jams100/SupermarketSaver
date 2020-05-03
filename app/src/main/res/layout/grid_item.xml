@@ -88,8 +88,8 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/save"
-            android:padding="3dp" />
+            android:padding="3dp"
+            android:src="@drawable/save" />
 
         <ImageView
             android:id="@+id/share"
@@ -97,8 +97,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/share"
-            android:padding="3dp" />
+            android:padding="3dp"
+            android:src="@drawable/share" />
 
         <LinearLayout
             android:id="@+id/linear_bottom"
@@ -143,8 +143,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text=""
-                        android:textSize="12sp"
                         android:textColor="#000000"
+                        android:textSize="12sp"
                         tools:text="" />
 
                 </LinearLayout>

@@ -44,20 +44,17 @@ public class DataParser {
     }
 
     //To store multiple nearby places we need to create a list of HashMaps
-    private List<HashMap<String, String>> getAllNearbyPlaces(JSONArray jsonArray)
-    {
+    private List<HashMap<String, String>> getAllNearbyPlaces(JSONArray jsonArray) {
         int counter = jsonArray.length();
         List<HashMap<String, String>> NearbyPlacesList = new ArrayList<>();
 
         HashMap<String, String> NearbyPlaceMap = null;
 
-        for (int i=0; i<counter; i++)
-        {
+        for (int i = 0; i < counter; i++) {
             try {
                 NearbyPlaceMap = getSingleNearbyPlace((JSONObject) jsonArray.get(i));
                 NearbyPlacesList.add(NearbyPlaceMap);
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -65,16 +62,14 @@ public class DataParser {
     }
 
     //Parses the data to the getAllNearbyPlaces()
-    public List<HashMap<String, String>> parse(String jSONdata)
-    {
+    public List<HashMap<String, String>> parse(String jSONdata) {
         JSONArray jsonArray = null;
         JSONObject jsonObject;
 
         try {
             jsonObject = new JSONObject(jSONdata);
             jsonArray = jsonObject.getJSONArray("results");
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return getAllNearbyPlaces(jsonArray);

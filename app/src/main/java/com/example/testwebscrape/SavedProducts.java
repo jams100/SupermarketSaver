@@ -46,7 +46,7 @@ public class SavedProducts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_products);
         myAuth = FirebaseAuth.getInstance();
@@ -65,7 +65,7 @@ public class SavedProducts extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Will remove the "No Items saved" in saved products page if user has a saved a product(s)
-        nodata=findViewById(R.id.Hint);
+        nodata = findViewById(R.id.Hint);
         nodata.setVisibility(View.GONE);
 
         recyclerView = findViewById(R.id.rv_saved);
@@ -91,16 +91,16 @@ public class SavedProducts extends AppCompatActivity {
                 if (product != null) {
                     product.clear();
 
-                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                    Products pro = productSnapshot.getValue(Products.class);
-                    product.add(pro);
+                    for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
+                        Products pro = productSnapshot.getValue(Products.class);
+                        product.add(pro);
+                    }
+                    if (product.size() == 0) {
+                        nodata.setVisibility(View.VISIBLE);
+                    } else {
+                        nodata.setVisibility(View.GONE);
+                    }
                 }
-                if (product.size() == 0) {
-                    nodata.setVisibility(View.VISIBLE);
-                }else {
-                    nodata.setVisibility(View.GONE);
-                }
-            }
                 setAdapter();
             }
 

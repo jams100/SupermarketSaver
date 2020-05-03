@@ -66,7 +66,7 @@ public class QueryUtil {
                 }
                 products.add(pro);
             }
-            //To Get Price for Tesco Products
+            //Getting Prices for Tesco Products which are in a separate element
             int count = 0;
             for (Element row : doc.select("div.quantity")) {
                 Products pro = null;
@@ -96,8 +96,7 @@ public class QueryUtil {
                     String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
                     String Imageurll = null;
 
-                    for (Element row1 : superVdoc.select("div.product-list-item-display"))
-                    {
+                    for (Element row1 : superVdoc.select("div.product-list-item-display")) {
                         if (!row.select("img.src").text().equals("")) {
                             continue;
                         } else {
@@ -110,16 +109,13 @@ public class QueryUtil {
                 products1.add(pro1);
             }
 
-            //To Get Image For Supervalu
+            //Getting Images For Supervalu's products which are in a separate element
             int county = 0;
-            for (Element row : superVdoc.select("div.product-list-item-display"))
-            {
+            for (Element row : superVdoc.select("div.product-list-item-display")) {
                 Products pro1 = null;
-                if (!row.select("img.src").text().equals(""))
-                {
+                if (!row.select("img.src").text().equals("")) {
                     continue;
-                } else if (products1.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG"))
-                {
+                } else if (products1.get(county).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG")) {
                     String Imageurll = row.select("img[data-src]").attr("data-src");
                     products1.get(county).setNewImage(Imageurll);
                     county++;

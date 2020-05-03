@@ -12,24 +12,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetNearbySupermarkets extends AsyncTask<Object, String, String>
-{
+public class GetNearbySupermarkets extends AsyncTask<Object, String, String> {
     private String googleplaceData, url;
     private GoogleMap mMap;
 
     @Override
-    protected String doInBackground(Object... objects)
-    {
+    protected String doInBackground(Object... objects) {
         mMap = (GoogleMap) objects[0];
         url = (String) objects[1];
 
         DownloadUrl downloadUrl = new DownloadUrl();
-        try
-        {
+        try {
             googleplaceData = downloadUrl.ReadTheURL(url);//Passing method from DownloadURL Class
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return googleplaceData;
@@ -45,10 +40,8 @@ public class GetNearbySupermarkets extends AsyncTask<Object, String, String>
     }
 
     //This method will show all the places in the list
-    private void DisplayNearbyPlaces(List<HashMap<String, String>> nearByPlacesList)
-    {
-        for (int i=0; i<nearByPlacesList.size(); i++)
-        {
+    private void DisplayNearbyPlaces(List<HashMap<String, String>> nearByPlacesList) {
+        for (int i = 0; i < nearByPlacesList.size(); i++) {
             MarkerOptions markerOptions = new MarkerOptions();
 
             HashMap<String, String> googleNearbyPlace = nearByPlacesList.get(i);

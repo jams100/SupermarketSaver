@@ -34,25 +34,25 @@ public class SignUp extends AppCompatActivity {
     Toolbar toolbar;
     private FirebaseAnalytics myFirebaseAnalytics;
     FirebaseAuth firebaseAuth;
-    String TAG=SignUp.class.getSimpleName();
+    String TAG = SignUp.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
         //Obtaining the Firebase Analytics instance.
         myFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        signUp=findViewById(R.id.signup_btn);
-        email=findViewById(R.id.signup_email);
-        password=findViewById(R.id.signup_password);
-        confirmPassword=findViewById(R.id.signp_confirm_password);
-        errorMessage=findViewById(R.id.error_signup);
-        progressBar=findViewById(R.id.signup_progress);
-        toolbar=findViewById(R.id.sign_up_toolbar);
+        signUp = findViewById(R.id.signup_btn);
+        email = findViewById(R.id.signup_email);
+        password = findViewById(R.id.signup_password);
+        confirmPassword = findViewById(R.id.signp_confirm_password);
+        errorMessage = findViewById(R.id.error_signup);
+        progressBar = findViewById(R.id.signup_progress);
+        toolbar = findViewById(R.id.sign_up_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Sign Up");
 
@@ -68,11 +68,11 @@ public class SignUp extends AppCompatActivity {
                 errorMessage.setText(null);
                 progressBar.setVisibility(View.VISIBLE);
                 if (!email.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty()
-                        && !confirmPassword.getText().toString().trim().isEmpty()){
+                        && !confirmPassword.getText().toString().trim().isEmpty()) {
 
-                    if (password.getText().toString().matches(confirmPassword.getText().toString())){
+                    if (password.getText().toString().matches(confirmPassword.getText().toString())) {
                         firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         progressBar.setVisibility(View.GONE);
@@ -90,10 +90,10 @@ public class SignUp extends AppCompatActivity {
                                         }
                                     }
                                 });
-                    }else {
+                    } else {
                         errorMessage.setText(getString(R.string.password_dont_match));
                     }
-                }else{
+                } else {
                     Toast.makeText(SignUp.this, SignUp.this.getString(R.string.must_enter_email_password), Toast.LENGTH_LONG).show();
                 }
             }
@@ -103,7 +103,7 @@ public class SignUp extends AppCompatActivity {
     //Listener when an item is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             //Back button used to close the activity
             case android.R.id.home:
                 finish();

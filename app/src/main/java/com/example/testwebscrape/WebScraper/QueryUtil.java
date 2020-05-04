@@ -38,7 +38,7 @@ public class QueryUtil {
         ArrayList<Products> products = new ArrayList<>();
         ArrayList<Products> products1 = new ArrayList<>();
 
-        //Build up a list of Product objects with the corresponding data.
+        //Building up a list of Product objects with the corresponding data.
         Document doc = null;
         Document superVdoc = null;
         try {
@@ -59,7 +59,7 @@ public class QueryUtil {
                     productLink += s;
                     String productdescription = row.select("h3.inBasketInfoContainer").text();
                     String NewPrice = "";//Price is in a different element so got outside for loop
-                    String oldPrice = "";
+                    String oldPrice = row.select("em").text();
                     String imglogo = "https://www.retail-fmcg.ro/wp-content/uploads/2010/11/Copy-of-tesco_logo.jpeg";
 
                     pro = new Products(productdescription, oldPrice, imageurl, productLink, imglogo, NewPrice);
@@ -75,9 +75,7 @@ public class QueryUtil {
                     continue;
                 } else {
                     String NewPrice = row.select("span.linePrice").text();
-                    //String priceOld=row.select("em").text();
                     products.get(count).setNewPrice(NewPrice);
-                    //products.get(count).setpriceOld(priceOld);
                     count++;
                 }
             }
@@ -93,16 +91,9 @@ public class QueryUtil {
                     String productdescription = row.select("h4.product-list-item-details-title").text();
                     String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price"); //row.select("span.linePrice").text();
                     String oldPrice = "";
+                    //String oldPrice = row.select("product-details-promotion-name.span").text();
                     String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
                     String Imageurll = null;
-
-                    for (Element row1 : superVdoc.select("div.product-list-item-display")) {
-                        if (!row.select("img.src").text().equals("")) {
-                            continue;
-                        } else {
-                            Imageurll = row1.select("img[data-src]").attr("data-src");
-                        }
-                    }
 
                     pro1 = new Products(productdescription, oldPrice, Imageurll, productLink, imglogo, NewPrice);
                 }
@@ -121,6 +112,19 @@ public class QueryUtil {
                     county++;
                 } else {
                     county++;
+                }
+            }
+
+            //Getting The Offers on Supervalu Products so they can be displayed to the user
+            int county1 = 0;
+            for (Element row : superVdoc.select("div.product-details-promotion-name")) {
+                Products pro1 = null;
+                if (products1.get(county1).getImageLogo().equals("https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG")) {
+                    String oldPricee = row.select("span").text();
+                    products1.get(county1).setpriceOld(oldPricee);
+                    county1++;
+                } else {
+                    county1++;
                 }
             }
 

@@ -189,16 +189,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent i = new Intent(MainActivity.this, LoginPage.class);
                 startActivity(i);
                 break;
-            case R.id.nav_info:
-                Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.about_app), Toast.LENGTH_SHORT).show();
-                break;
             case R.id.nav_share:
-                String url = "App link here";
+                String url = "https://github.com/jams100/SupermarketSaver";
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                // shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
-                //         " check it out! \n" + url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
+                        " check it out! \n" + url);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.this.getString(R.string.sharing_app_message) + "\n" + url);
 
                 shareIntent.setType("text/plain");

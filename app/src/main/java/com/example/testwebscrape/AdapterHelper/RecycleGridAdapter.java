@@ -46,7 +46,7 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     class GridViewHolder extends RecyclerView.ViewHolder {
         public TextView productDescription;
         public TextView NewPrice;
-        //public TextView OldPrice;
+        public TextView OldPrice;
         public ImageView img;
         public ProgressBar progressBar;
         public ImageView imgLogo;
@@ -57,7 +57,7 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
             super(itemView);
             productDescription = itemView.findViewById(R.id.product_description);
             NewPrice = itemView.findViewById(R.id.new_price);
-            //OldPrice=itemView.findViewById(R.id.old_price);
+            OldPrice=itemView.findViewById(R.id.old_price);
             progressBar = itemView.findViewById(R.id.image_progress);
             img = itemView.findViewById(R.id.product_image);
             imgLogo = itemView.findViewById(R.id.website_logo);
@@ -125,7 +125,7 @@ public class RecycleGridAdapter extends RecyclerView.Adapter<RecycleGridAdapter.
     public void onBindViewHolder(final GridViewHolder holder, int position) {
 
         Products currentProduct = products.get(position);
-        //holder.OldPrice.setText(currentProduct.getPriceOld());
+        holder.OldPrice.setText(currentProduct.getPriceOld());
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
 

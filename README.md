@@ -106,7 +106,7 @@ The following images are previews of various pages in our application.
 
 # Deployment <a name = "deploy"></a>
 ### Deploy on Android Device
-* This repository contains our [app-debug.apk]() file.
+* This repository contains our [app-debug.apk](https://github.com/jams100/SupermarketSaver/blob/master/app-debug.apk) file.
 * Download this apk and install it on your android device.
 
 # Further Reading <a name = "further"></a>

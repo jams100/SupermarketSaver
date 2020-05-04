@@ -41,7 +41,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
 
     class GridViewHolder extends RecyclerView.ViewHolder {
         TextView productDescription;
-        TextView NewPrice;
+        TextView NewPrice, OldPrice;
         ImageView img;
         ProgressBar progressBar;
         ImageView imgLogo;
@@ -53,6 +53,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
 
             productDescription = itemView.findViewById(R.id.save_product_description);
             NewPrice = itemView.findViewById(R.id.save_new_price);
+            OldPrice=itemView.findViewById(R.id.save_old_price);
             progressBar = itemView.findViewById(R.id.save_image_progress);
             img = itemView.findViewById(R.id.save_product_image);
             imgLogo = itemView.findViewById(R.id.save_website_logo);
@@ -117,6 +118,7 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
     public void onBindViewHolder(final SaveAdapter.GridViewHolder holder, int position) {
 
         Products currentProduct = products.get(position);
+        holder.OldPrice.setText(currentProduct.getPriceOld());
         holder.NewPrice.setText(currentProduct.getPriceNew());
         holder.productDescription.setText(currentProduct.getProductDescription());
 

@@ -46,13 +46,13 @@ The following are the main features of my project:
 [Top](#contents)
 
 # App Preview <a name = "preview"></a>
-The following images are previews of various pages in our application.
+The following images are previews of various pages in our application.  
 
 * Homepage
 
 | Homepage  | DrawerLayout |
 | :-------------: | :-------------: |
-| <img src="https://i.postimg.cc/CLrYFLCM/Homepage.png" width="300" height="450"/>  | <img src="https://i.postimg.cc/Bb40YjTs/Drawer-Layout.png" width="300" height="450"/>  |
+| <img src="https://i.postimg.cc/MTQk5KLP/Homepage1.png" width="300" height="450"/>  | <img src="https://i.postimg.cc/Cxq69675/Drawer-Layout1.png" width="300" height="450"/>  |
 
 [Top](#contents)
 
@@ -76,7 +76,7 @@ The following images are previews of various pages in our application.
 
 | Products (List Layout)  | Products (Grid Layout) |
 | :-------------: | :-------------: |
-| <img src="https://i.postimg.cc/jqQKjr8C/View-Products-List.png" width="300" height="450" />  | <img src="https://i.postimg.cc/Hx9KTTpg/View-Products-Grid.png" width="300" height="450"/>  |
+| <img src="https://i.postimg.cc/v8KJj9yP/View-Product-List1.png" width="300" height="450" />  | <img src="https://i.postimg.cc/SNhx5wk1/Product-Grid-View1.png" width="300" height="450"/>  |
 
 [Top](#contents)
 
@@ -84,7 +84,7 @@ The following images are previews of various pages in our application.
 
 | My Shopping List (Saving A Product)  | Viewing My Shopping List |
 | :-------------: | :-------------: |
-| <img src="https://i.postimg.cc/02v8PNPz/My-Shopping-List.png" width="300" height="450" />  | <img src="https://i.postimg.cc/kgp36M3F/My-Shopping-List-List.png" width="300" height="450"/>  |
+| <img src="https://i.postimg.cc/02v8PNPz/My-Shopping-List.png" width="300" height="450" />  | <img src="https://i.postimg.cc/qBbdcSgC/My-Shopping-List1.png" width="300" height="450"/>  |
 
 [Top](#contents)
 
@@ -96,7 +96,7 @@ The following images are previews of various pages in our application.
 
 [Top](#contents)
 
-* Viewing Supermarkets Nearby
+* Viewing Supermarkets Nearby 
 
 | Allowing permission  | Current Location | Displaying Supermarkets |
 | :-------------: | :-------------: | :-------------: |

@@ -105,6 +105,9 @@ The following images are previews of various pages in our application.
 [Top](#contents)
 
 # Deployment <a name = "deploy"></a>
+### Deploy on Android Device
+* This repository contains our [app-debug.apk]() file.
+* Download this apk and install it on your android device.
 
 # Further Reading <a name = "further"></a>
 

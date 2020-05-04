@@ -28,7 +28,7 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/welcome_message"
-        android:shadowColor="#ed1c24"
+        android:shadowColor="#ff66b3"
         android:shadowDx="0.0"
         android:shadowDy="0.0"
         android:shadowRadius="10.0"

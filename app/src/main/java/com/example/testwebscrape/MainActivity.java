@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     user_email = "User email ";
                     navUsername.setText(user_email);
                     LogOutGoogleSignIn();
-                    //logOut.setVisibility(true);
 
                     Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.log_out), Toast.LENGTH_LONG).show();
                 } else {

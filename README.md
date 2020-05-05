@@ -2,7 +2,7 @@
   <h1 align="center">DT354 Final Year Project</h1>
 </p>
 
-<p align="center"><img src="https://github.com/jams100/SupermarketSaver/blob/master/app/src/main/res/drawable/supermarketlogo1.png" width="250" height="250"></p>
+<p align="center"><img src="https://i.postimg.cc/yxN1xv7g/supermarketlogo1.png" width="250" height="250"></p>
 <h1 align="center">Supermarket Saver</h1>
 
 # [Contents](#contents)

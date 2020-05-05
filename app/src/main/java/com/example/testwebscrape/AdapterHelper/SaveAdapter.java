@@ -23,7 +23,6 @@ public class SaveAdapter extends RecyclerView.Adapter<SaveAdapter.GridViewHolder
 
     private GridLayoutManager mLayoutManager;
     ArrayList<Products> products;
-    private static final String TAG = "MyActivity";
 
     private SaveAdapter.OnItemClickListener mListener;
 

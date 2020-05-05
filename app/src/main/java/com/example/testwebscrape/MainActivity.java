@@ -190,13 +190,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_share:
                 String url = "https://github.com/jams100/SupermarketSaver";
-
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this cool Supermarket price comparison app on the Play store" +
                         " check it out! \n" + url);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.this.getString(R.string.sharing_app_message) + "\n" + url);
-
                 shareIntent.setType("text/plain");
                 startActivity(shareIntent);
                 break;

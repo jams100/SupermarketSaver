@@ -91,7 +91,6 @@ public class QueryUtil {
                     String productdescription = row.select("h4.product-list-item-details-title").text();
                     String NewPrice = row.select("span[data-unit-price]").attr("data-unit-price"); //row.select("span.linePrice").text();
                     String oldPrice = "";
-                    //String oldPrice = row.select("product-details-promotion-name.span").text();
                     String imglogo = "https://www.independent.ie/business/personal-finance/article31444718.ece/5fab8/AUTOCROP/w620/2015-08-13_bus_11776288_I4.JPG";
                     String Imageurll = null;
 

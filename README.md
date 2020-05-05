@@ -19,7 +19,7 @@
 | **Course** | BSc (Hons) in Business Computing |
 | **Module** |  Final Year Project - FPRJ4000 |
 | **College** | [Technological University Dublin](https://www.tudublin.ie/) |
-| **Student** | [James Redmond]()&nbsp; - C15339336<br/>
+| **Student** | [James Redmond](https://www.linkedin.com/in/-jamesredmond/)&nbsp; - C15339336<br/>
 | **Project Supervisor** | Dr. Neil O'Connor |
 | **Second Reader** | Thoa Pham |
 | **Project Title** | Supermarket Saver |

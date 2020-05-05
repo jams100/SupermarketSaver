@@ -203,10 +203,6 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
             relLayout.setVisibility(View.GONE);
         }
 
-        //Checking the default view saved in the shared preference
-        //SharedPreferences sharedPreferences=getSharedPreferences("ViewMode",MODE_PRIVATE);
-        //currentViewMode=sharedPreferences.getInt("currentViewMode", SPAN_COUNT_ONE);
-
         //Use to switch the display Icon
         switchIcon(switchLayout);
     }
@@ -249,7 +245,6 @@ public class ProductList extends AppCompatActivity implements LoaderManager.Load
 
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                //shareIntent.putExtra(Intent.EXTRA_TEXT, "I found this item on the SupermarketSaver App, check it out. \n" + url);
                 shareIntent.putExtra(Intent.EXTRA_TEXT, ProductList.this.getString(R.string.item_found) + "\n" + url);
 
                 shareIntent.setType("text/plain");
